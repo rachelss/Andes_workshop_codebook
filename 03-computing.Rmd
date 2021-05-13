@@ -1,0 +1,68 @@
+# Computational skills
+
+The high-performance computer we'll use for our data doesn't have the graphical interface
+you usually use (like a PC or Mac).
+That means you have to type in your commands - you can't point and click.
+This actually has a hidden benefit because it's easy to write down what you did in
+a line of text rather than having to try to explain where to click on each step.
+
+Let's start by learning how to log in the our server and run commands without clicking.
+If you have a PC you'll need [git-bash](https://gitforwindows.org/). If you have a Mac you can open Terminal (you may need to search for it).
+
+## Log in to the server
+
+You will need to log in to one of our campus high-performance computing clusters.
+The one we will use for our work is called Seawulf.
+Use the command `ssh` followed by your username (your email) `@seawulf.uri.edu`.
+Then type your password (you won't be able to see it).
+
+```
+ssh rsschwartz@seawulf.uri.edu
+```
+
+Now you are logged in to seawulf.
+That means all of your work will be done on this computer (even though it might seem like you are still typing on your own computer).
+
+## Basic navigation
+
+To see the list of files on this computer in your directory do the following:
+```
+ls
+```
+
+This folder might be empty because you haven't put anything here.
+Let's start our project by getting organized.
+First, you can make a directory to put your scripts in.
+We'll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.
+To make a directory you need to things - the command to make the directory and the name of that directory.
+
+```
+mkdir scripts 
+```
+
+To practice, repeat this process but make a directory called `results`.
+Now list the files in your current home directory again.
+Do you see the two folders you just made?
+
+If you want to check out what is in these folders (they are currently empty but we will add to them later)
+you need to change directory with the `cd` command.
+Think about these folder just like a filing cabinet.
+You started off in your home folder and now you are opening the scripts folder.
+
+```
+cd scripts
+```
+
+Now to get back to your home folder you can't `cd` and give it a folder name because
+the computer will look in your current folder (scripts) for another folder.
+Instead you need to tell the computer to "move one level up", going outside the current folder to the one containing it.
+
+```
+cd ..
+```
+
+We will learn lots more commands as we work through our data.
+
+
+Adapted from  http://swcarpentry.github.io/shell-novice/
+

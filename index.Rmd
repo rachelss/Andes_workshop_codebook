@@ -1,0 +1,23 @@
+--- 
+title: "Finding Mutations"
+author: "Rachel Schwartz"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "Step-by-step guide to a basic projec to find mutations."
+---
+
+# Getting Started
+
+This book will walk you through how to find mutations among a trio of individuals,
+two parents and a child,
+using genomic data and basic command line tools.
+
+<center>
+![](https://cdn-educators.brainpop.com/wp-content/uploads/2014/02/family_tree.png)
+</center>

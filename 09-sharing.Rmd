@@ -1,0 +1,40 @@
+# Sharing your results
+
+## Start reading
+
+### Develop a bibliography
+
+You'll need to keep track of everything you are reading. Try Zotero.
+
+## Presentation
+
+1. Slides on your study group. Don't forget to convince your uninformed audience that this is the most fascinating group in the world with lots to help up understand about evolution.
+2. Slides on the information that isn't known about this group - i.e. the question you will answer. Make sure we're convinced that the question you answer will help us address all those cool questions you raised in 1.
+3. Your methods - briefly. Describe the approach, not the steps you take on the computer. Talk about methods, not software.
+4. Your tree. Highlight new information.
+5. Conclusions. What implications do your results have for evolutionary biology?
+
+Tips: https://research.usu.edu/undergradresearch/oral-presentations/
+
+Great example: https://www.youtube.com/watch?v=fZ0NzM6g7jk
+
+## Writing a paper
+
+Your presentation forms a great outline for your final paper.
+Start by writing down everything you said for your presentation. Try noting different subsections.
+You might have to read more to completely elaborate on what you want to communicate.
+A professional scientific paper is approximately 4000-8000 words.
+However, your work, being focused on the phylogeny and perhaps not including any further discussion of evolution, is likely appropriate for a note in the jounal [Molecular Phylogenetics and Evolution](https://www.journals.elsevier.com/molecular-phylogenetics-and-evolution). Read their [publishing guide](https://www.elsevier.com/journals/molecular-phylogenetics-and-evolution/1055-7903/guide-for-authors).
+
+Example paper: https://www.scopus.com/record/display.uri?eid=2-s2.0-85030790294&origin=inward&txGid=b595bcdd0a2d7c7bb08bb94ba060397f
+
+https://writing-speech.dartmouth.edu/learning/materials/sources-and-citations-dartmouth
+
+### Intro
+
+### Methods
+https://www.youtube.com/watch?v=JzWUmkxlbEw
+
+### Results
+
+### Discussion
