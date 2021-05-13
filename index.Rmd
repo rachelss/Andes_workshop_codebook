@@ -8,8 +8,8 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: rstudio/bookdown-demo
-description: "Step-by-step guide to a basic projec to find mutations."
+github-repo: rachelss/FindingMutations
+description: "Step-by-step guide to a basic project to find mutations."
 ---
 
 # Getting Started

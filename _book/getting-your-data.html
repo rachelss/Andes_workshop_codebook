@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Getting your data | Finding Mutations</title>
+  <meta name="description" content="Step-by-step guide to a basic project to find mutations." />
+  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Getting your data | Finding Mutations" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Step-by-step guide to a basic project to find mutations." />
+  <meta name="github-repo" content="rachelss/FindingMutations" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Getting your data | Finding Mutations" />
+  
+  <meta name="twitter:description" content="Step-by-step guide to a basic project to find mutations." />
+  
+
+<meta name="author" content="Rachel Schwartz" />
+
+
+<meta name="date" content="2021-05-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="computational-skills.html"/>
+<link rel="next" href="alignment.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Introduction to Finding Mutations</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="genomic-data.html"><a href="genomic-data.html"><i class="fa fa-check"></i><b>3</b> Genomic data</a></li>
+<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a><ul>
+<li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
+<li class="chapter" data-level="4.2" data-path="computational-skills.html"><a href="computational-skills.html#basic-navigation"><i class="fa fa-check"></i><b>4.2</b> Basic navigation</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a></li>
+<li class="chapter" data-level="6" data-path="alignment.html"><a href="alignment.html"><i class="fa fa-check"></i><b>6</b> Alignment</a></li>
+<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
+<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>7.1</b> What does your tree tell you?</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>8</b> Sharing your results</a><ul>
+<li class="chapter" data-level="8.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>8.1</b> Start reading</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#develop-a-bibliography"><i class="fa fa-check"></i><b>8.1.1</b> Develop a bibliography</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>8.2</b> Presentation</a></li>
+<li class="chapter" data-level="8.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>8.3</b> Writing a paper</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#intro-1"><i class="fa fa-check"></i><b>8.3.1</b> Intro</a></li>
+<li class="chapter" data-level="8.3.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#methods"><i class="fa fa-check"></i><b>8.3.2</b> Methods</a></li>
+<li class="chapter" data-level="8.3.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#results-1"><i class="fa fa-check"></i><b>8.3.3</b> Results</a></li>
+<li class="chapter" data-level="8.3.4" data-path="sharing-your-results.html"><a href="sharing-your-results.html#discussion"><i class="fa fa-check"></i><b>8.3.4</b> Discussion</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Finding Mutations</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="getting-your-data" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Getting your data</h1>
+<p>You will be working with data from three individuals: two parents and child.
+The data are in a shared folder on seawulf.
+Because the data aren’t in your folder we need to take a look at where they are relative to your folder.
+To see where your folder is print your working directory.</p>
+<pre><code>pwd</code></pre>
+<p>For comparison, the data are in <code>/home/shared/human_CEU_trio</code> or alternatively (relative to your home folder) <code>../shared/human_CEU_trio</code>.
+That means that from the root folder (think of this like your whole file cabinet) the data are in a shared folder inside a home folder or relative to your home folder you would go to the enclosing folder (<code>home</code>) and the inside the shared folder and then inside human_CEU_trio.</p>
+<p>If you list the contents of that folder you can see the three files full of data.</p>
+<pre><code>ls /home/shared/human_CEU_trio</code></pre>
+<p>There are three individuals.
+One child (NA12878) and two parents (NA12891 and NA12892).
+At any given base you expect the child has one copy from one parent and the other copy from the other parent.
+You need to find the bases in the genome where one of the sequences at that position in the genome (A,C,G, or T) did not come from either parent. To do this you will need to</p>
+<ol style="list-style-type: decimal">
+<li>align each raw data file to the reference human genome</li>
+<li>determine the sequence for each base in the genome for each individual</li>
+<li>determine whether there is a mutation at each site</li>
+</ol>
+<p>Raw data is in the form of zipped fastq files, which are generated by a sequencer.
+You can tell this by the very last bit of the name of the files, which is .fastq.gz (just like you might see Word files labeled as .docx).
+Take a look at a little bit of one file.
+The <code>less</code> command lets you scroll through the (very large) file.
+<code>zless</code> is the <code>less</code> command that works on zipped files.</p>
+<p>Fastq files contain sets of four lines.
+The first line is the name of the sequence.
+The second line is the sequence.
+The fourth line is the quality of the sequence.
+As you scroll through you should see many sets of four (one for each sequence).</p>
+<pre><code>zless -S /home/shared/human_CEU_trioNA12878/U0a_CGATGT_L001_R1_001.fastq.gz</code></pre>
+<p>Once you are done scrolling use q (for quit) to get back to your prompt.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="computational-skills.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="alignment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-data.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
