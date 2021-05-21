@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Genomic data | Finding Mutations</title>
+  <title>Chapter 7 Variant Calling | Finding Mutations</title>
   <meta name="description" content="Step-by-step guide to a basic project to find mutations." />
   <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Genomic data | Finding Mutations" />
+  <meta property="og:title" content="Chapter 7 Variant Calling | Finding Mutations" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="rachelss/FindingMutations" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Genomic data | Finding Mutations" />
+  <meta name="twitter:title" content="Chapter 7 Variant Calling | Finding Mutations" />
   
   <meta name="twitter:description" content="Step-by-step guide to a basic project to find mutations." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="computational-skills.html"/>
+<link rel="prev" href="alignment.html"/>
+<link rel="next" href="results.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -117,20 +117,12 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genomic-data" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Genomic data</h1>
-<p>By definition genomes are large.
-The human genome is 3.2 billion base pairs.
-If you were to go through and compare two parents and a child by hand to discover the differences between them it would take a while.
-To add to this complexity, genomes don’t come off the sequencer as a 3.2 billion base pair sequence,
-but as millions of small fragments.
-Think of this sequencing method as tossing a book (your genome) into a paper shredder.
-That means first you have to compare each fragment to a “reference genome” (like the real book)
-and then figure out where your genome differs from the reference.
-This is definitely a process you don’t want to do by hand!</p>
-<p>A computer (at least a big one with lots of computing power) can help us out by automating all these comparisons.
-That means that before we can identify how the sequence of a child differs from its parents
-we need to build some skills to communicate with our large high-performance computer.</p>
+<div id="variant-calling" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Variant Calling</h1>
+<p><a href="https://www.youtube.com/watch?v=wzjhhUaErWc" class="uri">https://www.youtube.com/watch?v=wzjhhUaErWc</a>
+<a href="https://github.com/ekg/alignment-and-variant-calling-tutorial" class="uri">https://github.com/ekg/alignment-and-variant-calling-tutorial</a>
+<a href="https://gencore.bio.nyu.edu/variant-calling-pipeline-gatk4/" class="uri">https://gencore.bio.nyu.edu/variant-calling-pipeline-gatk4/</a>
+<a href="https://github.com/CBC-UCONN/Variant-Calling" class="uri">https://github.com/CBC-UCONN/Variant-Calling</a></p>
 
 </div>
             </section>
@@ -138,8 +130,8 @@ we need to build some skills to communicate with our large high-performance comp
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="computational-skills.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="alignment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -170,7 +162,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-motivation.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-variant.Rmd",
 "text": "Edit"
 },
 "history": {

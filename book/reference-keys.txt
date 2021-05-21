@@ -6,6 +6,7 @@ log-in-to-the-server
 basic-navigation
 getting-your-data
 alignment
+variant-calling
 results
 what-does-your-tree-tell-you
 sharing-your-results

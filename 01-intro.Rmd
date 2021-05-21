@@ -10,6 +10,7 @@ On the other hand, you aren't exactly inheriting half of your DNA from each pare
 because some mutations occurred when each parent passed down their DNA.
 
 Based on recent whole genome studies in families, we think that the de novo mutation rate in humans is approximately 1.1 × 10^-8 per haploid genome (1000 Genomes Project Consortium, 2010; Roach et al., 2010). By this estimate, an individual's diploid genome harbors, on average, around 64 de novo mutations among 3.2 billion base pairs.  
+Keep in mind that is an average.
 
 This tutorial steps through the basic process of finding new mutations in an individual using genome sequence data.
 Some of you may work with human genomes, while others work with other species.

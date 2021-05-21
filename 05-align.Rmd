@@ -49,11 +49,18 @@ We'll also have the computer send you an email when the job is done (enter your 
 #SBATCH --mail-user=<your email here>
 ```
 
-Finally, we are running the program `bowtie2` so we need to tell the computer to load this program so it can use it.
+Next, we are running the program `bowtie2` so we need to tell the computer to load this program so it can use it.
 Between your SBATCH commands and your bowtie command add
 
 ```
-module load Bowtie2/2.2.9-foss-2016b
+module load Bowtie2/2.3.4.2-foss-2018b
+```
+
+Finally, you need to tell the computer that this is a "shell" script.
+The first line of every script has a "shebang" line that specifies how the computer should interpret the code.
+
+```
+#!/bin/sh
 ```
 
 Now you can tell the computer to run the script.
@@ -68,11 +75,20 @@ Now make a copy of the script
 
 See how the copy command (`cp`) takes two arguments: the source and destination.
 Edit this script so your bowtie command uses the second set of fastq files and produces results with the correct name.
+Then copy the command to a new line for the third set of files and so on and so forth.
+Copying and pasting to analyze all your files will take a while,
+so later on we will learn how to tell the computer to go through a list of files and analyze them all with the same approach.
+Computers are great at repeating analyses.
+
 Run this script.
+
+You can check the output as it goes by printing the contents of the slurm output file.
+Use `ls` to get the name of your output file (everyone's is unique).
+Then use `cat` and the name of the file to see its contents.
 
 Now you can take a look at one of your output sam files.
 
-`less U0a_CGATGT_L001_001.sam`
+`less results/U0a_CGATGT_L001_001.sam`
 
 The less command allows you to scroll through the file.
 Type q to go back to your prompt.
@@ -114,6 +130,8 @@ Did you notice how this command has flags and arguments (output then input files
 The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at
 
 http://www.htslib.org/doc/samtools.html
+
+Adapted from https://datacarpentry.org/wrangling-genomics/
 
 
 

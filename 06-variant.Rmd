@@ -1,0 +1,11 @@
+# Variant Calling
+
+
+
+
+
+
+https://www.youtube.com/watch?v=wzjhhUaErWc
+https://github.com/ekg/alignment-and-variant-calling-tutorial
+https://gencore.bio.nyu.edu/variant-calling-pipeline-gatk4/
+https://github.com/CBC-UCONN/Variant-Calling

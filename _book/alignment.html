@@ -24,7 +24,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2021-05-13" />
+<meta name="date" content="2021-05-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="getting-your-data.html"/>
-<link rel="next" href="results.html"/>
+<link rel="next" href="variant-calling.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -81,19 +81,20 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a></li>
 <li class="chapter" data-level="6" data-path="alignment.html"><a href="alignment.html"><i class="fa fa-check"></i><b>6</b> Alignment</a></li>
-<li class="chapter" data-level="7" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>7</b> Results</a><ul>
-<li class="chapter" data-level="7.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>7.1</b> What does your tree tell you?</a></li>
+<li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
+<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a><ul>
+<li class="chapter" data-level="8.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>8.1</b> What does your tree tell you?</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>8</b> Sharing your results</a><ul>
-<li class="chapter" data-level="8.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>8.1</b> Start reading</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#develop-a-bibliography"><i class="fa fa-check"></i><b>8.1.1</b> Develop a bibliography</a></li>
+<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a><ul>
+<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>9.1</b> Start reading</a><ul>
+<li class="chapter" data-level="9.1.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#develop-a-bibliography"><i class="fa fa-check"></i><b>9.1.1</b> Develop a bibliography</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>8.2</b> Presentation</a></li>
-<li class="chapter" data-level="8.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>8.3</b> Writing a paper</a><ul>
-<li class="chapter" data-level="8.3.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#intro-1"><i class="fa fa-check"></i><b>8.3.1</b> Intro</a></li>
-<li class="chapter" data-level="8.3.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#methods"><i class="fa fa-check"></i><b>8.3.2</b> Methods</a></li>
-<li class="chapter" data-level="8.3.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#results-1"><i class="fa fa-check"></i><b>8.3.3</b> Results</a></li>
-<li class="chapter" data-level="8.3.4" data-path="sharing-your-results.html"><a href="sharing-your-results.html#discussion"><i class="fa fa-check"></i><b>8.3.4</b> Discussion</a></li>
+<li class="chapter" data-level="9.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>9.2</b> Presentation</a></li>
+<li class="chapter" data-level="9.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>9.3</b> Writing a paper</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#intro-1"><i class="fa fa-check"></i><b>9.3.1</b> Intro</a></li>
+<li class="chapter" data-level="9.3.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#methods"><i class="fa fa-check"></i><b>9.3.2</b> Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#results-1"><i class="fa fa-check"></i><b>9.3.3</b> Results</a></li>
+<li class="chapter" data-level="9.3.4" data-path="sharing-your-results.html"><a href="sharing-your-results.html#discussion"><i class="fa fa-check"></i><b>9.3.4</b> Discussion</a></li>
 </ul></li>
 </ul></li>
 <li class="divider"></li>
@@ -151,18 +152,28 @@ We’ll also have the computer send you an email when the job is done (enter you
 #SBATCH --ntasks-per-node=20
 #SBATCH --time=200:00:00
 #SBATCH --mail-user=&lt;your email here&gt;</code></pre>
-<p>Finally, we are running the program <code>bowtie2</code> so we need to tell the computer to load this program so it can use it.
+<p>Next, we are running the program <code>bowtie2</code> so we need to tell the computer to load this program so it can use it.
 Between your SBATCH commands and your bowtie command add</p>
-<pre><code>module load Bowtie2/2.2.9-foss-2016b</code></pre>
+<pre><code>module load Bowtie2/2.3.4.2-foss-2018b</code></pre>
+<p>Finally, you need to tell the computer that this is a “shell” script.
+The first line of every script has a “shebang” line that specifies how the computer should interpret the code.</p>
+<pre><code>#!/bin/sh</code></pre>
 <p>Now you can tell the computer to run the script.</p>
 <pre><code>sbatch scripts/alignment_script.sh</code></pre>
 <p>Now make a copy of the script</p>
 <p>`cp scripts/alignment_script.sh scripts/alignment_script2.sh``</p>
 <p>See how the copy command (<code>cp</code>) takes two arguments: the source and destination.
 Edit this script so your bowtie command uses the second set of fastq files and produces results with the correct name.
-Run this script.</p>
+Then copy the command to a new line for the third set of files and so on and so forth.
+Copying and pasting to analyze all your files will take a while,
+so later on we will learn how to tell the computer to go through a list of files and analyze them all with the same approach.
+Computers are great at repeating analyses.</p>
+<p>Run this script.</p>
+<p>You can check the output as it goes by printing the contents of the slurm output file.
+Use <code>ls</code> to get the name of your output file (everyone’s is unique).
+Then use <code>cat</code> and the name of the file to see its contents.</p>
 <p>Now you can take a look at one of your output sam files.</p>
-<p><code>less U0a_CGATGT_L001_001.sam</code></p>
+<p><code>less results/U0a_CGATGT_L001_001.sam</code></p>
 <p>The less command allows you to scroll through the file.
 Type q to go back to your prompt.
 This file is in a special format with a lot of information about where each read came from in the reference genome
@@ -194,6 +205,7 @@ Also add this <code>samtools view</code> command for your other files.
 Did you notice how this command has flags and arguments (output then input files) just like other command line commands?
 The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at</p>
 <p><a href="http://www.htslib.org/doc/samtools.html" class="uri">http://www.htslib.org/doc/samtools.html</a></p>
+<p>Adapted from <a href="https://datacarpentry.org/wrangling-genomics/" class="uri">https://datacarpentry.org/wrangling-genomics/</a></p>
 
 </div>
             </section>
@@ -202,7 +214,7 @@ The program samtools is a set of tools for working with sam files. The view comm
         </div>
       </div>
 <a href="getting-your-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="variant-calling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
