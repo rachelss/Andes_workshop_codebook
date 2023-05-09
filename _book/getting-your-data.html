@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 5 Getting your data | Finding Mutations</title>
   <meta name="description" content="Step-by-step guide to a basic project to find mutations." />
-  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 5 Getting your data | Finding Mutations" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Step-by-step guide to a basic project to find mutations." />
   <meta name="github-repo" content="rachelss/FindingMutations" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2021-05-21" />
+<meta name="date" content="2023-05-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="computational-skills.html"/>
 <link rel="next" href="alignment.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,12 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
-
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -75,22 +79,27 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="genomic-data.html"><a href="genomic-data.html"><i class="fa fa-check"></i><b>3</b> Genomic data</a></li>
-<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a><ul>
+<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
 <li class="chapter" data-level="4.2" data-path="computational-skills.html"><a href="computational-skills.html#basic-navigation"><i class="fa fa-check"></i><b>4.2</b> Basic navigation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a></li>
 <li class="chapter" data-level="6" data-path="alignment.html"><a href="alignment.html"><i class="fa fa-check"></i><b>6</b> Alignment</a></li>
 <li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
-<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a><ul>
+<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>8.1</b> What does your tree tell you?</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a><ul>
-<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>9.1</b> Start reading</a><ul>
+<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>9.1</b> Start reading</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#develop-a-bibliography"><i class="fa fa-check"></i><b>9.1.1</b> Develop a bibliography</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>9.2</b> Presentation</a></li>
-<li class="chapter" data-level="9.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>9.3</b> Writing a paper</a><ul>
+<li class="chapter" data-level="9.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>9.3</b> Writing a paper</a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#intro-1"><i class="fa fa-check"></i><b>9.3.1</b> Intro</a></li>
 <li class="chapter" data-level="9.3.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#methods"><i class="fa fa-check"></i><b>9.3.2</b> Methods</a></li>
 <li class="chapter" data-level="9.3.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#results-1"><i class="fa fa-check"></i><b>9.3.3</b> Results</a></li>
@@ -117,27 +126,22 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="getting-your-data" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Getting your data</h1>
-<p>If you want to figure out how many new mutations a child, has you need information
-from three individuals: two parents and child.
-The sequence data for a real trio of humans are in a shared folder on seawulf.
-Because the data aren’t in your folder we need to take a look at where they are relative to your folder.
-To see where your folder is print your working directory.</p>
-<pre><code>pwd</code></pre>
-<p>For comparison, the data are in <code>/home/shared/human_CEU_trio</code> or alternatively (relative to your home folder) <code>../shared/human_CEU_trio</code>.
-That means that from the root folder (think of this like your whole file cabinet) the data are in a shared folder inside a home folder or relative to your home folder you would go to the enclosing folder (<code>home</code>) and the inside the shared folder and then inside human_CEU_trio.</p>
-<p>If you list the contents of that folder you can see the three files full of data.</p>
-<pre><code>ls /home/shared/human_CEU_trio</code></pre>
-<p>There are three individuals.
-One child (NA12878) and two parents (NA12891 and NA12892).
-At any given base you expect the child has one copy from one parent and the other copy from the other parent.
-You need to find the bases in the genome where one of the sequences at that position in the genome (A,C,G, or T) did not come from either parent. To do this you will need to</p>
-<ol style="list-style-type: decimal">
-<li>align each raw data file to the reference human genome</li>
-<li>determine the sequence for each base in the genome for each individual</li>
-<li>determine whether there is a mutation at each site</li>
-</ol>
+<div id="getting-your-data" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Getting your data<a href="getting-your-data.html#getting-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>For this workshop we will be using genome sequence data from a group of Andean plants.
+For starters we will take a peak at these data so you know what it looks like before we use standard programs to analyze it.</p>
+<p>The sequence data is in a shared folder on this server.
+Relative to your home folder you can find the data at
+<code>../shared/Andes_plants/</code>.</p>
+<p>If you cd to that directory and list the contents you can see folders containing files of data.</p>
+<p>There are sequence files for 40 individuals grouped into four folders, one for each group, as well as a folder of chloroplast data.
+Start by going to the folder for your assigned group and listing its contents.</p>
+<p>You do not want to view these files because they are very large.
+If you want to see how large use <code>ls -lh</code>.
+You are already familiar with the <code>ls</code> command for listing the contents of folders.
+The dash followed by additional letters are called flags.
+The <code>l</code> flag indicates that we are listing the contents in long form to provide additional information.
+The <code>h</code> flag means we’ll view the data in human readable format (i.e. with size given in Mb).</p>
 <p>Raw data is in the form of zipped fastq files, which are generated by a sequencer.
 You can tell this by the very last bit of the name of the files, which is .fastq.gz (just like you might see Word files labeled as .docx).
 Just as a note, you often need to do some cleanup of the data that comes of the sequencer
@@ -151,8 +155,22 @@ The first line is the name of the sequence.
 The second line is the sequence.
 The fourth line is the quality of the sequence.
 As you scroll through you should see many sets of four (one for each sequence).</p>
-<pre><code>zless -S /home/shared/human_CEU_trio/NA12878/U0a_CGATGT_L001_R1_001.fastq.gz</code></pre>
+<pre><code>zless [].fastq.gz</code></pre>
 <p>Once you are done scrolling use q (for quit) to get back to your prompt.</p>
+<p>Before we look at our large files we are going to practice on a small example file.
+Move back to the main <code>Andes_plants</code> folder.
+List the contents and notice the <code>example.fastq</code> file.
+For this example I have unzipped it.
+You can view the entire contents of the file using the command <code>cat</code>.</p>
+<pre><code>cat example.fastq</code></pre>
+<p>Alternatively you can use the command <code>head</code> to view the first few lines of the file.</p>
+<pre><code>head example.fastq</code></pre>
+<p>We can also get a sense of the amount of data by counting the number of lines using the word count command <code>wc</code>.</p>
+<pre><code>wc example.fastq</code></pre>
+<p>This command tells you the number of lines, words, and characters. If you want to focus just on the number of lines you should use the <code>l</code> flag.</p>
+<pre><code>wc example.fastq</code></pre>
+<p>If we only want to get the names of the sequences we can search for lines that match a particular pattern and print just those. We search with the command <code>grep</code>. The pattern we are searching for is lines that start with @. And then we provide the name of the file. Again, because this is a zipped file we use <code>zgrep</code>. Additionally, as before we don’t want to print all of these lines.</p>
+<pre><code>zgrep &#39;^@&#39; [].fastq</code></pre>
 
 </div>
             </section>
@@ -165,7 +183,6 @@ As you scroll through you should see many sets of four (one for each sequence).<
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -184,6 +201,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -204,6 +222,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

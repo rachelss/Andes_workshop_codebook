@@ -6,11 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Genomic data | Finding Mutations</title>
   <meta name="description" content="Step-by-step guide to a basic project to find mutations." />
-  <meta name="generator" content="bookdown 0.21.6 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Genomic data | Finding Mutations" />
   <meta property="og:type" content="book" />
-  
   
   <meta property="og:description" content="Step-by-step guide to a basic project to find mutations." />
   <meta name="github-repo" content="rachelss/FindingMutations" />
@@ -24,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2021-05-21" />
+<meta name="date" content="2023-05-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,7 +32,8 @@
   
 <link rel="prev" href="intro.html"/>
 <link rel="next" href="computational-skills.html"/>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,12 +49,16 @@
 
 
 
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
-<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
-
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -75,22 +79,27 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
 <li class="chapter" data-level="3" data-path="genomic-data.html"><a href="genomic-data.html"><i class="fa fa-check"></i><b>3</b> Genomic data</a></li>
-<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a><ul>
+<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
 <li class="chapter" data-level="4.2" data-path="computational-skills.html"><a href="computational-skills.html#basic-navigation"><i class="fa fa-check"></i><b>4.2</b> Basic navigation</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a></li>
 <li class="chapter" data-level="6" data-path="alignment.html"><a href="alignment.html"><i class="fa fa-check"></i><b>6</b> Alignment</a></li>
 <li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
-<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a><ul>
+<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>8.1</b> What does your tree tell you?</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a><ul>
-<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>9.1</b> Start reading</a><ul>
+<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#start-reading"><i class="fa fa-check"></i><b>9.1</b> Start reading</a>
+<ul>
 <li class="chapter" data-level="9.1.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#develop-a-bibliography"><i class="fa fa-check"></i><b>9.1.1</b> Develop a bibliography</a></li>
 </ul></li>
 <li class="chapter" data-level="9.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>9.2</b> Presentation</a></li>
-<li class="chapter" data-level="9.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>9.3</b> Writing a paper</a><ul>
+<li class="chapter" data-level="9.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#writing-a-paper"><i class="fa fa-check"></i><b>9.3</b> Writing a paper</a>
+<ul>
 <li class="chapter" data-level="9.3.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#intro-1"><i class="fa fa-check"></i><b>9.3.1</b> Intro</a></li>
 <li class="chapter" data-level="9.3.2" data-path="sharing-your-results.html"><a href="sharing-your-results.html#methods"><i class="fa fa-check"></i><b>9.3.2</b> Methods</a></li>
 <li class="chapter" data-level="9.3.3" data-path="sharing-your-results.html"><a href="sharing-your-results.html#results-1"><i class="fa fa-check"></i><b>9.3.3</b> Results</a></li>
@@ -117,8 +126,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="genomic-data" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Genomic data</h1>
+<div id="genomic-data" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Genomic data<a href="genomic-data.html#genomic-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>By definition genomes are large.
 The human genome is 3.2 billion base pairs.
 If you were to go through and compare two parents and a child by hand to discover the differences between them it would take a while.
@@ -143,7 +152,6 @@ we need to build some skills to communicate with our large high-performance comp
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -162,6 +170,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -182,6 +191,10 @@ gitbook.start({
 "text": null
 },
 "download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

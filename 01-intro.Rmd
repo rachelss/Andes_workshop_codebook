@@ -1,17 +1,6 @@
 # Introduction {#intro}
 
-How different are you from your parents?
-You might know that half of your DNA comes from each parent.
-Despite this 50-50 split you are actually both more and less similar to your parents.
-First, approximately 90% of DNA is identical among all humans.
-This should make sense because changes to a lot of our DNA would alter our blueprint in a way that might not be successful.
-However, two randomly selected people generally only differ less than 0.6% of their genome.
-On the other hand, you aren't exactly inheriting half of your DNA from each parent
-because some mutations occurred when each parent passed down their DNA.
 
-Based on recent whole genome studies in families, we think that the de novo mutation rate in humans is approximately 1.1 × 10^-8 per haploid genome (1000 Genomes Project Consortium, 2010; Roach et al., 2010). By this estimate, an individual's diploid genome harbors, on average, around 64 de novo mutations among 3.2 billion base pairs.  
-Keep in mind that is an average.
 
-This tutorial steps through the basic process of finding new mutations in an individual using genome sequence data.
-Some of you may work with human genomes, while others work with other species.
+This tutorial steps through the basic process of ................... using genome sequence data.
 
