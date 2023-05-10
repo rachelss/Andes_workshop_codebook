@@ -1,5 +1,5 @@
 --- 
-title: "Finding Mutations"
+title: "Andes Phylogenomics Workshop"
 author: "Rachel Schwartz"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -8,16 +8,10 @@ documentclass: book
 bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
-github-repo: rachelss/FindingMutations
-description: "Step-by-step guide to a basic project to find mutations."
+github-repo: SchwartzLabURI/Andes_workshop_codebook
+description: "Step-by-step guide to a basic project in phylogenomics."
 ---
 
 # Getting Started
 
-This book will walk you through how to find mutations among a trio of individuals,
-two parents and a child,
-using genomic data and basic command line tools.
-
-<center>
-![](https://cdn-educators.brainpop.com/wp-content/uploads/2014/02/family_tree.png)
-</center>
+This book will walk you through 

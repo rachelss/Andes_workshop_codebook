@@ -2,7 +2,8 @@
 
 By definition genomes are large.
 The human genome is 3.2 billion base pairs.
-If you were to go through and compare two parents and a child by hand to discover the differences between them it would take a while.
+Plants can be even larger.
+If you were to go through and compare two plant genomes by hand to discover the differences between them it would take a while.
 To add to this complexity, genomes don't come off the sequencer as a 3.2 billion base pair sequence,
 but as millions of small fragments.
 Think of this sequencing method as tossing a book (your genome) into a paper shredder.
@@ -11,5 +12,5 @@ and then figure out where your genome differs from the reference.
 This is definitely a process you don't want to do by hand!
 
 A computer (at least a big one with lots of computing power) can help us out by automating all these comparisons.
-That means that before we can identify how the sequence of a child differs from its parents
-we need to build some skills to communicate with our large high-performance computer.
+That means that before we can identify how the sequence of two plants differ
+we need to build some skills to communicate with the server that we are using to work with our data.
