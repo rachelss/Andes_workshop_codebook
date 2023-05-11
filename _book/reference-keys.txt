@@ -6,16 +6,9 @@ log-in-to-the-server
 basic-navigation
 getting-your-data
 repeating-analyses
-target-capture-data
+plastome-variation
 variant-calling
 results
 what-does-your-tree-tell-you
 sharing-your-results
-start-reading
-develop-a-bibliography
 presentation
-writing-a-paper
-intro-1
-methods
-results-1
-discussion

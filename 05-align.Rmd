@@ -1,4 +1,4 @@
-# Target Capture Data
+# Plastome variation
 
 
 First make a folder in your home directory to hold your aligned files.
@@ -7,12 +7,9 @@ First make a folder in your home directory to hold your aligned files.
 mkdir alignment
 ```
 
-Now we need to run the program to figure out where all those short reads came from in the genome.
+Now we need to run the program to figure out which reads come from the chloroplast genome by comparing the reads to a reference.
 This is called aligning.
 However, before we do this, we have to recognize that this process might take a while.
-Currently we are all logged into the same computer so if we all try to analyze our data on this one computer it will overload the system.
-Fortunately this computer is part of a computing cluster.
-That means if we write down our command this computer can send the information to another computer to run our job.
 Let's start by making a file that contains our command, which we'll call a script.
 
 `nano scripts/alignment_script.sh`
@@ -23,43 +20,19 @@ That .sh on the end also says something about this file - in this case it is a s
 Let's add the command we need to run to our script
 
 ```
-bowtie2 -p 20 -x /data3/schwartzlab/rachel/human_teaching/ref/hg38_Ensembl -1 /data3/schwartzlab/human_CEU_trio/NA12878/U0a_CGATGT_L001_R1_001.fastq.gz -2 /data3/schwartzlab/human_CEU_trio/NA12878/U0a_CGATGT_L001_R2_001.fastq.gz -S results/U0a_CGATGT_L001_001.sam
+bowtie2 -x [ref] -1 []R1_001.fastq.gz -2 []R2_001.fastq.gz -S results/[].sam
 ```
 
 What does this command mean?
 First we have `bowtie2`, which is the name of the program we are using.
 Then we have a series of "flags" (they start with -) followed by some information.
-The `-p` flag tells you how many processors you get to use.
-We'll use 20 processors for this analysis, which means things go a lot faster than on your laptop.
 The `-x` flag says what reference genome we want to align to.
-That's going to be in `/data3/schwartzlab/rachel/human_teaching/ref/` and its name is hg38.
+That's going to be in `[]` and its name is [hg38]].
 Now we list the path to our fastq sequence files with the `-1` and `-2` flags. 
 And finally we use the `-S` flag to say where we want our output to go.
 This file has a `.sam` extension because that's what the makers of this program have called this output file format.
 
-Now that we have our command we need to add a few things to this script.
-First we need to add at the top of the file some information for the computer on how it is supposed to run it.
-The computer needs to know a couple of things, including how many processors you plan to use and how much time you need.
-This will help the computer allocate computer power to you and share amongst everyone wanting to analyze data.
-We'll also have the computer send you an email when the job is done (enter your email address - don't just copy-paste).
-
-```
-#SBATCH --nodes=1
-#SBATCH --ntasks-per-node=20
-#SBATCH --time=200:00:00
-#SBATCH --mail-user=<your email here>
-
-cd $SLURM_SUBMIT_DIR
-```
-
-Next, we are running the program `bowtie2` so we need to tell the computer to load this program so it can use it.
-Between your SBATCH commands and your bowtie command add
-
-```
-module load Bowtie2/2.3.4.2-foss-2018b
-```
-
-Finally, you need to tell the computer that this is a "shell" script.
+You need to tell the computer that this is a "shell" script.
 The first line of every script has a "shebang" line that specifies how the computer should interpret the code.
 
 ```
@@ -71,7 +44,7 @@ Exit nano with `Ctrl-X` and save your script.
 Now you can tell the computer to run the script.
 
 ```
-sbatch scripts/alignment_script.sh
+bash scripts/alignment_script.sh
 ```
 
 Now make a copy of the script 
@@ -79,23 +52,11 @@ Now make a copy of the script
 `cp scripts/alignment_script.sh scripts/alignment_script2.sh``
 
 See how the copy command (`cp`) takes two arguments: the source and destination.
-Edit this script so your bowtie command uses the second set of fastq files and produces results with the correct name (note you are changing three file names total).
-Then copy the command to a new line for the third set of files and so on and so forth.
-Copying and pasting to analyze all your files will take a while,
-so later on we will learn how to tell the computer to go through a list of files and analyze them all with the same approach.
-Computers are great at repeating analyses.
+[LOOP]
 
 Run this script.
 
-You can check the output as it goes by printing the contents of the slurm output file.
-Use `ls` to get the name of your output file (everyone's is unique, but it will start with slurm and end with .out).
-Then use `cat` (command) and the name of the file (argument) to see its contents.
-
-Now you can take a look at one of your output sam files.
-
-`less results/U0a_CGATGT_L001_001.sam`
-
-The less command allows you to scroll through the file.
+Now you can take a look at one of your output sam files using `less`.
 Type q to go back to your prompt.
 This file is in a special format with a lot of information about where each read came from in the reference genome
 and also how well it aligned to that location.
@@ -103,21 +64,15 @@ Before we look more closely, did you notice that you are scrolling through a lot
 got to any real data?
 You can ask the computer to search for and only print files that aren't header lines.
 Header lines start with `@SQ` so that's what we'll have the computer print - anything that matches that pattern.
-The search command is `grep`.
 We also need to specify we want lines that don't start with `@SQ`.
 If you are searching for lines that start with `@SQ` you need that information plus the code for "starts with", which is ^.
 Finally you need to specify you want the opposite lines, so you'll use a "flag" -v.
 Then you'll need to add the file name as an argument.
 Here's the command but don't type it yet! This will print out a ton of data.
 
-`grep -v '^@SQ' results/U0a_CGATGT_L001_001.sam`
+`grep -v '^@SQ' results/[].sam`
 
-You want to be able to scroll through with less.
-To do this we are going to the take the output of our grep command and instead of sending it to
-the cammand line (ie printing everything to the screen),
-we will "pipe" the output using the `|` (you can find it above your Enter key) to the `less` command.
-
-`grep -v '^@SQ' results/U0a_CGATGT_L001_001.sam  |less`
+You can use this command but make sure to pipe the output to less so you can scroll through it.
 
 There's a lot of information here but don't worry too much about the details. Each line is just information about where that sequence aligned to the human genome and how well it aligned. These alignments allow other programs to figure out what the sequence is for each base in each individual.
 
@@ -134,9 +89,6 @@ Also add this `samtools view` command for your other files so that you have 11 l
 Did you notice how this command has flags and arguments (output then input files) just like other command line commands?
 The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at
 http://www.htslib.org/doc/samtools.html
-
-As before, you need to load a module to access the samtools program.
-Replace your bowtie module with `SAMtools/1.10-GCC-8.3.0`.
 
 Once all of your alignment scripts are done running, run this script to convert sams to bams.
 
