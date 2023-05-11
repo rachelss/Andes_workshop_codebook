@@ -5,7 +5,8 @@ computational-skills
 log-in-to-the-server
 basic-navigation
 getting-your-data
-alignment
+repeating-analyses
+target-capture-data
 variant-calling
 results
 what-does-your-tree-tell-you

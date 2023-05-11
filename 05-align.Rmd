@@ -1,4 +1,4 @@
-# Alignment
+# Target Capture Data
 
 
 First make a folder in your home directory to hold your aligned files.

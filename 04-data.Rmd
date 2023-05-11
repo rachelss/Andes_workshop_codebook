@@ -65,14 +65,59 @@ wc example.fastq
 This command tells you the number of lines, words, and characters. If you want to focus just on the number of lines you should use the `l` flag.
 
 ```
-wc example.fastq
+wc -l example.fastq
 ```
 
-If we only want to get the names of the sequences we can search for lines that match a particular pattern and print just those. We search with the command `grep`. The pattern we are searching for is lines that start with @. And then we provide the name of the file. Again, because this is a zipped file we use `zgrep`. Additionally, as before we don't want to print all of these lines. 
+If we only want to get the names of the sequences we can search for lines that match a particular pattern and print just those. We search with the command `grep`. The pattern we are searching for is lines that start with @. And then we provide the name of the file. 
 
 ```
-zgrep '^@' [].fastq
+grep '^@' example.fastq
 ```
 
+Because this is a small example file we are able to print all the header lines without it being overwhelming. However, with our larger files we don't want to do this. However, we know that the `head` command allows us to view just the first few lines of our output. Now we'll combine those two commands using a pipe (`|`). First we enter the `grep` command (with it's two arguments) then we "pipe" the output to the `head` command rather than printing it to the screen.
+
+```
+grep '^@' example.fastq |  head
+```
+
+Notice that the `head` command does not have arguments in this case because it accepts the output from the grep command.
+
+The `head` command accepts a flag with the number of lines you want to print.
+For example `head -4` will print the first four lines.
+
+Your first challenge in this course is to combine the information that you have learned to get the number of header lines in one of your zipped fastq files (using `zgrep`).
 
 
+### Repeating analyses
+
+One approach to analyzing multiple files in the same way is to copy your code and edit each copy to include the name of a particular file. That might be feasible (if slow) for the 10 files you are working with here, but it is inconvenient for the many files you might work with on a larger genomics project. Instead, we can make a list of the files we want to work with and tell the computer to repeat the analysis on each file.
+
+In the prior challenge you figured out what analysis you want to do (list the number of header lines). Now we need to learn how to repeat this. In most programming languages, including our command line, we use a loop to go through a list and repeat that command. On the command line the format to do this looks like
+
+```
+for thing in list_of_things
+do
+    command $thing
+done
+```
+
+We start with `for` to indicate that we are about to make a loop.
+Each time the loop runs (called an iteration), an item in the list is assigned in sequence to the variable `thing`, and the commands inside the loop are executed.
+Think of a variable as a box that holds the item we are working with.
+For example, if we are working with a list of files then the first time
+through the loop `thing` is the first file name in the list,
+the second time through `thing` is the second name, and so on.
+This allows us to repeat our command for each item in the list using the same variable name.
+Inside the loop, we indicate the variable by putting `$` in front of it. 
+The `$` tells the shell interpreter to treat the variable as a variable name and substitute its value in its place, rather than treat it as text or an external command.
+
+* Start by figuring out what goes on the third line of the loop
+* Now figure out what goes on the first line (i.e. your list)
+* When you run your loop it should print the number of header lines for each file
+
+We might want to add one command to this loop to print out the name of the file prior to printing the number of header lines so we can more easily keep track of each file's information. The `echo` command will print whatever comes after it. Try inserting this command into your loop in order to print the name of the file following by the number of header lines.
+
+Did you need to list all your files by hand? Copying and pasting a lot of names can be time consuming and error prone. Logically, you want to make your list following a particular rule, for example all of the files in this folder. We can use a wildcard (denoted `*`) to do this. So instead of writing out all the file names, replace all of that just with `*` as your list.
+In other situations keep in mind that we might want to be more precise.
+`*` really suggests any number of any character.
+To indicate all files that end in `fastq.gz` we could use `*fastq.gz` as our list.
