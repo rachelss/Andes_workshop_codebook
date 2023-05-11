@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Plastome variation | Andes Phylogenomics Workshop</title>
+  <meta name="description" content="Step-by-step guide to a basic project in phylogenomics." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Plastome variation | Andes Phylogenomics Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Step-by-step guide to a basic project in phylogenomics." />
+  <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Plastome variation | Andes Phylogenomics Workshop" />
+  
+  <meta name="twitter:description" content="Step-by-step guide to a basic project in phylogenomics." />
+  
+
+<meta name="author" content="Rachel Schwartz" />
+
+
+<meta name="date" content="2023-05-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="getting-your-data.html"/>
+<link rel="next" href="variant-calling.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Andes Phylogenomics Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="3" data-path="genomic-data.html"><a href="genomic-data.html"><i class="fa fa-check"></i><b>3</b> Genomic data</a></li>
+<li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
+<li class="chapter" data-level="4.2" data-path="computational-skills.html"><a href="computational-skills.html#basic-navigation"><i class="fa fa-check"></i><b>4.2</b> Basic navigation</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>5.0.1</b> Repeating analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>6</b> Plastome variation</a></li>
+<li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
+<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>8.1</b> What does your tree tell you?</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>9.1</b> Presentation</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Andes Phylogenomics Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plastome-variation" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Plastome variation<a href="plastome-variation.html#plastome-variation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>First make a folder in your home directory to hold your aligned files.</p>
+<pre><code>mkdir alignment</code></pre>
+<p>Now we need to run the program to figure out which reads come from the chloroplast genome by comparing the reads to a reference.
+This is called aligning.
+However, before we do this, we have to recognize that this process might take a while.
+Let’s start by making a file that contains our command, which we’ll call a script.</p>
+<p><code>nano scripts/alignment_script.sh</code></p>
+<p>See how I made my script inside the scripts folder to keep everything organized?
+That .sh on the end also says something about this file - in this case it is a script that can be run in our computing “shell”.</p>
+<p>Let’s add the command we need to run to our script</p>
+<pre><code>bowtie2 -x [ref] -1 []R1_001.fastq.gz -2 []R2_001.fastq.gz -S results/[].sam</code></pre>
+<p>What does this command mean?
+First we have <code>bowtie2</code>, which is the name of the program we are using.
+Then we have a series of “flags” (they start with -) followed by some information.
+The <code>-x</code> flag says what reference genome we want to align to.
+That’s going to be in <code>[]</code> and its name is [hg38]].
+Now we list the path to our fastq sequence files with the <code>-1</code> and <code>-2</code> flags.
+And finally we use the <code>-S</code> flag to say where we want our output to go.
+This file has a <code>.sam</code> extension because that’s what the makers of this program have called this output file format.</p>
+<p>You need to tell the computer that this is a “shell” script.
+The first line of every script has a “shebang” line that specifies how the computer should interpret the code.</p>
+<pre><code>#!/bin/sh</code></pre>
+<p>Exit nano with <code>Ctrl-X</code> and save your script.</p>
+<p>Now you can tell the computer to run the script.</p>
+<pre><code>bash scripts/alignment_script.sh</code></pre>
+<p>Now make a copy of the script</p>
+<p>`cp scripts/alignment_script.sh scripts/alignment_script2.sh``</p>
+<p>See how the copy command (<code>cp</code>) takes two arguments: the source and destination.
+[LOOP]</p>
+<p>Run this script.</p>
+<p>Now you can take a look at one of your output sam files using <code>less</code>.
+Type q to go back to your prompt.
+This file is in a special format with a lot of information about where each read came from in the reference genome
+and also how well it aligned to that location.
+Before we look more closely, did you notice that you are scrolling through a lot of header information before you
+got to any real data?
+You can ask the computer to search for and only print files that aren’t header lines.
+Header lines start with <code>@SQ</code> so that’s what we’ll have the computer print - anything that matches that pattern.
+We also need to specify we want lines that don’t start with <code>@SQ</code>.
+If you are searching for lines that start with <code>@SQ</code> you need that information plus the code for “starts with”, which is ^.
+Finally you need to specify you want the opposite lines, so you’ll use a “flag” -v.
+Then you’ll need to add the file name as an argument.
+Here’s the command but don’t type it yet! This will print out a ton of data.</p>
+<p><code>grep -v '^@SQ' results/[].sam</code></p>
+<p>You can use this command but make sure to pipe the output to less so you can scroll through it.</p>
+<p>There’s a lot of information here but don’t worry too much about the details. Each line is just information about where that sequence aligned to the human genome and how well it aligned. These alignments allow other programs to figure out what the sequence is for each base in each individual.</p>
+<p>These files are rather large, but we can compress them into bam format, which makes them take less space and also makes them easier to work with.</p>
+<p>You can convert a sam file to a bam file using the following command.</p>
+<p><code>samtools view -b -o results/U0a_CGATGT_L001_001_mapped.bam results/U0a_CGATGT_L001_001.sam</code></p>
+<p>Rather than type this on the command line (where you will forget what you typed and it won’t work right anyway),
+make a new script with this command instead of the bowtie command.
+I advise copying the alignment script (give it a useful name) and put this command in place of the bowtie line.
+Also add this <code>samtools view</code> command for your other files so that you have 11 lines that look similar except for the input and output filenames.
+Did you notice how this command has flags and arguments (output then input files) just like other command line commands?
+The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at
+<a href="http://www.htslib.org/doc/samtools.html" class="uri">http://www.htslib.org/doc/samtools.html</a></p>
+<p>Once all of your alignment scripts are done running, run this script to convert sams to bams.</p>
+<p>Adapted from <a href="https://datacarpentry.org/wrangling-genomics/" class="uri">https://datacarpentry.org/wrangling-genomics/</a></p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="getting-your-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="variant-calling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-align.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
