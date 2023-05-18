@@ -1,5 +1,7 @@
 # Results
 
+### Alignment
+
 In order to use these data to build our phylogenies, we need to align each gene.
 We will use MAFFT ...
 
@@ -10,28 +12,24 @@ mafft --auto $con > ${con}.aligned
 done
 ```
 
-Concatenate
+### Concatenating data
+
+There are multiple ways to analyze data.
+The first is to concatenate everything.
 
 ```
 python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i $infiles -t concatenated.fasta -p partitions.txt
 
 ```
 
-IQTree
+#### Building trees with IQTree
 
 ```
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -z tree.tre -pre calcLnL -n 0 -m GTR+G -wsl
 
-iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2
 ```
 
-ASTRAL??
-
-```
-
-```
-
-svdq??
+#### svdq??
 
 ```
 echo "
@@ -43,6 +41,30 @@ saveTrees file=concatenated.svdq;
 quit;
 " | paup
 ```
+
+### Species trees
+
+An alternative is to use a species tree approach.
+
+#### ASTRAL??
+
+```
+
+```
+
+### Support for relationships
+
+#### Bootstrap
+
+#### SCF / GCF
+
+```
+iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2
+```
+
+
+
+
 
 
 ## What does your tree tell you?

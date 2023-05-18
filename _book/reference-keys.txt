@@ -11,6 +11,15 @@ variant-calling
 target-capture-data
 visual-inspection-of-data-eg-alignment-blast
 results
+alignment
+concatenating-data
+building-trees-with-iqtree
+svdq
+species-trees
+astral
+support-for-relationships
+bootstrap
+scf-gcf
 what-does-your-tree-tell-you
 sharing-your-results
 presentation

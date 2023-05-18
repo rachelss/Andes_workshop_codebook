@@ -96,6 +96,10 @@
 </ul></li>
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
+<li class="chapter" data-level="9.0.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.0.1</b> Alignment</a></li>
+<li class="chapter" data-level="9.0.2" data-path="results.html"><a href="results.html#concatenating-data"><i class="fa fa-check"></i><b>9.0.2</b> Concatenating data</a></li>
+<li class="chapter" data-level="9.0.3" data-path="results.html"><a href="results.html#species-trees"><i class="fa fa-check"></i><b>9.0.3</b> Species trees</a></li>
+<li class="chapter" data-level="9.0.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.0.4</b> Support for relationships</a></li>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.1</b> What does your tree tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>10</b> Sharing your results</a>
@@ -124,22 +128,28 @@
             <section class="normal" id="section-">
 <div id="results" class="section level1 hasAnchor" number="9">
 <h1><span class="header-section-number">Chapter 9</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="alignment" class="section level3 hasAnchor" number="9.0.1">
+<h3><span class="header-section-number">9.0.1</span> Alignment<a href="results.html#alignment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In order to use these data to build our phylogenies, we need to align each gene.
 We will use MAFFT …</p>
 <pre><code>for con in contig_list
 do
 mafft --auto $con &gt; ${con}.aligned
 done</code></pre>
-<p>Concatenate</p>
+</div>
+<div id="concatenating-data" class="section level3 hasAnchor" number="9.0.2">
+<h3><span class="header-section-number">9.0.2</span> Concatenating data<a href="results.html#concatenating-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are multiple ways to analyze data.
+The first is to concatenate everything.</p>
 <pre><code>python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i $infiles -t concatenated.fasta -p partitions.txt
 </code></pre>
-<p>IQTree</p>
+<div id="building-trees-with-iqtree" class="section level4 hasAnchor" number="9.0.2.1">
+<h4><span class="header-section-number">9.0.2.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -z tree.tre -pre calcLnL -n 0 -m GTR+G -wsl
-
-iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
-<p>ASTRAL??</p>
-<pre><code></code></pre>
-<p>svdq??</p>
+</code></pre>
+</div>
+<div id="svdq" class="section level4 hasAnchor" number="9.0.2.2">
+<h4><span class="header-section-number">9.0.2.2</span> svdq??<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>echo &quot;
 log file=${logFile};
 tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
@@ -148,6 +158,26 @@ svdq bootstrap nreps=1000 nthreads=2;
 saveTrees file=concatenated.svdq;
 quit;
 &quot; | paup</code></pre>
+</div>
+</div>
+<div id="species-trees" class="section level3 hasAnchor" number="9.0.3">
+<h3><span class="header-section-number">9.0.3</span> Species trees<a href="results.html#species-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An alternative is to use a species tree approach.</p>
+<div id="astral" class="section level4 hasAnchor" number="9.0.3.1">
+<h4><span class="header-section-number">9.0.3.1</span> ASTRAL??<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code></code></pre>
+</div>
+</div>
+<div id="support-for-relationships" class="section level3 hasAnchor" number="9.0.4">
+<h3><span class="header-section-number">9.0.4</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="bootstrap" class="section level4 hasAnchor" number="9.0.4.1">
+<h4><span class="header-section-number">9.0.4.1</span> Bootstrap<a href="results.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="scf-gcf" class="section level4 hasAnchor" number="9.0.4.2">
+<h4><span class="header-section-number">9.0.4.2</span> SCF / GCF<a href="results.html#scf-gcf" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
+</div>
+</div>
 <div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.1">
 <h2><span class="header-section-number">9.1</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You will need to compare your tree to what’s in the literature.
