@@ -8,6 +8,8 @@ getting-your-data
 repeating-analyses
 plastome-variation
 variant-calling
+target-capture-data
+visual-inspection-of-data-eg-alignment-blast
 results
 what-does-your-tree-tell-you
 sharing-your-results
