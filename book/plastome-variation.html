@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-05-11" />
+<meta name="date" content="2023-05-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -120,64 +120,12 @@
             <section class="normal" id="section-">
 <div id="plastome-variation" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Plastome variation<a href="plastome-variation.html#plastome-variation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>First make a folder in your home directory to hold your aligned files.</p>
-<pre><code>mkdir alignment</code></pre>
-<p>Now we need to run the program to figure out which reads come from the chloroplast genome by comparing the reads to a reference.
-This is called aligning.
-However, before we do this, we have to recognize that this process might take a while.
-Let’s start by making a file that contains our command, which we’ll call a script.</p>
-<p><code>nano scripts/alignment_script.sh</code></p>
-<p>See how I made my script inside the scripts folder to keep everything organized?
-That .sh on the end also says something about this file - in this case it is a script that can be run in our computing “shell”.</p>
-<p>Let’s add the command we need to run to our script</p>
-<pre><code>bowtie2 -x [ref] -1 []R1_001.fastq.gz -2 []R2_001.fastq.gz -S results/[].sam</code></pre>
-<p>What does this command mean?
-First we have <code>bowtie2</code>, which is the name of the program we are using.
-Then we have a series of “flags” (they start with -) followed by some information.
-The <code>-x</code> flag says what reference genome we want to align to.
-That’s going to be in <code>[]</code> and its name is [hg38]].
-Now we list the path to our fastq sequence files with the <code>-1</code> and <code>-2</code> flags.
-And finally we use the <code>-S</code> flag to say where we want our output to go.
-This file has a <code>.sam</code> extension because that’s what the makers of this program have called this output file format.</p>
-<p>You need to tell the computer that this is a “shell” script.
-The first line of every script has a “shebang” line that specifies how the computer should interpret the code.</p>
-<pre><code>#!/bin/sh</code></pre>
-<p>Exit nano with <code>Ctrl-X</code> and save your script.</p>
-<p>Now you can tell the computer to run the script.</p>
-<pre><code>bash scripts/alignment_script.sh</code></pre>
-<p>Now make a copy of the script</p>
-<p>`cp scripts/alignment_script.sh scripts/alignment_script2.sh``</p>
-<p>See how the copy command (<code>cp</code>) takes two arguments: the source and destination.
-[LOOP]</p>
-<p>Run this script.</p>
-<p>Now you can take a look at one of your output sam files using <code>less</code>.
-Type q to go back to your prompt.
-This file is in a special format with a lot of information about where each read came from in the reference genome
-and also how well it aligned to that location.
-Before we look more closely, did you notice that you are scrolling through a lot of header information before you
-got to any real data?
-You can ask the computer to search for and only print files that aren’t header lines.
-Header lines start with <code>@SQ</code> so that’s what we’ll have the computer print - anything that matches that pattern.
-We also need to specify we want lines that don’t start with <code>@SQ</code>.
-If you are searching for lines that start with <code>@SQ</code> you need that information plus the code for “starts with”, which is ^.
-Finally you need to specify you want the opposite lines, so you’ll use a “flag” -v.
-Then you’ll need to add the file name as an argument.
-Here’s the command but don’t type it yet! This will print out a ton of data.</p>
-<p><code>grep -v '^@SQ' results/[].sam</code></p>
-<p>You can use this command but make sure to pipe the output to less so you can scroll through it.</p>
-<p>There’s a lot of information here but don’t worry too much about the details. Each line is just information about where that sequence aligned to the human genome and how well it aligned. These alignments allow other programs to figure out what the sequence is for each base in each individual.</p>
-<p>These files are rather large, but we can compress them into bam format, which makes them take less space and also makes them easier to work with.</p>
-<p>You can convert a sam file to a bam file using the following command.</p>
-<p><code>samtools view -b -o results/U0a_CGATGT_L001_001_mapped.bam results/U0a_CGATGT_L001_001.sam</code></p>
-<p>Rather than type this on the command line (where you will forget what you typed and it won’t work right anyway),
-make a new script with this command instead of the bowtie command.
-I advise copying the alignment script (give it a useful name) and put this command in place of the bowtie line.
-Also add this <code>samtools view</code> command for your other files so that you have 11 lines that look similar except for the input and output filenames.
-Did you notice how this command has flags and arguments (output then input files) just like other command line commands?
-The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at
-<a href="http://www.htslib.org/doc/samtools.html" class="uri">http://www.htslib.org/doc/samtools.html</a></p>
-<p>Once all of your alignment scripts are done running, run this script to convert sams to bams.</p>
-<p>Adapted from <a href="https://datacarpentry.org/wrangling-genomics/" class="uri">https://datacarpentry.org/wrangling-genomics/</a></p>
+<p>We will use the program GetOrganelle to assemble and plastome for each species
+from the genome skimming data we have looked at previously.
+Note that to improve analytical speed we have pre-examined and filtered data for you.
+The data we will work with for chloroplasts can be found in…..</p>
+<pre><code>get_organelle_from_reads.py -1 Arabidopsis_simulated.1.fq.gz -2 Arabidopsis_simulated.2.fq.gz -t 1 -o Arabidopsis_simulated.plastome -F embplant_pt -R 10
+</code></pre>
 
 </div>
             </section>
