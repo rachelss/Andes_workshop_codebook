@@ -3,7 +3,8 @@
 ### Alignment
 
 In order to use these data to build our phylogenies, we need to align each gene.
-We will use MAFFT ...
+This allows our tree-building software to compare species using nucleotides that we believe share ancestry. 
+We will use the software MAFFT.
 
 ```
 for con in contig_list
@@ -24,12 +25,18 @@ python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i
 
 #### Building trees with IQTree
 
-```
-iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -z tree.tre -pre calcLnL -n 0 -m GTR+G -wsl
+We will build our first tree using our complete concatenated dataset.
+The program IQtree infers phylogenetic trees by maximum likelihood.
+This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
+We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
+We also allow a Gamma (G) distribution of rates of substitution across sites.
+We allow partitioning of the data by gene so that different genes can evolve according to different models.
 
 ```
+iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G
+```
 
-#### svdq??
+#### svdq
 
 ```
 echo "
@@ -49,7 +56,9 @@ An alternative is to use a species tree approach.
 #### ASTRAL??
 
 ```
+#gene trees from iqtree
 
+#astral
 ```
 
 ### Support for relationships

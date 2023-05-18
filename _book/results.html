@@ -131,7 +131,8 @@
 <div id="alignment" class="section level3 hasAnchor" number="9.0.1">
 <h3><span class="header-section-number">9.0.1</span> Alignment<a href="results.html#alignment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In order to use these data to build our phylogenies, we need to align each gene.
-We will use MAFFT …</p>
+This allows our tree-building software to compare species using nucleotides that we believe share ancestry.
+We will use the software MAFFT.</p>
 <pre><code>for con in contig_list
 do
 mafft --auto $con &gt; ${con}.aligned
@@ -145,11 +146,16 @@ The first is to concatenate everything.</p>
 </code></pre>
 <div id="building-trees-with-iqtree" class="section level4 hasAnchor" number="9.0.2.1">
 <h4><span class="header-section-number">9.0.2.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -z tree.tre -pre calcLnL -n 0 -m GTR+G -wsl
-</code></pre>
+<p>We will build our first tree using our complete concatenated dataset.
+The program IQtree infers phylogenetic trees by maximum likelihood.
+This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
+We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
+We also allow a Gamma (G) distribution of rates of substitution across sites.
+We allow partitioning of the data by gene so that different genes can evolve according to different models.</p>
+<pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G</code></pre>
 </div>
 <div id="svdq" class="section level4 hasAnchor" number="9.0.2.2">
-<h4><span class="header-section-number">9.0.2.2</span> svdq??<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">9.0.2.2</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>echo &quot;
 log file=${logFile};
 tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
@@ -165,7 +171,9 @@ quit;
 <p>An alternative is to use a species tree approach.</p>
 <div id="astral" class="section level4 hasAnchor" number="9.0.3.1">
 <h4><span class="header-section-number">9.0.3.1</span> ASTRAL??<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<pre><code></code></pre>
+<pre><code>#gene trees from iqtree
+
+#astral</code></pre>
 </div>
 </div>
 <div id="support-for-relationships" class="section level3 hasAnchor" number="9.0.4">

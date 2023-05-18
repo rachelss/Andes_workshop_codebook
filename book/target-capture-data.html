@@ -138,15 +138,19 @@ HybPiper first assigns each read to a particular target using alignment software
 These reads are then assembled using a standard genome assembler (Spades).
 HybPiper outputs a fasta file of the (in frame) CDS portion of each sample for each target region.</p>
 <p>The basic command for HybPiper is as follows:</p>
-<pre><code>hybpiper assemble -t_dna test_targets.fasta -r NZ281_R*_test.fastq --prefix NZ281 --bwa</code></pre>
-<p>To automatically run all samples consecutively.</p>
+<pre><code>hybpiper assemble -t_dna targets.fasta -r species1_R*_test.fastq --prefix species1 --bwa</code></pre>
+<p>You should run this command, changing “species1” to the name of one of your species, which you can find by listing the fastq files in the folder of your data.</p>
+<p>To automatically run all samples consecutively you will need to loop through them.
+One approach is to make a list of all the names of the species in a file and then read that and use them one at a time.
+In the following example, the species names are entered in the namelist.txt file.
+The loop will interate through them one at a time and run HybPiper.</p>
 <pre><code>while read name
 do 
-    hybpiper assemble -t_dna test_targets.fasta -r $name*.fastq --prefix $name --bwa
+    hybpiper assemble -t_dna targets.fasta -r $name*.fastq --prefix $name --bwa
 done &lt; namelist.txt</code></pre>
 <p>At this point, each sequence is in its own folder.
 We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene.</p>
-<pre><code>hybpiper retrieve_sequences dna -t_dna test_targets.fasta --sample_names namelist.txt</code></pre>
+<pre><code>hybpiper retrieve_sequences dna -t_dna targets.fasta --sample_names namelist.txt</code></pre>
 <p>Note that HybPiper has additional features we will not use in this workshop due to a lack of time.</p>
 <div id="visual-inspection-of-data-eg-alignment-blast" class="section level3 hasAnchor" number="8.0.1">
 <h3><span class="header-section-number">8.0.1</span> Visual inspection of data (eg, alignment, BLAST)<a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast" class="anchor-section" aria-label="Anchor link to header"></a></h3>
