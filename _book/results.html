@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 8 Results | Andes Phylogenomics Workshop</title>
+  <title>Chapter 9 Results | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 8 Results | Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 9 Results | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 8 Results | Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 9 Results | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a basic project in phylogenomics." />
   
@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="variant-calling.html"/>
+<link rel="prev" href="target-capture-data.html"/>
 <link rel="next" href="sharing-your-results.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -90,13 +90,17 @@
 </ul></li>
 <li class="chapter" data-level="6" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>6</b> Plastome variation</a></li>
 <li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
-<li class="chapter" data-level="8" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>8</b> Results</a>
+<li class="chapter" data-level="8" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>8</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>8.1</b> What does your tree tell you?</a></li>
+<li class="chapter" data-level="8.0.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>8.0.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>9</b> Sharing your results</a>
+<li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>9.1</b> Presentation</a></li>
+<li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.1</b> What does your tree tell you?</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>10</b> Sharing your results</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="sharing-your-results.html"><a href="sharing-your-results.html#presentation"><i class="fa fa-check"></i><b>10.1</b> Presentation</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -118,10 +122,30 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="results" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Chapter 8</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="results" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In order to use these data to build our phylogenies, we need to align each gene.
+We will use MAFFT …</p>
+<pre><code>for con in contig_list
+do
+mafft --auto $con &gt; ${con}.aligned
+done</code></pre>
+<p>Concatenate?</p>
+<pre><code></code></pre>
+<p>IQTree</p>
+<pre><code>iqtree2 -t $TREE -s $ALIGNMENT --scf 100 --prefix ALGN1_SCF -nt $T</code></pre>
+<p>ASTRAL??</p>
+<p>svdq??</p>
+<pre><code>echo &quot;
+log file=${logFile};
+tonexus format=RelPHYLIP fromfile=${alignmentFile} tofile=${alignmentFile}.svdq.nex interleaved=yes replace=yes;
+exe ${alignmentFile}.svdq.nex;
+svdq bootstrap nreps=${nBoot} nthreads=${nCpus};
+saveTrees file=${treeFile};
+quit;
+&quot; | paup</code></pre>
+<div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>You will need to compare your tree to what’s in the literature.
 Go back to the first readings you did and continue to explore.
 Are your results novel (e.g. have you determined relationships among species that no one had investigated)?
@@ -134,7 +158,7 @@ Do your results confirm or refute prior work?</p>
           </div>
         </div>
       </div>
-<a href="variant-calling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="target-capture-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="sharing-your-results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

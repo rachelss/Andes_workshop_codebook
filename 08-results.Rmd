@@ -1,5 +1,45 @@
 # Results
 
+In order to use these data to build our phylogenies, we need to align each gene.
+We will use MAFFT ...
+
+```
+for con in contig_list
+do
+mafft --auto $con > ${con}.aligned
+done
+```
+
+Concatenate?
+
+```
+
+```
+
+IQTree
+
+```
+iqtree2 -t $TREE -s $ALIGNMENT --scf 100 --prefix ALGN1_SCF -nt $T
+```
+
+ASTRAL??
+
+
+
+svdq??
+
+```
+echo "
+log file=${logFile};
+tonexus format=RelPHYLIP fromfile=${alignmentFile} tofile=${alignmentFile}.svdq.nex interleaved=yes replace=yes;
+exe ${alignmentFile}.svdq.nex;
+svdq bootstrap nreps=${nBoot} nthreads=${nCpus};
+saveTrees file=${treeFile};
+quit;
+" | paup
+```
+
+
 ## What does your tree tell you?
 
 You will need to compare your tree to what's in the literature.
