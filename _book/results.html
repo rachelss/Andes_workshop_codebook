@@ -130,18 +130,22 @@ We will use MAFFT …</p>
 do
 mafft --auto $con &gt; ${con}.aligned
 done</code></pre>
-<p>Concatenate?</p>
-<pre><code></code></pre>
+<p>Concatenate</p>
+<pre><code>python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i $infiles -t concatenated.fasta -p partitions.txt
+</code></pre>
 <p>IQTree</p>
-<pre><code>iqtree2 -t $TREE -s $ALIGNMENT --scf 100 --prefix ALGN1_SCF -nt $T</code></pre>
+<pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -z tree.tre -pre calcLnL -n 0 -m GTR+G -wsl
+
+iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
 <p>ASTRAL??</p>
+<pre><code></code></pre>
 <p>svdq??</p>
 <pre><code>echo &quot;
 log file=${logFile};
-tonexus format=RelPHYLIP fromfile=${alignmentFile} tofile=${alignmentFile}.svdq.nex interleaved=yes replace=yes;
-exe ${alignmentFile}.svdq.nex;
-svdq bootstrap nreps=${nBoot} nthreads=${nCpus};
-saveTrees file=${treeFile};
+tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
+exe concatenated.svdq.nex;
+svdq bootstrap nreps=1000 nthreads=2;
+saveTrees file=concatenated.svdq;
 quit;
 &quot; | paup</code></pre>
 <div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.1">
