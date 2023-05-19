@@ -96,11 +96,23 @@
 </ul></li>
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
-<li class="chapter" data-level="9.0.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.0.1</b> Alignment</a></li>
-<li class="chapter" data-level="9.0.2" data-path="results.html"><a href="results.html#concatenating-data"><i class="fa fa-check"></i><b>9.0.2</b> Concatenating data</a></li>
-<li class="chapter" data-level="9.0.3" data-path="results.html"><a href="results.html#species-trees"><i class="fa fa-check"></i><b>9.0.3</b> Species trees</a></li>
-<li class="chapter" data-level="9.0.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.0.4</b> Support for relationships</a></li>
-<li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.1</b> What does your tree tell you?</a></li>
+<li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
+<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.2</b> Concatenated data analysis</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.2.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.2.2" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.2.2</b> svdq</a></li>
+<li class="chapter" data-level="9.2.3" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.2.3</b> MrBayes</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL??</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.4</b> Support for relationships</a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>9.4.1</b> Bootstrap</a></li>
+<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>9.4.2</b> SCF / GCF</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.5</b> What does your tree tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>10</b> Sharing your results</a>
 <ul>
@@ -132,8 +144,11 @@
 from the genome skimming data we have looked at previously.
 Note that to improve analytical speed we have pre-examined and filtered data for you.
 The data we will work with for chloroplasts can be found in…..</p>
-<pre><code>get_organelle_from_reads.py -1 Arabidopsis_simulated.1.fq.gz -2 Arabidopsis_simulated.2.fq.gz -t 1 -o Arabidopsis_simulated.plastome -F embplant_pt -R 10
+<pre><code>get_organelle_from_reads.py -1 species1.1.fq.gz -2 species1.2.fq.gz -t 1 -o species1.plastome -F embplant_pt -R 10
 </code></pre>
+<pre><code>#do all
+#pull all plastomes in one fasta allspecies.fasta</code></pre>
+<pre><code>mauveAligner --output=allspecies.mauve --output-alignment=allspecies.alignment allspecies.fasta</code></pre>
 
 </div>
             </section>

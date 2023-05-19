@@ -1,6 +1,6 @@
 # Results
 
-### Alignment
+## Alignment
 
 In order to use these data to build our phylogenies, we need to align each gene.
 This allows our tree-building software to compare species using nucleotides that we believe share ancestry. 
@@ -13,7 +13,7 @@ mafft --auto $con > ${con}.aligned
 done
 ```
 
-### Concatenating data
+## Concatenated data analysis
 
 There are multiple ways to analyze data.
 The first is to concatenate everything.
@@ -23,7 +23,7 @@ python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i
 
 ```
 
-#### Building trees with IQTree
+### Building trees with IQTree
 
 We will build our first tree using our complete concatenated dataset.
 The program IQtree infers phylogenetic trees by maximum likelihood.
@@ -36,7 +36,7 @@ We allow partitioning of the data by gene so that different genes can evolve acc
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G
 ```
 
-#### svdq
+### svdq
 
 ```
 echo "
@@ -49,11 +49,17 @@ quit;
 " | paup
 ```
 
-### Species trees
+### MrBayes
+
+```
+
+```
+
+## Species tree analyses
 
 An alternative is to use a species tree approach.
 
-#### ASTRAL??
+### ASTRAL??
 
 ```
 #gene trees from iqtree
@@ -61,11 +67,11 @@ An alternative is to use a species tree approach.
 #astral
 ```
 
-### Support for relationships
+## Support for relationships
 
-#### Bootstrap
+### Bootstrap
 
-#### SCF / GCF
+### SCF / GCF
 
 ```
 iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2

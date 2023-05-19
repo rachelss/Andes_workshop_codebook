@@ -12,10 +12,11 @@ target-capture-data
 visual-inspection-of-data-eg-alignment-blast
 results
 alignment
-concatenating-data
+concatenated-data-analysis
 building-trees-with-iqtree
 svdq
-species-trees
+mrbayes
+species-tree-analyses
 astral
 support-for-relationships
 bootstrap
