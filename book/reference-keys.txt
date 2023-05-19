@@ -1,6 +1,9 @@
 getting-started
 intro
+data-and-analysis
 genomic-data
+phylogenies
+comparative-analyses
 computational-skills
 log-in-to-the-server
 basic-navigation
@@ -14,6 +17,7 @@ results
 alignment
 concatenated-data-analysis
 building-trees-with-iqtree
+viewing-trees
 svdq
 mrbayes
 species-tree-analyses

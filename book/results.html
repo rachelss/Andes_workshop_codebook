@@ -78,7 +78,12 @@
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
 <li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
-<li class="chapter" data-level="3" data-path="genomic-data.html"><a href="genomic-data.html"><i class="fa fa-check"></i><b>3</b> Genomic data</a></li>
+<li class="chapter" data-level="3" data-path="data-and-analysis.html"><a href="data-and-analysis.html"><i class="fa fa-check"></i><b>3</b> Data and analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-and-analysis.html"><a href="data-and-analysis.html#genomic-data"><i class="fa fa-check"></i><b>3.1</b> Genomic data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-and-analysis.html"><a href="data-and-analysis.html#phylogenies"><i class="fa fa-check"></i><b>3.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="3.3" data-path="data-and-analysis.html"><a href="data-and-analysis.html#comparative-analyses"><i class="fa fa-check"></i><b>3.3</b> Comparative analyses</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>4</b> Computational skills</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
@@ -100,8 +105,9 @@
 <li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.2</b> Concatenated data analysis</a>
 <ul>
 <li class="chapter" data-level="9.2.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.2.1</b> Building trees with IQTree</a></li>
-<li class="chapter" data-level="9.2.2" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.2.2</b> svdq</a></li>
-<li class="chapter" data-level="9.2.3" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.2.3</b> MrBayes</a></li>
+<li class="chapter" data-level="9.2.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.2.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.2.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.2.3</b> svdq</a></li>
+<li class="chapter" data-level="9.2.4" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.2.4</b> MrBayes</a></li>
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
 <ul>
@@ -166,8 +172,12 @@ We also allow a Gamma (G) distribution of rates of substitution across sites.
 We allow partitioning of the data by gene so that different genes can evolve according to different models.</p>
 <pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G</code></pre>
 </div>
-<div id="svdq" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="viewing-trees" class="section level3 hasAnchor" number="9.2.2">
+<h3><span class="header-section-number">9.2.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Using RStudio…</p>
+</div>
+<div id="svdq" class="section level3 hasAnchor" number="9.2.3">
+<h3><span class="header-section-number">9.2.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>echo &quot;
 log file=${logFile};
 tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
@@ -177,8 +187,8 @@ saveTrees file=concatenated.svdq;
 quit;
 &quot; | paup</code></pre>
 </div>
-<div id="mrbayes" class="section level3 hasAnchor" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mrbayes" class="section level3 hasAnchor" number="9.2.4">
+<h3><span class="header-section-number">9.2.4</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code></code></pre>
 </div>
 </div>
@@ -204,10 +214,7 @@ quit;
 </div>
 <div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.5">
 <h2><span class="header-section-number">9.5</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>You will need to compare your tree to what’s in the literature.
-Go back to the first readings you did and continue to explore.
-Are your results novel (e.g. have you determined relationships among species that no one had investigated)?
-Do your results confirm or refute prior work?</p>
+<p>Compare your trees</p>
 
 </div>
 </div>

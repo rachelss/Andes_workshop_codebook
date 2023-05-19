@@ -36,6 +36,10 @@ We allow partitioning of the data by gene so that different genes can evolve acc
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G
 ```
 
+### Viewing trees
+
+Using RStudio...
+
 ### svdq
 
 ```
@@ -78,13 +82,7 @@ iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2
 ```
 
 
-
-
-
-
 ## What does your tree tell you?
 
-You will need to compare your tree to what's in the literature.
-Go back to the first readings you did and continue to explore.
-Are your results novel (e.g. have you determined relationships among species that no one had investigated)?
-Do your results confirm or refute prior work?
+Compare your trees
+

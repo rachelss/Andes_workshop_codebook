@@ -1,4 +1,6 @@
-# Genomic data
+# Data and analysis
+
+## Genomic data
 
 By definition genomes are large.
 The human genome is 3.2 billion base pairs.
@@ -14,3 +16,16 @@ This is definitely a process you don't want to do by hand!
 A computer (at least a big one with lots of computing power) can help us out by automating all these comparisons.
 That means that before we can identify how the sequence of two plants differ
 we need to build some skills to communicate with the server that we are using to work with our data.
+
+## Phylogenies
+
+Different analyses produce different trees.
+Different datasets produce different trees.
+Rapid diversification makes analyses challenging. 
+Divergence dates can be estimated on trees with calibrations.
+
+## Comparative analyses
+
+Understand models of character evolution and apply simple PCMs to existing datasets.
+Calculating trait evolution.
+

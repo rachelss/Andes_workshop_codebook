@@ -1,6 +1,9 @@
 # Introduction {#intro}
 
+This tutorial steps through the basic process of analyses in evolutionary biology.
+We use genome sequence data to build phylogenetic trees.
+We then use these phylogenies and trait data to understand...
 
-
-This tutorial steps through the basic process of ................... using genome sequence data.
-
+We will use data from 40 species in the family Campanulaceae.
+We will break into groups and each examine a subset of these data.
+We will examine different datasets using different approaches to understand how individual datasets contribute to phylogeny estimation.
