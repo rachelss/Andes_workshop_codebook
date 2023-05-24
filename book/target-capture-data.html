@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-05-18" />
+<meta name="date" content="2023-05-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -77,7 +77,12 @@
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Getting Started</a></li>
-<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#case-studies"><i class="fa fa-check"></i><b>2.2</b> Case Studies</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#course-objectives"><i class="fa fa-check"></i><b>2.3</b> Course Objectives</a></li>
+</ul></li>
 <li class="chapter" data-level="3" data-path="data-and-analysis.html"><a href="data-and-analysis.html"><i class="fa fa-check"></i><b>3</b> Data and analysis</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="data-and-analysis.html"><a href="data-and-analysis.html#genomic-data"><i class="fa fa-check"></i><b>3.1</b> Genomic data</a></li>
@@ -161,7 +166,7 @@ HybPiper outputs a fasta file of the (in frame) CDS portion of each sample for e
 <p>To automatically run all samples consecutively you will need to loop through them.
 One approach is to make a list of all the names of the species in a file and then read that and use them one at a time.
 In the following example, the species names are entered in the namelist.txt file.
-The loop will interate through them one at a time and run HybPiper.</p>
+The loop will iterate through them one at a time and run HybPiper.</p>
 <pre><code>while read name
 do 
     hybpiper assemble -t_dna targets.fasta -r $name*.fastq --prefix $name --bwa

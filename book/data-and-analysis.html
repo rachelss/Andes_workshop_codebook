@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 9 Results | Andes Phylogenomics Workshop</title>
+  <title>Chapter 3 Data and analysis | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 9 Results | Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 3 Data and analysis | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 9 Results | Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 3 Data and analysis | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a basic project in phylogenomics." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="target-capture-data.html"/>
-<link rel="next" href="sharing-your-results.html"/>
+<link rel="prev" href="intro.html"/>
+<link rel="next" href="computational-skills.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,77 +149,35 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="results" class="section level1 hasAnchor" number="9">
-<h1><span class="header-section-number">Chapter 9</span> Results<a href="results.html#results" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="alignment" class="section level2 hasAnchor" number="9.1">
-<h2><span class="header-section-number">9.1</span> Alignment<a href="results.html#alignment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In order to use these data to build our phylogenies, we need to align each gene.
-This allows our tree-building software to compare species using nucleotides that we believe share ancestry.
-We will use the software MAFFT.</p>
-<pre><code>for con in contig_list
-do
-mafft --auto $con &gt; ${con}.aligned
-done</code></pre>
+<div id="data-and-analysis" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Data and analysis<a href="data-and-analysis.html#data-and-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="genomic-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Genomic data<a href="data-and-analysis.html#genomic-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By definition genomes are large.
+The human genome is 3.2 billion base pairs.
+Plants can be even larger.
+If you were to go through and compare two plant genomes by hand to discover the differences between them it would take a while.
+To add to this complexity, genomes don’t come off the sequencer as a 3.2 billion base pair sequence,
+but as millions of small fragments.
+Think of this sequencing method as tossing a book (your genome) into a paper shredder.
+That means first you have to compare each fragment to a “reference genome” (like the real book)
+and then figure out where your genome differs from the reference.
+This is definitely a process you don’t want to do by hand!</p>
+<p>A computer (at least a big one with lots of computing power) can help us out by automating all these comparisons.
+That means that before we can identify how the sequence of two plants differ
+we need to build some skills to communicate with the server that we are using to work with our data.</p>
 </div>
-<div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>There are multiple ways to analyze data.
-The first is to concatenate everything.</p>
-<pre><code>python3 AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i $infiles -t concatenated.fasta -p partitions.txt
-</code></pre>
-<div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We will build our first tree using our complete concatenated dataset.
-The program IQtree infers phylogenetic trees by maximum likelihood.
-This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
-We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
-We also allow a Gamma (G) distribution of rates of substitution across sites.
-We allow partitioning of the data by gene so that different genes can evolve according to different models.</p>
-<pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G</code></pre>
+<div id="phylogenies" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Phylogenies<a href="data-and-analysis.html#phylogenies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Different analyses produce different trees.
+Different datasets produce different trees.
+Rapid diversification makes analyses challenging.
+Divergence dates can be estimated on trees with calibrations.</p>
 </div>
-<div id="viewing-trees" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Using RStudio…</p>
-</div>
-<div id="svdq" class="section level3 hasAnchor" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>echo &quot;
-log file=${logFile};
-tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
-exe concatenated.svdq.nex;
-svdq bootstrap nreps=1000 nthreads=2;
-saveTrees file=concatenated.svdq;
-quit;
-&quot; | paup</code></pre>
-</div>
-<div id="mrbayes" class="section level3 hasAnchor" number="9.2.4">
-<h3><span class="header-section-number">9.2.4</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code></code></pre>
-</div>
-</div>
-<div id="species-tree-analyses" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>An alternative is to use a species tree approach.</p>
-<div id="astral" class="section level3 hasAnchor" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> ASTRAL??<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>#gene trees from iqtree
-
-#astral</code></pre>
-</div>
-</div>
-<div id="support-for-relationships" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="bootstrap" class="section level3 hasAnchor" number="9.4.1">
-<h3><span class="header-section-number">9.4.1</span> Bootstrap<a href="results.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-</div>
-<div id="scf-gcf" class="section level3 hasAnchor" number="9.4.2">
-<h3><span class="header-section-number">9.4.2</span> SCF / GCF<a href="results.html#scf-gcf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
-</div>
-</div>
-<div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Compare your trees</p>
+<div id="comparative-analyses" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Comparative analyses<a href="data-and-analysis.html#comparative-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Understand models of character evolution and apply simple PCMs to existing datasets.
+Calculating trait evolution.</p>
 
 </div>
 </div>
@@ -228,8 +186,8 @@ quit;
           </div>
         </div>
       </div>
-<a href="target-capture-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="sharing-your-results.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="computational-skills.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -260,7 +218,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/08-results.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/02-motivation.Rmd",
 "text": "Edit"
 },
 "history": {

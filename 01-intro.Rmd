@@ -1,9 +1,36 @@
 # Introduction {#intro}
 
-This tutorial steps through the basic process of analyses in evolutionary biology.
-We use genome sequence data to build phylogenetic trees.
-We then use these phylogenies and trait data to understand...
+Syllabus of Wasta et al. 2020 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7188297/#pbio.3000667.s003 provides the following example:
+
+##  Introduction  
+
+Biological research is turning to genetic research methods for a deeper look into the biological factors that encode various traits. 
+We can use genetic techniques to delimit species, define populations, understand reproductive patterns systems, and answer many other interesting biological questions.
+
+This program is set in Colombia, where students will learn how field research is conducted, participate in sample collection, and then interpret genetic data from these species to examine their relationships and understand how to accurately conduct analyses in these areas.  
+This program will provide an introduction to next-generation sequencing technology to biologists, who will gain not only the skills requisite for field research but the technical know-how to employ genetic research tools.
+
+## Case Studies
+In this course, we will focus on three specific cases
 
 We will use data from 40 species in the family Campanulaceae.
 We will break into groups and each examine a subset of these data.
 We will examine different datasets using different approaches to understand how individual datasets contribute to phylogeny estimation.
+
+My notes:
+
+This tutorial steps through the basic process of analyses in evolutionary biology.
+We use genome sequence data to build phylogenetic trees.
+We then use these phylogenies and trait data to understand...
+
+## Course Objectives
+
+The goals of this course are to give participants advanced training in techniques important to the collection and analysis of plant evolution.
+
+The course has the following broad objectives:
+
+- To engage in both independent and team-based data collection
+- To teach sample collection techniques for plants
+- Examine sequence data
+- Build trees
+
