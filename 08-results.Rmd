@@ -36,6 +36,8 @@ We allow partitioning of the data by gene so that different genes can evolve acc
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G
 ```
 
+Tree for all data using output of individual hybpiper runs
+
 ### Viewing trees
 
 Using RStudio...
@@ -63,7 +65,7 @@ quit;
 
 An alternative is to use a species tree approach.
 
-### ASTRAL??
+### ASTRAL
 
 ```
 #gene trees from iqtree

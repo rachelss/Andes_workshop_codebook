@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 6 Plastome variation | Andes Phylogenomics Workshop</title>
+  <title>Chapter 7 Plastome variation | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 6 Plastome variation | Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 7 Plastome variation | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 6 Plastome variation | Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 7 Plastome variation | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a basic project in phylogenomics." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2023-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="getting-your-data.html"/>
+<link rel="prev" href="target-capture-data.html"/>
 <link rel="next" href="variant-calling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -96,14 +96,15 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a>
 <ul>
-<li class="chapter" data-level="5.0.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>5.0.1</b> Repeating analyses</a></li>
+<li class="chapter" data-level="5.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>5.1</b> Repeating analyses</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>6</b> Plastome variation</a></li>
-<li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
-<li class="chapter" data-level="8" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>8</b> Target capture data</a>
+<li class="chapter" data-level="6" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>6</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="8.0.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>8.0.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
+<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
+<li class="chapter" data-level="6.2" data-path="target-capture-data.html"><a href="target-capture-data.html#align-data"><i class="fa fa-check"></i><b>6.2</b> Align data</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>7</b> Plastome variation</a></li>
+<li class="chapter" data-level="8" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>8</b> Variant Calling</a></li>
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
@@ -116,7 +117,7 @@
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL??</a></li>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.4</b> Support for relationships</a>
 <ul>
@@ -149,8 +150,8 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="plastome-variation" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Chapter 6</span> Plastome variation<a href="plastome-variation.html#plastome-variation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="plastome-variation" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Plastome variation<a href="plastome-variation.html#plastome-variation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p>We will use the program GetOrganelle to assemble and plastome for each species
 from the genome skimming data we have looked at previously.
 Note that to improve analytical speed we have pre-examined and filtered data for you.
@@ -167,7 +168,7 @@ The data we will work with for chloroplasts can be found in…..</p>
           </div>
         </div>
       </div>
-<a href="getting-your-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="target-capture-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="variant-calling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
@@ -199,7 +200,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-align.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-align.Rmd",
 "text": "Edit"
 },
 "history": {

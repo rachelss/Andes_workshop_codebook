@@ -12,10 +12,11 @@ log-in-to-the-server
 basic-navigation
 getting-your-data
 repeating-analyses
-plastome-variation
-variant-calling
 target-capture-data
 visual-inspection-of-data-eg-alignment-blast
+align-data
+plastome-variation
+variant-calling
 results
 alignment
 concatenated-data-analysis

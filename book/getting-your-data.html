@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-05-24" />
+<meta name="date" content="2023-06-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="computational-skills.html"/>
-<link rel="next" href="plastome-variation.html"/>
+<link rel="next" href="target-capture-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -96,14 +96,15 @@
 </ul></li>
 <li class="chapter" data-level="5" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>5</b> Getting your data</a>
 <ul>
-<li class="chapter" data-level="5.0.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>5.0.1</b> Repeating analyses</a></li>
+<li class="chapter" data-level="5.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>5.1</b> Repeating analyses</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>6</b> Plastome variation</a></li>
-<li class="chapter" data-level="7" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>7</b> Variant Calling</a></li>
-<li class="chapter" data-level="8" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>8</b> Target capture data</a>
+<li class="chapter" data-level="6" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>6</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="8.0.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>8.0.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
+<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
+<li class="chapter" data-level="6.2" data-path="target-capture-data.html"><a href="target-capture-data.html#align-data"><i class="fa fa-check"></i><b>6.2</b> Align data</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>7</b> Plastome variation</a></li>
+<li class="chapter" data-level="8" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>8</b> Variant Calling</a></li>
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
@@ -116,7 +117,7 @@
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL??</a></li>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL</a></li>
 </ul></li>
 <li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.4</b> Support for relationships</a>
 <ul>
@@ -155,53 +156,56 @@
 For starters we will take a peak at these data so you know what it looks like before we use standard programs to analyze it.</p>
 <p>The sequence data is in a shared folder on this server.
 Relative to your home folder you can find the data at
-<code>../shared/Andes_plants/</code>.</p>
+<code>../shared/AndesWorkshop2023/</code>.</p>
 <p>If you cd to that directory and list the contents you can see folders containing files of data.</p>
-<p>There are sequence files for 40 individuals grouped into four folders, one for each group, as well as a folder of chloroplast data.
-Start by going to the folder for your assigned group and listing its contents.</p>
-<p>You do not want to view these files because they are very large.
+<p>Sequence files for samples can be found in different folders labeled by taxon set.
+Start by going to the folder for your assigned taxon set and listing its contents.
+You should see two folders.
+Go into the one for your assigned dataset.</p>
+<p>You generally do not want to view sequence data files because they can be large and are rather hard to read.
 If you want to see how large use <code>ls -lh</code>.
 You are already familiar with the <code>ls</code> command for listing the contents of folders.
 The dash followed by additional letters are called flags.
 The <code>l</code> flag indicates that we are listing the contents in long form to provide additional information.
-The <code>h</code> flag means we’ll view the data in human readable format (i.e. with size given in Mb).</p>
+The <code>h</code> flag means we’ll view the data in human readable format (i.e. with size given in Kb or Mb).</p>
 <p>Raw data is in the form of zipped fastq files, which are generated by a sequencer.
-You can tell this by the very last bit of the name of the files, which is .fastq.gz (just like you might see Word files labeled as .docx).
+You can tell this by the very last bit of the name of the files, which is .fastq.gz or .fq.gz (just like you might see Word files labeled as .docx).
 Just as a note, you often need to do some cleanup of the data that comes of the sequencer
 so you only have high quality data.
 We have done this step for you already.
 Take a look at a little bit of one file.
 The <code>less</code> command lets you scroll through the (very large) file.
 <code>zless</code> is the <code>less</code> command that works on zipped files.</p>
+<p>Use the following command replacing [] with a specific filename.</p>
+<pre><code>zless [].fastq.gz</code></pre>
 <p>Fastq files contain sets of four lines.
 The first line is the name of the sequence.
 The second line is the sequence.
 The fourth line is the quality of the sequence.
 As you scroll through you should see many sets of four (one for each sequence).</p>
-<pre><code>zless [].fastq.gz</code></pre>
 <p>Once you are done scrolling use q (for quit) to get back to your prompt.</p>
 <p>Before we look at our large files we are going to practice on a small example file.
-Move back to the main <code>Andes_plants</code> folder.
-List the contents and notice the <code>example.fastq</code> file.
+Move back to the main <code>AndesWorkshop2023</code> folder.
+List the contents and notice the <code>example.fq</code> file.
 For this example I have unzipped it.
 You can view the entire contents of the file using the command <code>cat</code>.</p>
 <pre><code>cat example.fastq</code></pre>
 <p>Alternatively you can use the command <code>head</code> to view the first few lines of the file.</p>
-<pre><code>head example.fastq</code></pre>
+<pre><code>head example.fq</code></pre>
 <p>We can also get a sense of the amount of data by counting the number of lines using the word count command <code>wc</code>.</p>
-<pre><code>wc example.fastq</code></pre>
+<pre><code>wc example.fq</code></pre>
 <p>This command tells you the number of lines, words, and characters. If you want to focus just on the number of lines you should use the <code>l</code> flag.</p>
-<pre><code>wc -l example.fastq</code></pre>
+<pre><code>wc -l example.fq</code></pre>
 <p>If we only want to get the names of the sequences we can search for lines that match a particular pattern and print just those. We search with the command <code>grep</code>. The pattern we are searching for is lines that start with @. And then we provide the name of the file.</p>
-<pre><code>grep &#39;^@&#39; example.fastq</code></pre>
+<pre><code>grep &#39;^@&#39; example.fq</code></pre>
 <p>Because this is a small example file we are able to print all the header lines without it being overwhelming. However, with our larger files we don’t want to do this. However, we know that the <code>head</code> command allows us to view just the first few lines of our output. Now we’ll combine those two commands using a pipe (<code>|</code>). First we enter the <code>grep</code> command (with it’s two arguments) then we “pipe” the output to the <code>head</code> command rather than printing it to the screen.</p>
 <pre><code>grep &#39;^@&#39; example.fastq |  head</code></pre>
 <p>Notice that the <code>head</code> command does not have arguments in this case because it accepts the output from the grep command.</p>
 <p>The <code>head</code> command accepts a flag with the number of lines you want to print.
 For example <code>head -4</code> will print the first four lines.</p>
 <p>Your first challenge in this course is to combine the information that you have learned to get the number of header lines in one of your zipped fastq files (using <code>zgrep</code>).</p>
-<div id="repeating-analyses" class="section level3 hasAnchor" number="5.0.1">
-<h3><span class="header-section-number">5.0.1</span> Repeating analyses<a href="getting-your-data.html#repeating-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="repeating-analyses" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Repeating analyses<a href="getting-your-data.html#repeating-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>One approach to analyzing multiple files in the same way is to copy your code and edit each copy to include the name of a particular file. That might be feasible (if slow) for the 10 files you are working with here, but it is inconvenient for the many files you might work with on a larger genomics project. Instead, we can make a list of the files we want to work with and tell the computer to repeat the analysis on each file.</p>
 <p>In the prior challenge you figured out what analysis you want to do (list the number of header lines). Now we need to learn how to repeat this. In most programming languages, including our command line, we use a loop to go through a list and repeat that command. On the command line the format to do this looks like</p>
 <pre><code>for thing in list_of_things
@@ -236,7 +240,7 @@ To indicate all files that end in <code>fastq.gz</code> we could use <code>*fast
         </div>
       </div>
 <a href="computational-skills.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="plastome-variation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="target-capture-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
