@@ -1,0 +1,20 @@
+# Plastome variation
+
+We will use the program GetOrganelle to assemble and plastome for each species
+from the genome skimming data we have looked at previously.
+Note that to improve analytical speed we have pre-examined and filtered data for you.
+The data we will work with for chloroplasts can be found in.....
+
+```
+get_organelle_from_reads.py -1 species1.1.fq.gz -2 species1.2.fq.gz -t 1 -o species1.plastome -F embplant_pt -R 10
+
+```
+
+```
+#do all
+#pull all plastomes in one fasta allspecies.fasta
+```
+
+```
+mauveAligner --output=allspecies.mauve --output-alignment=allspecies.alignment allspecies.fasta
+```

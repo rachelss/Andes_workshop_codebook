@@ -1,0 +1,119 @@
+# Variant Calling
+
+First make a folder in your home directory to hold your aligned files.
+
+```
+mkdir alignment
+```
+
+Now we need to run the program to figure out which reads come from the chloroplast genome by comparing the reads to a reference.
+This is called aligning.
+However, before we do this, we have to recognize that this process might take a while.
+Let's start by making a file that contains our command, which we'll call a script.
+
+`nano scripts/alignment_script.sh`
+
+See how I made my script inside the scripts folder to keep everything organized?
+That .sh on the end also says something about this file - in this case it is a script that can be run in our computing "shell".
+
+Let's add the command we need to run to our script
+
+```
+bowtie2 -x [ref] -1 []R1_001.fastq.gz -2 []R2_001.fastq.gz -S results/[].sam
+```
+
+What does this command mean?
+First we have `bowtie2`, which is the name of the program we are using.
+Then we have a series of "flags" (they start with -) followed by some information.
+The `-x` flag says what reference genome we want to align to.
+That's going to be in `[]` and its name is [hg38]].
+Now we list the path to our fastq sequence files with the `-1` and `-2` flags. 
+And finally we use the `-S` flag to say where we want our output to go.
+This file has a `.sam` extension because that's what the makers of this program have called this output file format.
+
+You need to tell the computer that this is a "shell" script.
+The first line of every script has a "shebang" line that specifies how the computer should interpret the code.
+
+```
+#!/bin/sh
+```
+
+Exit nano with `Ctrl-X` and save your script.
+
+Now you can tell the computer to run the script.
+
+```
+bash scripts/alignment_script.sh
+```
+
+Now make a copy of the script 
+
+`cp scripts/alignment_script.sh scripts/alignment_script2.sh``
+
+See how the copy command (`cp`) takes two arguments: the source and destination.
+[LOOP]
+
+Run this script.
+
+Now you can take a look at one of your output sam files using `less`.
+Type q to go back to your prompt.
+This file is in a special format with a lot of information about where each read came from in the reference genome
+and also how well it aligned to that location.
+Before we look more closely, did you notice that you are scrolling through a lot of header information before you
+got to any real data?
+You can ask the computer to search for and only print files that aren't header lines.
+Header lines start with `@SQ` so that's what we'll have the computer print - anything that matches that pattern.
+We also need to specify we want lines that don't start with `@SQ`.
+If you are searching for lines that start with `@SQ` you need that information plus the code for "starts with", which is ^.
+Finally you need to specify you want the opposite lines, so you'll use a "flag" -v.
+Then you'll need to add the file name as an argument.
+Here's the command but don't type it yet! This will print out a ton of data.
+
+`grep -v '^@SQ' results/[].sam`
+
+You can use this command but make sure to pipe the output to less so you can scroll through it.
+
+There's a lot of information here but don't worry too much about the details. Each line is just information about where that sequence aligned to the human genome and how well it aligned. These alignments allow other programs to figure out what the sequence is for each base in each individual.
+
+These files are rather large, but we can compress them into bam format, which makes them take less space and also makes them easier to work with.
+
+You can convert a sam file to a bam file using the following command.
+
+`samtools view -b -o results/U0a_CGATGT_L001_001_mapped.bam results/U0a_CGATGT_L001_001.sam`
+
+Rather than type this on the command line (where you will forget what you typed and it won't work right anyway),
+make a new script with this command instead of the bowtie command.
+I advise copying the alignment script (give it a useful name) and put this command in place of the bowtie line.
+Also add this `samtools view` command for your other files so that you have 11 lines that look similar except for the input and output filenames.
+Did you notice how this command has flags and arguments (output then input files) just like other command line commands?
+The program samtools is a set of tools for working with sam files. The view command loads the file. The o flag sets the name of the output file. The b flag outputs in bam format. All the samtools commands and flags can be found at
+http://www.htslib.org/doc/samtools.html
+
+Once all of your alignment scripts are done running, run this script to convert sams to bams.
+
+Adapted from https://datacarpentry.org/wrangling-genomics/
+
+
+At this point you have aligned the sequencing reads to the reference genome.
+Your sam/bam file tells you where each read belongs.
+The next step is to go through each base in the genome and figure out what base is at that position in each of your individuals.
+
+"The last step in preparing the reads is to index the bam files. This needs to be done to enable fast access to reads overlapping a given position of the genome. Without the index, if you wanted to access reads at the beginning of chromosome 20, you'd need to read through chromosomes 1-19 until you got there. With many samples or deep coverage, this would be a big problem. The bam index is a map to the bam file that lets you skip around quickly."
+
+sort first??
+`samtools index results/*.bam`
+
+
+TVIEW??
+
+Pileup
+
+call
+
+https://genome.sph.umich.edu/wiki/Triodenovo
+
+
+https://www.youtube.com/watch?v=wzjhhUaErWc
+https://github.com/ekg/alignment-and-variant-calling-tutorial
+https://gencore.bio.nyu.edu/variant-calling-pipeline-gatk4/
+https://github.com/CBC-UCONN/Variant-Calling
