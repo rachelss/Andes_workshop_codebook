@@ -63,7 +63,7 @@ We allow partitioning of the data by gene so that different genes can evolve acc
 conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/iqtree
 
-iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G
+iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G
 ```
 
 Tree for all data using output of individual hybpiper runs
@@ -77,7 +77,7 @@ library(tidyverse)
 library(ape)
 
 tax1 <- read.tree("AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile")
-plot(tax1)
+plot(tax1, show.node.label = TRUE)
 ```
 
 ### svdq

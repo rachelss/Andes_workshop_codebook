@@ -256,7 +256,7 @@ We allow partitioning of the data by gene so that different genes can evolve acc
 <pre><code>conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/iqtree
 
-iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m GTR+G</code></pre>
+iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G</code></pre>
 <p>Tree for all data using output of individual hybpiper runs</p>
 </div>
 <div id="viewing-trees" class="section level3 hasAnchor" number="9.2.2">
@@ -268,7 +268,7 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m
 <span id="cb29-2"><a href="results.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
 <span id="cb29-3"><a href="results.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-4"><a href="results.html#cb29-4" aria-hidden="true" tabindex="-1"></a>tax1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile&quot;</span>)</span>
-<span id="cb29-5"><a href="results.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1)</span></code></pre></div>
+<span id="cb29-5"><a href="results.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1, <span class="at">show.node.label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="svdq" class="section level3 hasAnchor" number="9.2.3">
 <h3><span class="header-section-number">9.2.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
