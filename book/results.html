@@ -240,7 +240,9 @@ The first is to concatenate everything.</p>
 <pre><code>conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/amas
 
-python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i *FNA.fasta.fa -t concatenated.fasta -p partitions.txt
+python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
+-d dna --out-format fasta --part-format raxml -i *FNA.fasta.fa \
+-t concatenated.fasta -p partitions.txt
 </code></pre>
 <p>Note that if some data was not found for some genes you may need to delete files to get AMAS to concatenate your data.</p>
 <div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.2.1">
@@ -272,7 +274,8 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -n 0 -m
 <h3><span class="header-section-number">9.2.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>echo &quot;
 log file=${logFile};
-tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
+tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex \
+interleaved=yes replace=yes;
 exe concatenated.svdq.nex;
 svdq bootstrap nreps=1000 nthreads=2;
 saveTrees file=concatenated.svdq;

@@ -42,7 +42,9 @@ The first is to concatenate everything.
 conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/amas
 
-python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta -d dna --out-format fasta --part-format raxml -i *FNA.fasta.fa -t concatenated.fasta -p partitions.txt
+python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
+-d dna --out-format fasta --part-format raxml -i *FNA.fasta.fa \
+-t concatenated.fasta -p partitions.txt
 
 ```
 Note that if some data was not found for some genes you may need to delete files to get AMAS to concatenate your data.
@@ -83,7 +85,8 @@ plot(tax1)
 ```
 echo "
 log file=${logFile};
-tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex interleaved=yes replace=yes;
+tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex \
+interleaved=yes replace=yes;
 exe concatenated.svdq.nex;
 svdq bootstrap nreps=1000 nthreads=2;
 saveTrees file=concatenated.svdq;
