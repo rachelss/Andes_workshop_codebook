@@ -14,4 +14,23 @@ description: "Step-by-step guide to a basic project in phylogenomics."
 
 # Getting Started
 
-This book will walk you through 
+The evolutionary tree of life is fundamental to our understanding of the natural world.
+This workshop will go through all of the steps of research in understanding the evolutionary history of several groups of Andean plants.
+We will participate in field collections of plants and processing of samples for collections.
+In real research projects, the species and collections should be considered carefully
+with an expectation of the potential for phylogenetic results and evolutionary hypotheses.
+Researchers should create voucher specimens to preserve the samples long-term,
+as well as appropriate samples for DNA extraction. 
+Samples should be recorded and given a unique identifier, in order to connect the specimen to the sequencing data.
+
+In this workshop we will not have an opportunity to experience the expected next step of 
+sample processing, DNA extraction, or sequencing.
+Contemporary sequencing is often completed by an outside facility, although we will discuss options as part of this workshop.
+We will continue with the analysis of sequence data,
+particularly target-capture data from genome sequencing.
+As part of this we will learn basic computing on the command line
+and some approaches to writing code in the bash shell and R.
+This will allow us to conduct data analysis that can apply to larger scale work than can be conducted on a laptop.
+As part of the analysis of different datasets, we will see how in many cases we draw different conclusions from different datasets and how we examine phylogenies.
+We will then use these phylogenies to conduct comparative analyses to understand how phylogenies inform our understanding of trait evolution.
+Finally, we will ask you to present the results of your analyses.
