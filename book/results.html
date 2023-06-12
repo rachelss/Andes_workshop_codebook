@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-06-08" />
+<meta name="date" content="2023-06-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,23 +171,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
-<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.2</b> Concatenated data analysis</a>
+<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#view-in-r"><i class="fa fa-check"></i><b>9.2</b> View in R</a></li>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#trimal"><i class="fa fa-check"></i><b>9.3</b> Trimal</a></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.4</b> Concatenated data analysis</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.2.1</b> Building trees with IQTree</a></li>
-<li class="chapter" data-level="9.2.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.2.2</b> Viewing trees</a></li>
-<li class="chapter" data-level="9.2.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.2.3</b> svdq</a></li>
-<li class="chapter" data-level="9.2.4" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.2.4</b> MrBayes</a></li>
+<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.4.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.4.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.4.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.4.3</b> svdq</a></li>
+<li class="chapter" data-level="9.4.4" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.4.4</b> MrBayes</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.5</b> Species tree analyses</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL</a></li>
+<li class="chapter" data-level="9.5.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.5.1</b> ASTRAL</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.4</b> Support for relationships</a>
+<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.6</b> Support for relationships</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>9.4.1</b> Bootstrap</a></li>
-<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>9.4.2</b> SCF / GCF</a></li>
+<li class="chapter" data-level="9.6.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>9.6.1</b> Bootstrap</a></li>
+<li class="chapter" data-level="9.6.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>9.6.2</b> SCF / GCF</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.5</b> What does your tree tell you?</a></li>
+<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.7</b> What does your tree tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>10</b> Sharing your results</a>
 <ul>
@@ -233,8 +235,26 @@ cut -f 1 -d &#39; &#39; $f &gt; ${f}.fa
 done</code></pre>
 <p>However, you should be able to loop through all of your files output by HybPiper so that you can align all of them sequentially in one loop command.</p>
 </div>
-<div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.2">
-<h2><span class="header-section-number">9.2</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="view-in-r" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> View in R<a href="results.html#view-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<pre><code>library(ggmsa)  #use R 4.1.2
+
+#view aligned
+tax1_seqs_4471 &lt;- (&quot;AndesWorkshop2023/TaxonSet1/353reads/4471.FNA.fasta.fa&quot;)
+ggmsa(tax1_seqs_4471, start = 20, end = 120, char_width = 0.5, seq_name = T, color = &quot;Chemistry_NT&quot;) + 
+  geom_msaBar() #this is slow - wait!
+
+#view unaligned
+tax1_seqs_4471u &lt;- (&quot;AndesWorkshop2023/TaxonSet1/353reads/4471.FNA&quot;)
+ggmsa(tax1_seqs_4471u, start = 20, end = 120, char_width = 0.5, seq_name = T, color = &quot;Chemistry_NT&quot;) + 
+  geom_msaBar() #this is slow - wait!</code></pre>
+</div>
+<div id="trimal" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Trimal<a href="results.html#trimal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://hackmd.io/@mossmatters/Sy6md0prY" class="uri">https://hackmd.io/@mossmatters/Sy6md0prY</a></p>
+</div>
+<div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are multiple ways to analyze data.
 The first is to concatenate everything.</p>
 <pre><code>conda deactivate
@@ -245,8 +265,8 @@ python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -t concatenated.fasta -p partitions.txt
 </code></pre>
 <p>Note that if some data was not found for some genes you may need to delete files to get AMAS to concatenate your data.</p>
-<div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.2.1">
-<h3><span class="header-section-number">9.2.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.4.1">
+<h3><span class="header-section-number">9.4.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will build our first tree using our complete concatenated dataset.
 The program IQtree infers phylogenetic trees by maximum likelihood.
 This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
@@ -259,19 +279,19 @@ conda activate /mnt/homes4celsrs/shared/envs/iqtree
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G</code></pre>
 <p>Tree for all data using output of individual hybpiper runs</p>
 </div>
-<div id="viewing-trees" class="section level3 hasAnchor" number="9.2.2">
-<h3><span class="header-section-number">9.2.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="viewing-trees" class="section level3 hasAnchor" number="9.4.2">
+<h3><span class="header-section-number">9.4.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Make new RScript</li>
 </ul>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="results.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb29-2"><a href="results.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb29-3"><a href="results.html#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="results.html#cb29-4" aria-hidden="true" tabindex="-1"></a>tax1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile&quot;</span>)</span>
-<span id="cb29-5"><a href="results.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1, <span class="at">show.node.label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="results.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb31-2"><a href="results.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb31-3"><a href="results.html#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="results.html#cb31-4" aria-hidden="true" tabindex="-1"></a>tax1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile&quot;</span>)</span>
+<span id="cb31-5"><a href="results.html#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1, <span class="at">show.node.label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
-<div id="svdq" class="section level3 hasAnchor" number="9.2.3">
-<h3><span class="header-section-number">9.2.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="svdq" class="section level3 hasAnchor" number="9.4.3">
+<h3><span class="header-section-number">9.4.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>echo &quot;
 log file=${logFile};
 tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex \
@@ -282,33 +302,33 @@ saveTrees file=concatenated.svdq;
 quit;
 &quot; | paup</code></pre>
 </div>
-<div id="mrbayes" class="section level3 hasAnchor" number="9.2.4">
-<h3><span class="header-section-number">9.2.4</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mrbayes" class="section level3 hasAnchor" number="9.4.4">
+<h3><span class="header-section-number">9.4.4</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code></code></pre>
 </div>
 </div>
-<div id="species-tree-analyses" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="species-tree-analyses" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An alternative is to use a species tree approach.</p>
-<div id="astral" class="section level3 hasAnchor" number="9.3.1">
-<h3><span class="header-section-number">9.3.1</span> ASTRAL<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="astral" class="section level3 hasAnchor" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> ASTRAL<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>#gene trees from iqtree
 
 #astral</code></pre>
 </div>
 </div>
-<div id="support-for-relationships" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="bootstrap" class="section level3 hasAnchor" number="9.4.1">
-<h3><span class="header-section-number">9.4.1</span> Bootstrap<a href="results.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="support-for-relationships" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="bootstrap" class="section level3 hasAnchor" number="9.6.1">
+<h3><span class="header-section-number">9.6.1</span> Bootstrap<a href="results.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="scf-gcf" class="section level3 hasAnchor" number="9.4.2">
-<h3><span class="header-section-number">9.4.2</span> SCF / GCF<a href="results.html#scf-gcf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="scf-gcf" class="section level3 hasAnchor" number="9.6.2">
+<h3><span class="header-section-number">9.6.2</span> SCF / GCF<a href="results.html#scf-gcf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <pre><code>iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
 </div>
 </div>
-<div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Compare your trees</p>
 
 </div>

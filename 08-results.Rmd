@@ -33,6 +33,24 @@ mafft --auto --thread 1 $F > ${F}.fasta
 done
 ```
 
+## View in R
+```
+library(ggmsa)  #use R 4.1.2
+
+#view aligned
+tax1_seqs_4471 <- ("AndesWorkshop2023/TaxonSet1/353reads/4471.FNA.fasta.fa")
+ggmsa(tax1_seqs_4471, start = 20, end = 120, char_width = 0.5, seq_name = T, color = "Chemistry_NT") + 
+  geom_msaBar() #this is slow - wait!
+
+#view unaligned
+tax1_seqs_4471u <- ("AndesWorkshop2023/TaxonSet1/353reads/4471.FNA")
+ggmsa(tax1_seqs_4471u, start = 20, end = 120, char_width = 0.5, seq_name = T, color = "Chemistry_NT") + 
+  geom_msaBar() #this is slow - wait!
+```
+
+## Trimal
+https://hackmd.io/@mossmatters/Sy6md0prY
+
 ## Concatenated data analysis
 
 There are multiple ways to analyze data.

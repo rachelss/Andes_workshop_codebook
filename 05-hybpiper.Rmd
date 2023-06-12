@@ -2,6 +2,13 @@
 
 Much of the information in this chapter is drawn from the HybPiper tutorial, which can be found at https://github.com/mossmatters/HybPiper/wiki/Tutorial
 
+```{bash, echo=FALSE, eval=FALSE}
+also see tutorials at
+https://hackmd.io/@mossmatters?utm_source=preview-mode&utm_medium=rec
+https://hackmd.io/@mossmatters/SJLQRQTGY
+https://hackmd.io/@mossmatters/HkPM7pwEK
+```
+
 First make a folder in your home directory to hold your outputs for this component of the project.
 
 ```{bash, echo=FALSE, eval=FALSE}
@@ -57,6 +64,16 @@ do
     --bwa --cpu 2
 done < namelist.txt
 ```
+
+```
+hybpiper stats -t_dna ../../Campanulaceae_353.fasta gene namelist.txt
+```
+
+From https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats
+
+*hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv
+
+The first line of seq_lengths.tsv has the names of each gene. The second line has the length of the target gene, averaged over each “source” for that gene. The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.*
 
 At this point, each sequence is in its own folder.
 We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command, 

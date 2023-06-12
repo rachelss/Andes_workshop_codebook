@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-06-08" />
+<meta name="date" content="2023-06-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -171,23 +171,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
-<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.2</b> Concatenated data analysis</a>
+<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#view-in-r"><i class="fa fa-check"></i><b>9.2</b> View in R</a></li>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#trimal"><i class="fa fa-check"></i><b>9.3</b> Trimal</a></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.4</b> Concatenated data analysis</a>
 <ul>
-<li class="chapter" data-level="9.2.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.2.1</b> Building trees with IQTree</a></li>
-<li class="chapter" data-level="9.2.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.2.2</b> Viewing trees</a></li>
-<li class="chapter" data-level="9.2.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.2.3</b> svdq</a></li>
-<li class="chapter" data-level="9.2.4" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.2.4</b> MrBayes</a></li>
+<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.4.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.4.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.4.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>9.4.3</b> svdq</a></li>
+<li class="chapter" data-level="9.4.4" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.4.4</b> MrBayes</a></li>
 </ul></li>
-<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.3</b> Species tree analyses</a>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.5</b> Species tree analyses</a>
 <ul>
-<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.3.1</b> ASTRAL</a></li>
+<li class="chapter" data-level="9.5.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>9.5.1</b> ASTRAL</a></li>
 </ul></li>
-<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.4</b> Support for relationships</a>
+<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.6</b> Support for relationships</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>9.4.1</b> Bootstrap</a></li>
-<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>9.4.2</b> SCF / GCF</a></li>
+<li class="chapter" data-level="9.6.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>9.6.1</b> Bootstrap</a></li>
+<li class="chapter" data-level="9.6.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>9.6.2</b> SCF / GCF</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.5</b> What does your tree tell you?</a></li>
+<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>9.7</b> What does your tree tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="sharing-your-results.html"><a href="sharing-your-results.html"><i class="fa fa-check"></i><b>10</b> Sharing your results</a>
 <ul>
@@ -247,6 +249,10 @@ do
     hybpiper assemble -t_dna ../../Campanulaceae_353.fasta -r ${name}*fq.gz --prefix $name \
     --bwa --cpu 2
 done &lt; namelist.txt</code></pre>
+<pre><code>hybpiper stats -t_dna ../../Campanulaceae_353.fasta gene namelist.txt</code></pre>
+<p>From <a href="https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats" class="uri">https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats</a></p>
+<p>*hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv</p>
+<p>The first line of seq_lengths.tsv has the names of each gene. The second line has the length of the target gene, averaged over each “source” for that gene. The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.*</p>
 <p>At this point, each sequence is in its own folder.
 We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command,</p>
 <pre><code>hybpiper retrieve_sequences dna -t_dna ../../Campanulaceae_353.fasta --sample_names namelist.txt</code></pre>
