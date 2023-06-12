@@ -13,11 +13,9 @@ This program will provide an introduction to next-generation sequencing technolo
 ## Case Studies
 In this course, we will focus on three specific cases
 
-We will use data from 40 species in the family Campanulaceae.
+We will use data from species in the family Campanulaceae.
 We will break into groups and each examine a subset of these data.
 We will examine different datasets using different approaches to understand how individual datasets contribute to phylogeny estimation.
-
-My notes:
 
 This tutorial steps through the basic process of analyses in evolutionary biology.
 We use genome sequence data to build phylogenetic trees.
@@ -31,6 +29,8 @@ The course has the following broad objectives:
 
 - To engage in both independent and team-based data collection
 - To teach sample collection techniques for plants
-- Examine sequence data
-- Build trees
+- Learn to examine sequence data with code
+- Learn to build phylogenies from large datasets
+- Basic ability to look at other types of data
+- Be able to use comparative approaches to look at evolutionary questions based on phylogenies
 
