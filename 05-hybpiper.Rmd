@@ -65,6 +65,8 @@ do
 done < namelist.txt
 ```
 
+To obtain some information about the results of this process use the `hybpiper stats` command as follows.
+
 ```
 hybpiper stats -t_dna ../../Campanulaceae_353.fasta gene namelist.txt
 ```

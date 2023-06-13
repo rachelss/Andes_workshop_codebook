@@ -249,6 +249,7 @@ do
     hybpiper assemble -t_dna ../../Campanulaceae_353.fasta -r ${name}*fq.gz --prefix $name \
     --bwa --cpu 2
 done &lt; namelist.txt</code></pre>
+<p>To obtain some information about the results of this process use the <code>hybpiper stats</code> command as follows.</p>
 <pre><code>hybpiper stats -t_dna ../../Campanulaceae_353.fasta gene namelist.txt</code></pre>
 <p>From <a href="https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats" class="uri">https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats</a></p>
 <p>*hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv</p>
