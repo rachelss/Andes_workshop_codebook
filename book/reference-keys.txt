@@ -27,6 +27,7 @@ concatenated-data-analysis
 building-trees-with-iqtree
 viewing-trees
 svdq
+tree-for-all-data-using-output-of-individual-hybpiper-runs
 mrbayes
 species-tree-analyses
 astral

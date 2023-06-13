@@ -124,8 +124,6 @@ conda activate /mnt/homes4celsrs/shared/envs/iqtree
 iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G
 ```
 
-Tree for all data using output of individual hybpiper runs
-
 ### Viewing trees
 
 * Make a new RScript for to view your tree in R.
@@ -153,7 +151,10 @@ quit;
 " | paup
 ```
 
-* Load and view this tree in R.
+* Load and view this tree (oncatenated.svdq) in R.
+
+
+### Tree for all data using output of individual hybpiper runs
 
 ### MrBayes
 
