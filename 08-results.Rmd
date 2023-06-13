@@ -15,7 +15,7 @@ conda activate /mnt/homes4celsrs/shared/envs/mafft
 Now MAFFT is available to run.
 However, before we align our data let's take a look at the output.
 Do you remember how to print out particular lines of a file?
-Try printing all of the lines that start with '>' in a particular FNA file. **Make sure to use '>' including the single quotes when searching.**
+Try printing all of the lines that start with `'>'` in a particular FNA file. **Make sure to use `'>'` including the single quotes when searching.**
 You should notice that HybPiper has added some information to these lines so they include more than just the name of the sample. Because these additions differ across genes subsequent analyses may treat them as separate samples.
 
 Before we do the alignment we need to remove this extra information.
@@ -151,8 +151,7 @@ quit;
 " | paup
 ```
 
-* Load and view this tree (oncatenated.svdq) in R.
-
+* Load and view this tree (concatenated.svdq) in R.
 
 ### Tree for all data using output of individual hybpiper runs
 

@@ -226,14 +226,14 @@ This command, with these four arguments looks like the following:
 stats_long <- pivot_longer(stats, cols = NumReads:GenesWithChimeraWarning, names_to = 'stat', values_to = 'value')
 ```
 
-Now try to work with the lengths table. First make a long format table. You want to output at table with the columns Species, gene, and length.
+Now try to work with the lengths table. First make a long format table. You want to output a table with the columns Species, gene, and length.
 
 Did you notice that the mean lengths are already included in this table? That's really useful but also these data are not information about each sample and if we want to make summary tables and graphs we don't want to include them. 
 
 We can use the `filter` command to only include data that doesn't specify MeanLength in the Species column.
 
 ```
-lengths_long_filtered <- filter(lengths_long, Species != "MeanLength") %>% filter(length >0)
+lengths_long_filtered <- filter(lengths_long, Species != "MeanLength")
 ```
 
 Now can you filter this output to include only data where the value in the length column is greater than 0.

@@ -166,7 +166,7 @@ conda activate /mnt/homes4celsrs/shared/envs/mafft</code></pre>
 <p>Now MAFFT is available to run.
 However, before we align our data let’s take a look at the output.
 Do you remember how to print out particular lines of a file?
-Try printing all of the lines that start with ‘&gt;’ in a particular FNA file. <strong>Make sure to use ‘&gt;’ including the single quotes when searching.</strong>
+Try printing all of the lines that start with <code>'&gt;'</code> in a particular FNA file. <strong>Make sure to use <code>'&gt;'</code> including the single quotes when searching.</strong>
 You should notice that HybPiper has added some information to these lines so they include more than just the name of the sample. Because these additions differ across genes subsequent analyses may treat them as separate samples.</p>
 <p>Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first “word” in each line (think of a word as a set of characters not separated by spaces).
@@ -246,7 +246,7 @@ saveTrees file=concatenated.svdq;
 quit;
 &quot; | paup</code></pre>
 <ul>
-<li>Load and view this tree (oncatenated.svdq) in R.</li>
+<li>Load and view this tree (concatenated.svdq) in R.</li>
 </ul>
 </div>
 <div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="7.4.4">
