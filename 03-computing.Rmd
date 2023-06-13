@@ -23,9 +23,38 @@ ls
 This folder might be empty because you haven't put anything here.
 Let's start our project by getting organized.
 
-First, you can make a directory to put your scripts in.
+We will use both R code and bash/shell scripts in this workshop.
+Because RStudio provides a mechanism for setting up projects we will use this to stay organized.
+In the RStudio File menu select New Project - New Directory - New Project.
+
+* Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.
+* Select R 4.1.2
+* Create Project
+
+By creating a new project you have created a folder for your work.
+When using projects whenever you come back to this project you will return to the same setup.
+This allows you to switch projects with different folders and open files.
+
+We will begin our work using the command line or shell.
+Select the Terminal tab.
+First, make a directory to put your scripts in inside your workshop folder.
 We'll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.
-To make a directory you need two things - the command to make the directory and the name of that directory.
+
+Start by checking which folder you are in using the following command.
+
+```
+pwd
+```
+
+If you are already in your project folder you may skip the next step
+Otherwise you much move into that directory. 
+To change directories you need two things - the command to change directory and the argument that specifies which directory to move into.
+
+```
+cd evolution_workshop
+```
+
+To make a directory you again need a command (make directory) and an argument (the name). 
 
 ```
 mkdir scripts 
@@ -33,7 +62,7 @@ mkdir scripts
 
 Now we can move into that folder.
 `cd` means change directory so we'll use that a lot to open different folders.
-This command also has a command and an argument.
+This command also has an argument.
 
 ```
 cd scripts 
