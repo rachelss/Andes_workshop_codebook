@@ -1,5 +1,7 @@
 # Target capture data
 
+## Background
+
 Much of the information in this chapter is drawn from the HybPiper tutorial, which can be found at https://github.com/mossmatters/HybPiper/wiki/Tutorial
 
 ```{bash, echo=FALSE, eval=FALSE}
@@ -31,6 +33,8 @@ We have provided you with low-coverage sequence data from using these target seq
 HybPiper first assigns each read to a particular target using alignment software (BWA).
 These reads are then assembled using a standard genome assembler (Spades).
 HybPiper outputs a fasta file of the (in frame) CDS portion of each sample for each target region.
+
+## Running HybPiper to assemble genes
 
 The basic command for HybPiper is as follows:
 
@@ -87,6 +91,8 @@ do
 done < [path to]/namelist.txt
 ```
 
+## Process outputs
+
 To obtain some information about the results of this process use the `hybpiper stats` command as follows.
 
 ```
@@ -95,16 +101,61 @@ hybpiper stats -t_dna [target file] gene [path to]/namelist.txt
 
 From https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats
 
-*hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv
+Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
+The first line of seq_lengths.tsv has the names of each gene. 
+The second line has the length of the target gene, averaged over each "source" for that gene. 
+The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.
 
-The first line of seq_lengths.tsv has the names of each gene. The second line has the length of the target gene, averaged over each “source” for that gene. The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.*
+### Viewing information
+
+While you can `cat` or `head` this file it is difficult to view this information on the command line.
+However, R is excellent for reading data in this format.
+
+* Click the Console tab
+* While you could run commands here as you have in the shell, instead we will create a script to keep track of all of your commands. Note that this is also possible in the shell.
+* Select File - New File - R script
+* Save this file in the scripts folder
+
+To analyze data in `R` we need to load some helper "libraries". A common library for analysis is the `tidyverse`, which wraps multiple libraries made by RStudio. For details and cheatsheets see https://www.tidyverse.org/
+
+Put the following in your script then click the Run icon.
+
+```
+library(tidyverse)
+```
+
+Note: R assumes you are in your project folder so all paths should be relative to this.
+
+As for our work in shell we will use commands that require arguments. 
+However, the format is slightly different.
+We will use the `read.table` command.
+In this case arguments are placed in parenthese following the command.
+We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.
+Additionally, when we read the file into memory we assign the information to a "variable".
+You can think of the variable as a box to contain the information
+
+```
+stats <- read.table("results/hybpiper_stats.tsv", sep = "\t", header = TRUE)
+```
+
+When you run this command you will see the data saved in the environment.
+When you click on the variable in the environment you will be able to view the data in tabular format.
+We will work more extensively with data like this later.
+
+Repeat this analysis for `seq_lengths.tsv`.
+
+### Obtain gene data
 
 At this point, each sequence is in its own folder.
-We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command, 
+We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command:
 
 ```
 hybpiper retrieve_sequences dna -t_dna [target file]  --sample_names [path to]/namelist.txt
 ```
+
+You should now see one file per gene in your results folder.
+Each file is fasta formatted with the data for each available species.
+In the next section we will create an alignment of all species for each gene.
 
 Note that HybPiper has additional features we will not use in this workshop due to a lack of time.
 

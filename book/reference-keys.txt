@@ -13,6 +13,11 @@ basic-navigation
 getting-your-data
 repeating-analyses
 target-capture-data
+background
+running-hybpiper-to-assemble-genes
+process-outputs
+viewing-information
+obtain-gene-data
 visual-inspection-of-data
 plastome-variation
 variant-calling

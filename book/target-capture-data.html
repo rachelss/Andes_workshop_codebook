@@ -164,7 +164,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>6</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data</a></li>
+<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#background"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="target-capture-data.html"><a href="target-capture-data.html#running-hybpiper-to-assemble-genes"><i class="fa fa-check"></i><b>6.2</b> Running HybPiper to assemble genes</a></li>
+<li class="chapter" data-level="6.3" data-path="target-capture-data.html"><a href="target-capture-data.html#process-outputs"><i class="fa fa-check"></i><b>6.3</b> Process outputs</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="target-capture-data.html"><a href="target-capture-data.html#viewing-information"><i class="fa fa-check"></i><b>6.3.1</b> Viewing information</a></li>
+<li class="chapter" data-level="6.3.2" data-path="target-capture-data.html"><a href="target-capture-data.html#obtain-gene-data"><i class="fa fa-check"></i><b>6.3.2</b> Obtain gene data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>6.4</b> Visual inspection of data</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>7</b> Plastome variation</a></li>
 <li class="chapter" data-level="8" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>8</b> Variant Calling</a></li>
@@ -217,6 +224,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="target-capture-data" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Target capture data<a href="target-capture-data.html#target-capture-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="background" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Background<a href="target-capture-data.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Much of the information in this chapter is drawn from the HybPiper tutorial, which can be found at <a href="https://github.com/mossmatters/HybPiper/wiki/Tutorial" class="uri">https://github.com/mossmatters/HybPiper/wiki/Tutorial</a></p>
 <p>First make a folder in your home directory to hold your outputs for this component of the project.</p>
 <p>We have pre-installed the program HybPiper, which assembles target sequences from short high-throughput DNA sequencing reads.
@@ -230,6 +239,9 @@ We have provided you with low-coverage sequence data from using these target seq
 HybPiper first assigns each read to a particular target using alignment software (BWA).
 These reads are then assembled using a standard genome assembler (Spades).
 HybPiper outputs a fasta file of the (in frame) CDS portion of each sample for each target region.</p>
+</div>
+<div id="running-hybpiper-to-assemble-genes" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Running HybPiper to assemble genes<a href="target-capture-data.html#running-hybpiper-to-assemble-genes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The basic command for HybPiper is as follows:</p>
 <pre><code>hybpiper assemble -t_dna targets.fasta -r species1_R*_test.fastq --prefix species1 --bwa --cpu 3</code></pre>
 <p>Notice the commands and flags.
@@ -267,17 +279,56 @@ The loop will iterate through them one at a time and run HybPiper.</p>
 do 
     [insert command here]
 done &lt; [path to]/namelist.txt</code></pre>
+</div>
+<div id="process-outputs" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Process outputs<a href="target-capture-data.html#process-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To obtain some information about the results of this process use the <code>hybpiper stats</code> command as follows.</p>
 <pre><code>hybpiper stats -t_dna [target file] gene [path to]/namelist.txt</code></pre>
 <p>From <a href="https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats" class="uri">https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats</a></p>
-<p>*hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv</p>
-<p>The first line of seq_lengths.tsv has the names of each gene. The second line has the length of the target gene, averaged over each “source” for that gene. The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.*</p>
+<p>Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
+The first line of seq_lengths.tsv has the names of each gene.
+The second line has the length of the target gene, averaged over each “source” for that gene.
+The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.</p>
+<div id="viewing-information" class="section level3 hasAnchor" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Viewing information<a href="target-capture-data.html#viewing-information" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>While you can <code>cat</code> or <code>head</code> this file it is difficult to view this information on the command line.
+However, R is excellent for reading data in this format.</p>
+<ul>
+<li>Click the Console tab</li>
+<li>While you could run commands here as you have in the shell, instead we will create a script to keep track of all of your commands. Note that this is also possible in the shell.</li>
+<li>Select File - New File - R script</li>
+<li>Save this file in the scripts folder</li>
+</ul>
+<p>To analyze data in <code>R</code> we need to load some helper “libraries”. A common library for analysis is the <code>tidyverse</code>, which wraps multiple libraries made by RStudio. For details and cheatsheets see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a></p>
+<p>Put the following in your script then click the Run icon.</p>
+<pre><code>library(tidyverse)</code></pre>
+<p>Note: R assumes you are in your project folder so all paths should be relative to this.</p>
+<p>As for our work in shell we will use commands that require arguments.
+However, the format is slightly different.
+We will use the <code>read.table</code> command.
+In this case arguments are placed in parenthese following the command.
+We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.
+Additionally, when we read the file into memory we assign the information to a “variable”.
+You can think of the variable as a box to contain the information</p>
+<pre><code>stats &lt;- read.table(&quot;results/hybpiper_stats.tsv&quot;, sep = &quot;\t&quot;, header = TRUE)</code></pre>
+<p>When you run this command you will see the data saved in the environment.
+When you click on the variable in the environment you will be able to view the data in tabular format.
+We will work more extensively with data like this later.</p>
+<p>Repeat this analysis for <code>seq_lengths.tsv</code>.</p>
+</div>
+<div id="obtain-gene-data" class="section level3 hasAnchor" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Obtain gene data<a href="target-capture-data.html#obtain-gene-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>At this point, each sequence is in its own folder.
-We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command,</p>
+We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command:</p>
 <pre><code>hybpiper retrieve_sequences dna -t_dna [target file]  --sample_names [path to]/namelist.txt</code></pre>
+<p>You should now see one file per gene in your results folder.
+Each file is fasta formatted with the data for each available species.
+In the next section we will create an alignment of all species for each gene.</p>
 <p>Note that HybPiper has additional features we will not use in this workshop due to a lack of time.</p>
-<div id="visual-inspection-of-data" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Visual inspection of data<a href="target-capture-data.html#visual-inspection-of-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+</div>
+<div id="visual-inspection-of-data" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Visual inspection of data<a href="target-capture-data.html#visual-inspection-of-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To check that your genes assembled correctly and are likely the correct species you may use BLAST, which is found at <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="uri">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a></p>
 <ul>
 <li>Select Nucleotide BLAST</li>

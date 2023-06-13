@@ -164,7 +164,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>6</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data</a></li>
+<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#background"><i class="fa fa-check"></i><b>6.1</b> Background</a></li>
+<li class="chapter" data-level="6.2" data-path="target-capture-data.html"><a href="target-capture-data.html#running-hybpiper-to-assemble-genes"><i class="fa fa-check"></i><b>6.2</b> Running HybPiper to assemble genes</a></li>
+<li class="chapter" data-level="6.3" data-path="target-capture-data.html"><a href="target-capture-data.html#process-outputs"><i class="fa fa-check"></i><b>6.3</b> Process outputs</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="target-capture-data.html"><a href="target-capture-data.html#viewing-information"><i class="fa fa-check"></i><b>6.3.1</b> Viewing information</a></li>
+<li class="chapter" data-level="6.3.2" data-path="target-capture-data.html"><a href="target-capture-data.html#obtain-gene-data"><i class="fa fa-check"></i><b>6.3.2</b> Obtain gene data</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>6.4</b> Visual inspection of data</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>7</b> Plastome variation</a></li>
 <li class="chapter" data-level="8" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>8</b> Variant Calling</a></li>
@@ -284,11 +291,11 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000
 <ul>
 <li>Make new RScript</li>
 </ul>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="results.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb34-2"><a href="results.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
-<span id="cb34-3"><a href="results.html#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="results.html#cb34-4" aria-hidden="true" tabindex="-1"></a>tax1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile&quot;</span>)</span>
-<span id="cb34-5"><a href="results.html#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1, <span class="at">show.node.label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="results.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="results.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb36-3"><a href="results.html#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="results.html#cb36-4" aria-hidden="true" tabindex="-1"></a>tax1 <span class="ot">&lt;-</span> <span class="fu">read.tree</span>(<span class="st">&quot;AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile&quot;</span>)</span>
+<span id="cb36-5"><a href="results.html#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tax1, <span class="at">show.node.label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="svdq" class="section level3 hasAnchor" number="9.4.3">
 <h3><span class="header-section-number">9.4.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
