@@ -13,7 +13,7 @@ basic-navigation
 getting-your-data
 repeating-analyses
 target-capture-data
-visual-inspection-of-data-eg-alignment-blast
+visual-inspection-of-data
 plastome-variation
 variant-calling
 results

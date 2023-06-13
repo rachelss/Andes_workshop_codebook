@@ -164,7 +164,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>6</b> Target capture data</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data (eg, alignment, BLAST)</a></li>
+<li class="chapter" data-level="6.1" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>6.1</b> Visual inspection of data</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="plastome-variation.html"><a href="plastome-variation.html"><i class="fa fa-check"></i><b>7</b> Plastome variation</a></li>
 <li class="chapter" data-level="8" data-path="variant-calling.html"><a href="variant-calling.html"><i class="fa fa-check"></i><b>8</b> Variant Calling</a></li>
@@ -276,8 +276,16 @@ done &lt; [path to]/namelist.txt</code></pre>
 We can use HybPiper to fetch the sequences recovered for the same gene from multiple samples and generate a file for each gene. Use the following command,</p>
 <pre><code>hybpiper retrieve_sequences dna -t_dna [target file]  --sample_names [path to]/namelist.txt</code></pre>
 <p>Note that HybPiper has additional features we will not use in this workshop due to a lack of time.</p>
-<div id="visual-inspection-of-data-eg-alignment-blast" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Visual inspection of data (eg, alignment, BLAST)<a href="target-capture-data.html#visual-inspection-of-data-eg-alignment-blast" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="visual-inspection-of-data" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Visual inspection of data<a href="target-capture-data.html#visual-inspection-of-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To check that your genes assembled correctly and are likely the correct species you may use BLAST, which is found at <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi" class="uri">https://blast.ncbi.nlm.nih.gov/Blast.cgi</a></p>
+<ul>
+<li>Select Nucleotide BLAST</li>
+<li>Paste one of the contigs from one of the genes from one of the species</li>
+<li>Select Somewhat similar sequences (blastn)</li>
+<li>BLAST</li>
+<li>Examine the species and the match</li>
+</ul>
 
 </div>
 </div>

@@ -109,4 +109,12 @@ hybpiper retrieve_sequences dna -t_dna [target file]  --sample_names [path to]/n
 Note that HybPiper has additional features we will not use in this workshop due to a lack of time.
 
 
-## Visual inspection of data (eg, alignment, BLAST)
+## Visual inspection of data
+
+To check that your genes assembled correctly and are likely the correct species you may use BLAST, which is found at https://blast.ncbi.nlm.nih.gov/Blast.cgi
+
+* Select Nucleotide BLAST
+* Paste one of the contigs from one of the genes from one of the species
+* Select Somewhat similar sequences (blastn)
+* BLAST
+* Examine the species and the match
