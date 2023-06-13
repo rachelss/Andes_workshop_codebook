@@ -19,8 +19,6 @@ process-outputs
 viewing-information
 obtain-gene-data
 visual-inspection-of-data
-plastome-variation
-variant-calling
 results
 alignment
 view-in-r
@@ -36,5 +34,3 @@ support-for-relationships
 bootstrap
 scf-gcf
 what-does-your-tree-tell-you
-sharing-your-results
-presentation
