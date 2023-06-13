@@ -220,8 +220,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For this workshop we will be using genome sequence data from a group of Andean plants.
 For starters we will take a peak at these data so you know what it looks like before we use standard programs to analyze it.</p>
 <p>The sequence data is in a shared folder on this server.
-Relative to your home folder you can find the data at
-<code>../shared/AndesWorkshop2023/</code>.</p>
+Relative to your workshop folder you can find the data at
+<code>../../shared/AndesWorkshop2023/</code>.</p>
 <p>If you cd to that directory and list the contents you can see folders containing files of data.</p>
 <p>Sequence files for samples can be found in different folders labeled by taxon set.
 Start by going to the folder for your assigned taxon set and listing its contents.
@@ -254,7 +254,7 @@ Move back to the main <code>AndesWorkshop2023</code> folder.
 List the contents and notice the <code>example.fq</code> file.
 For this example I have unzipped it.
 You can view the entire contents of the file using the command <code>cat</code>.</p>
-<pre><code>cat example.fastq</code></pre>
+<pre><code>cat example.fq</code></pre>
 <p>Alternatively you can use the command <code>head</code> to view the first few lines of the file.</p>
 <pre><code>head example.fq</code></pre>
 <p>We can also get a sense of the amount of data by counting the number of lines using the word count command <code>wc</code>.</p>
@@ -264,7 +264,7 @@ You can view the entire contents of the file using the command <code>cat</code>.
 <p>If we only want to get the names of the sequences we can search for lines that match a particular pattern and print just those. We search with the command <code>grep</code>. The pattern we are searching for is lines that start with @. And then we provide the name of the file.</p>
 <pre><code>grep &#39;^@&#39; example.fq</code></pre>
 <p>Because this is a small example file we are able to print all the header lines without it being overwhelming. However, with our larger files we don’t want to do this. However, we know that the <code>head</code> command allows us to view just the first few lines of our output. Now we’ll combine those two commands using a pipe (<code>|</code>). First we enter the <code>grep</code> command (with it’s two arguments) then we “pipe” the output to the <code>head</code> command rather than printing it to the screen.</p>
-<pre><code>grep &#39;^@&#39; example.fastq |  head</code></pre>
+<pre><code>grep &#39;^@&#39; example.fq |  head</code></pre>
 <p>Notice that the <code>head</code> command does not have arguments in this case because it accepts the output from the grep command.</p>
 <p>The <code>head</code> command accepts a flag with the number of lines you want to print.
 For example <code>head -4</code> will print the first four lines.</p>

@@ -4,8 +4,8 @@ For this workshop we will be using genome sequence data from a group of Andean p
 For starters we will take a peak at these data so you know what it looks like before we use standard programs to analyze it.
 
 The sequence data is in a shared folder on this server.
-Relative to your home folder you can find the data at
-`../shared/AndesWorkshop2023/`.
+Relative to your workshop folder you can find the data at
+`../../shared/AndesWorkshop2023/`.
 
 If you cd to that directory and list the contents you can see folders containing files of data.
 
@@ -51,7 +51,7 @@ For this example I have unzipped it.
 You can view the entire contents of the file using the command `cat`.
 
 ```
-cat example.fastq
+cat example.fq
 ```
 
 Alternatively you can use the command `head` to view the first few lines of the file.
@@ -81,7 +81,7 @@ grep '^@' example.fq
 Because this is a small example file we are able to print all the header lines without it being overwhelming. However, with our larger files we don't want to do this. However, we know that the `head` command allows us to view just the first few lines of our output. Now we'll combine those two commands using a pipe (`|`). First we enter the `grep` command (with it's two arguments) then we "pipe" the output to the `head` command rather than printing it to the screen.
 
 ```
-grep '^@' example.fastq |  head
+grep '^@' example.fq |  head
 ```
 
 Notice that the `head` command does not have arguments in this case because it accepts the output from the grep command.
