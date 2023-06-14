@@ -21,7 +21,7 @@ You should notice that HybPiper has added some information to these lines so the
 Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first "word" in each line (think of a word as a set of characters not separated by spaces).
 We use the `cut` command to divide each line of our file into columns.
-We use the `-f` flag to indicate the field (column) we want to keep, and the `-d` flag to indicate how to separate columns (i.e. with a space: ' ').
+We use the `-f` flag to indicate the field (column) we want to keep, and the `-d` flag to indicate how to separate columns (i.e. with a space: `' '`).
 
 An example cut command for one file could look like the following:
 
@@ -196,9 +196,9 @@ You can compute gCF and sCF for the tree inferred under the partition model:
 iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta --scf 100 -nt 2
 ```
 
--t specifies a tree
---gcf specifies the gene-trees file
---scf 100 to draw 100 random quartets when computing sCF.
+* -t specifies a tree
+* --gcf specifies the gene-trees file
+* --scf 100 to draw 100 random quartets when computing sCF.
 
 * Repeat for the astral tree if it differs.
 * View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.

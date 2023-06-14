@@ -162,7 +162,7 @@ You should notice that HybPiper has added some information to these lines so the
 <p>Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first “word” in each line (think of a word as a set of characters not separated by spaces).
 We use the <code>cut</code> command to divide each line of our file into columns.
-We use the <code>-f</code> flag to indicate the field (column) we want to keep, and the <code>-d</code> flag to indicate how to separate columns (i.e. with a space: ’ ’).</p>
+We use the <code>-f</code> flag to indicate the field (column) we want to keep, and the <code>-d</code> flag to indicate how to separate columns (i.e. with a space: <code>' '</code>).</p>
 <p>An example cut command for one file could look like the following:</p>
 <pre><code>cut -f 1 -d &#39; &#39; 7577.FNA &gt; 7577.FNA.fa</code></pre>
 <p>Now use a loop as before to repeat this command for all FNA files.</p>
@@ -270,12 +270,12 @@ An alternative approach are gene and site concordance factors.
 For more information see <a href="http://www.robertlanfear.com/blog/files/concordance_factors.html" class="uri">http://www.robertlanfear.com/blog/files/concordance_factors.html</a> .
 You can compute gCF and sCF for the tree inferred under the partition model:</p>
 <pre><code>iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta --scf 100 -nt 2</code></pre>
-<p>-t specifies a tree
-–gcf specifies the gene-trees file
-–scf 100 to draw 100 random quartets when computing sCF.</p>
 <ul>
-<li>Repeat for the astral tree if it differs.</li>
-<li>View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.</li>
+<li><p>-t specifies a tree</p></li>
+<li><p>–gcf specifies the gene-trees file</p></li>
+<li><p>–scf 100 to draw 100 random quartets when computing sCF.</p></li>
+<li><p>Repeat for the astral tree if it differs.</p></li>
+<li><p>View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.</p></li>
 </ul>
 </div>
 <div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="7.7">
