@@ -109,7 +109,7 @@ python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -t concatenated.fasta -p partitions.txt
 
 ```
-Note that if some data was not found for some genes you may need to delete files to get AMAS to concatenate your data.
+Note that if some data was not found for some genes you may need to delete files (use the `rm` command) to get AMAS to concatenate your data.
 
 
 ### Building trees with IQTree
@@ -120,6 +120,7 @@ This approach starts with a tree and calculates the likelihood of the data on th
 We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
 We also allow a Gamma (G) distribution of rates of substitution across sites.
 We allow partitioning of the data by gene so that different genes can evolve according to different models.
+Additionally we have included bootstrapping in our analysis to get a measure of support for relationships.
 
 ```
 conda deactivate
@@ -130,7 +131,7 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000
 
 ### Viewing trees
 
-* Make a new RScript for to view your tree in R.
+* Make a new RScript to view your tree in R.
 * Load the libraries tidyverse and ape.
 * Use the `read.tree` command and provide the path to the tree as the argument
 * Use the plot command providing the tree variable as the argument, then add `, show.node.label = TRUE`
@@ -141,54 +142,69 @@ tax1 <- read.tree("AndesWorkshop2023/TaxonSet1/353reads/iqtree_tree.treefile")
 plot(tax1, show.node.label = TRUE)
 ```
 
-### svdq
+#### Rooting your tree
 
-```
-echo "
-log file=${logFile};
-tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex \
-interleaved=yes replace=yes;
-exe concatenated.svdq.nex;
-svdq bootstrap nreps=1000 nthreads=2;
-saveTrees file=concatenated.svdq;
-quit;
-" | paup
-```
-
-* Load and view this tree (concatenated.svdq) in R.
+#### Relabeling your tips with species information
 
 ### Tree for all data using output of individual hybpiper runs
 
-### MrBayes
+In the prior analysis we examined all of the data combined.
+For the next analysis we will estimate individual gene trees and then combine these into a species tree.
 
 ```
-
+iqtree -s concatenated.fasta -S partitions.txt -pre iqtree.loci -nt 2
 ```
+
+-S tells IQ-TREE to infer separate trees for each partition.
+The output files are the same, except that now your treefile will contain a set of gene trees.
+
+For a more extensive tutorial on IQTree see
+http://www.iqtree.org/workshop/molevol2019
 
 ## Species tree analyses
 
 An alternative is to use a species tree approach.
-
-### ASTRAL
+We will use the software ASTRAL.
 
 ```
-#gene trees from iqtree
-
-#astral
+java -jar /mnt/homes4celsrs/shared/ASTRAL/astral.5.7.8.jar -i iqtree.loci.treefile -o astral_output.tre 2>astral.log
 ```
+
+* -i is the flag for the input file
+* -o is the flag for the output file
+* 2> saves the output log information
+
+The output in is Newick format and gives:
+
+* the species tree topology
+* branch lengths in coalescent units (only for internal branches or for terminal branches if that species has multiple individuals)
+* branch supports measured as local posterior probabilities
+
+* View this tree as before and compare it to the other tree you estimated using IQTree for partitioned concatenated data.
+
+More information on astral can be found at
+https://github.com/smirarab/ASTRAL
 
 ## Support for relationships
 
-### Bootstrap
-
-### SCF / GCF
+In our initial IQTree analysis we obtained bootstrap support for each node.
+An alternative approach are gene and site concordance factors.
+For more information see http://www.robertlanfear.com/blog/files/concordance_factors.html .
+You can compute gCF and sCF for the tree inferred under the partition model:
 
 ```
-iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2
+iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta --scf 100 -nt 2
 ```
+
+-t specifies a tree
+--gcf specifies the gene-trees file
+--scf 100 to draw 100 random quartets when computing sCF.
+
+* Repeat for the astral tree if it differs.
+* View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.
 
 
 ## What does your tree tell you?
 
-Compare your trees
+
 

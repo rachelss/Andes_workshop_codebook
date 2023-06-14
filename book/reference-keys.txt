@@ -26,12 +26,9 @@ trimal
 concatenated-data-analysis
 building-trees-with-iqtree
 viewing-trees
-svdq
+rooting-your-tree
+relabeling-your-tips-with-species-information
 tree-for-all-data-using-output-of-individual-hybpiper-runs
-mrbayes
 species-tree-analyses
-astral
 support-for-relationships
-bootstrap
-scf-gcf
 what-does-your-tree-tell-you

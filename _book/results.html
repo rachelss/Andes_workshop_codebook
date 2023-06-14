@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-06-13" />
+<meta name="date" content="2023-06-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -118,19 +118,10 @@
 <ul>
 <li class="chapter" data-level="7.4.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>7.4.1</b> Building trees with IQTree</a></li>
 <li class="chapter" data-level="7.4.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>7.4.2</b> Viewing trees</a></li>
-<li class="chapter" data-level="7.4.3" data-path="results.html"><a href="results.html#svdq"><i class="fa fa-check"></i><b>7.4.3</b> svdq</a></li>
-<li class="chapter" data-level="7.4.4" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>7.4.4</b> Tree for all data using output of individual hybpiper runs</a></li>
-<li class="chapter" data-level="7.4.5" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>7.4.5</b> MrBayes</a></li>
+<li class="chapter" data-level="7.4.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>7.4.3</b> Tree for all data using output of individual hybpiper runs</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>7.5</b> Species tree analyses</a>
-<ul>
-<li class="chapter" data-level="7.5.1" data-path="results.html"><a href="results.html#astral"><i class="fa fa-check"></i><b>7.5.1</b> ASTRAL</a></li>
-</ul></li>
-<li class="chapter" data-level="7.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>7.6</b> Support for relationships</a>
-<ul>
-<li class="chapter" data-level="7.6.1" data-path="results.html"><a href="results.html#bootstrap"><i class="fa fa-check"></i><b>7.6.1</b> Bootstrap</a></li>
-<li class="chapter" data-level="7.6.2" data-path="results.html"><a href="results.html#scf-gcf"><i class="fa fa-check"></i><b>7.6.2</b> SCF / GCF</a></li>
-</ul></li>
+<li class="chapter" data-level="7.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>7.5</b> Species tree analyses</a></li>
+<li class="chapter" data-level="7.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>7.6</b> Support for relationships</a></li>
 <li class="chapter" data-level="7.7" data-path="results.html"><a href="results.html#what-does-your-tree-tell-you"><i class="fa fa-check"></i><b>7.7</b> What does your tree tell you?</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -211,7 +202,7 @@ python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -d dna --out-format fasta --part-format raxml -i *FNA.fa.fasta \
 -t concatenated.fasta -p partitions.txt
 </code></pre>
-<p>Note that if some data was not found for some genes you may need to delete files to get AMAS to concatenate your data.</p>
+<p>Note that if some data was not found for some genes you may need to delete files (use the <code>rm</code> command) to get AMAS to concatenate your data.</p>
 <div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="7.4.1">
 <h3><span class="header-section-number">7.4.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will build our first tree using our complete concatenated dataset.
@@ -219,7 +210,8 @@ The program IQtree infers phylogenetic trees by maximum likelihood.
 This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
 We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
 We also allow a Gamma (G) distribution of rates of substitution across sites.
-We allow partitioning of the data by gene so that different genes can evolve according to different models.</p>
+We allow partitioning of the data by gene so that different genes can evolve according to different models.
+Additionally we have included bootstrapping in our analysis to get a measure of support for relationships.</p>
 <pre><code>conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/iqtree
 
@@ -228,58 +220,66 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000
 <div id="viewing-trees" class="section level3 hasAnchor" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
-<li>Make a new RScript for to view your tree in R.</li>
+<li>Make a new RScript to view your tree in R.</li>
 <li>Load the libraries tidyverse and ape.</li>
 <li>Use the <code>read.tree</code> command and provide the path to the tree as the argument</li>
 <li>Use the plot command providing the tree variable as the argument, then add <code>, show.node.label = TRUE</code></li>
 </ul>
+<div id="rooting-your-tree" class="section level4 hasAnchor" number="7.4.2.1">
+<h4><span class="header-section-number">7.4.2.1</span> Rooting your tree<a href="results.html#rooting-your-tree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 </div>
-<div id="svdq" class="section level3 hasAnchor" number="7.4.3">
-<h3><span class="header-section-number">7.4.3</span> svdq<a href="results.html#svdq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>echo &quot;
-log file=${logFile};
-tonexus format=RelPHYLIP fromfile=concatenated.fasta tofile=concatenated.svdq.nex \
-interleaved=yes replace=yes;
-exe concatenated.svdq.nex;
-svdq bootstrap nreps=1000 nthreads=2;
-saveTrees file=concatenated.svdq;
-quit;
-&quot; | paup</code></pre>
-<ul>
-<li>Load and view this tree (concatenated.svdq) in R.</li>
-</ul>
+<div id="relabeling-your-tips-with-species-information" class="section level4 hasAnchor" number="7.4.2.2">
+<h4><span class="header-section-number">7.4.2.2</span> Relabeling your tips with species information<a href="results.html#relabeling-your-tips-with-species-information" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 </div>
-<div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="7.4.4">
-<h3><span class="header-section-number">7.4.4</span> Tree for all data using output of individual hybpiper runs<a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 </div>
-<div id="mrbayes" class="section level3 hasAnchor" number="7.4.5">
-<h3><span class="header-section-number">7.4.5</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code></code></pre>
+<div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Tree for all data using output of individual hybpiper runs<a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the prior analysis we examined all of the data combined.
+For the next analysis we will estimate individual gene trees and then combine these into a species tree.</p>
+<pre><code>iqtree -s concatenated.fasta -S partitions.txt -pre iqtree.loci -nt 2</code></pre>
+<p>-S tells IQ-TREE to infer separate trees for each partition.
+The output files are the same, except that now your treefile will contain a set of gene trees.</p>
+<p>For a more extensive tutorial on IQTree see
+<a href="http://www.iqtree.org/workshop/molevol2019" class="uri">http://www.iqtree.org/workshop/molevol2019</a></p>
 </div>
 </div>
 <div id="species-tree-analyses" class="section level2 hasAnchor" number="7.5">
 <h2><span class="header-section-number">7.5</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>An alternative is to use a species tree approach.</p>
-<div id="astral" class="section level3 hasAnchor" number="7.5.1">
-<h3><span class="header-section-number">7.5.1</span> ASTRAL<a href="results.html#astral" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>#gene trees from iqtree
-
-#astral</code></pre>
-</div>
+<p>An alternative is to use a species tree approach.
+We will use the software ASTRAL.</p>
+<pre><code>java -jar /mnt/homes4celsrs/shared/ASTRAL/astral.5.7.8.jar -i iqtree.loci.treefile -o astral_output.tre 2&gt;astral.log</code></pre>
+<ul>
+<li>-i is the flag for the input file</li>
+<li>-o is the flag for the output file</li>
+<li>2&gt; saves the output log information</li>
+</ul>
+<p>The output in is Newick format and gives:</p>
+<ul>
+<li><p>the species tree topology</p></li>
+<li><p>branch lengths in coalescent units (only for internal branches or for terminal branches if that species has multiple individuals)</p></li>
+<li><p>branch supports measured as local posterior probabilities</p></li>
+<li><p>View this tree as before and compare it to the other tree you estimated using IQTree for partitioned concatenated data.</p></li>
+</ul>
+<p>More information on astral can be found at
+<a href="https://github.com/smirarab/ASTRAL" class="uri">https://github.com/smirarab/ASTRAL</a></p>
 </div>
 <div id="support-for-relationships" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="bootstrap" class="section level3 hasAnchor" number="7.6.1">
-<h3><span class="header-section-number">7.6.1</span> Bootstrap<a href="results.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-</div>
-<div id="scf-gcf" class="section level3 hasAnchor" number="7.6.2">
-<h3><span class="header-section-number">7.6.2</span> SCF / GCF<a href="results.html#scf-gcf" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<pre><code>iqtree2 -t tree.tre -s concatenated.fasta --scf 100 --prefix SCF -nt 2</code></pre>
-</div>
+<p>In our initial IQTree analysis we obtained bootstrap support for each node.
+An alternative approach are gene and site concordance factors.
+For more information see <a href="http://www.robertlanfear.com/blog/files/concordance_factors.html" class="uri">http://www.robertlanfear.com/blog/files/concordance_factors.html</a> .
+You can compute gCF and sCF for the tree inferred under the partition model:</p>
+<pre><code>iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta --scf 100 -nt 2</code></pre>
+<p>-t specifies a tree
+–gcf specifies the gene-trees file
+–scf 100 to draw 100 random quartets when computing sCF.</p>
+<ul>
+<li>Repeat for the astral tree if it differs.</li>
+<li>View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.</li>
+</ul>
 </div>
 <div id="what-does-your-tree-tell-you" class="section level2 hasAnchor" number="7.7">
 <h2><span class="header-section-number">7.7</span> What does your tree tell you?<a href="results.html#what-does-your-tree-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Compare your trees</p>
 
 </div>
 </div>
