@@ -91,6 +91,14 @@ do
 done < [path to]/namelist.txt
 ```
 
+This analysis will take some time. Check with an instructor before running this command to ensure you have done everything correctly.
+Additionally, it's advisable to run this command in the background.
+That means the command will run but you will continue to have access to your prompt so you can work.
+Additionally you can log out of the server (eg for lunch) and the command will continue to run.
+To run the command in background enclose the entire command in `{ }`
+and then add `&> output.log &` at the end to write the information that would normally print to the screen (as you saw when running a single command) to the file `output.log`.
+You can view this file to watch the progress of your command.
+
 ## Process outputs
 
 To obtain some information about the results of this process use the `hybpiper stats` command as follows.

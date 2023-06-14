@@ -88,7 +88,11 @@ ggmsa(tax1_seqs_4471u, start = 20, end = 120, char_width = 0.5, seq_name = T, co
 ```
 
 ## Trimal
+
+TBD
+```{bash, echo=FALSE, eval=FALSE}
 https://hackmd.io/@mossmatters/Sy6md0prY
+```
 
 ## Concatenated data analysis
 
