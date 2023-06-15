@@ -144,7 +144,53 @@ plot(tax1, show.node.label = TRUE)
 
 #### Rooting your tree
 
+Our tree-building programs create trees that are unrooted because we do not know the direction of changes among species (e.g. for a single difference we are unable to say if an A mutated to a T or vice versa).
+Thus, we should properly view out trees as unrooted.
+
+```
+plot(tax1, "u", show.node.label = TRUE, cex = .5)
+```
+
+Note that I have added an argument to make the font size  bit smaller so we can read all of the labels.
+You should adjust this value as needed and use the Zoom feature to better view your tree.
+
+However, we have created taxon sets where one of the included species is known to be more distantly related.
+We can use this to set the root for the tree.
+You should view the list of taxa for your group in the file in the shared folder for this workshop.
+The last taxon in your list is the outgroup.
+You can root your tree as in the following example using the `root` command and the outgroup argument.
+Note that your outgroup will be different if you are using a different taxon set.
+Additionally you must use the tip label that you can see on your tree not the labels in this spreadsheet.
+If you want to view the tip labels as a list use
+
+```
+tax1$tip.label
+tax1_root <- root(tax1, outgroup = "A217_CKDN220062756-1A")
+```
+
+Now that you have rooted your tree you can plot this new tree as before.
+
 #### Relabeling your tips with species information
+
+There are a couple of ways to relabel the tips of your trees with correct species names.
+We will use a straightforward, manual approach.
+We will look at the list of tips and then manually replace them with a list of species names.
+You should keep in mind that this approach is prone to error and challenging for many taxa; however an automated approach is a bit more challenging to set up in this course.
+
+* List the tip labels as you did in the previous step
+* Make a list of new tip labels - it should look something like the following but with more and different species
+
+```
+sp_names <- c("Centropogon mandonis", "Siphocampylus andinus", "Centropogon mandonis")
+```
+
+* Assign these species names to the tip labels
+
+```
+tax1$tip.label <- sp_names
+```
+
+If you relabeled the tips of your unrooted tree you need to root the tree with the appropriate outgroup name. You can then plot this rooted and corrected tree.
 
 ### Tree for all data using output of individual hybpiper runs
 
