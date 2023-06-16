@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz" />
 
 
-<meta name="date" content="2023-06-14" />
+<meta name="date" content="2023-06-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -227,9 +227,39 @@ iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000
 </ul>
 <div id="rooting-your-tree" class="section level4 hasAnchor" number="7.4.2.1">
 <h4><span class="header-section-number">7.4.2.1</span> Rooting your tree<a href="results.html#rooting-your-tree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Our tree-building programs create trees that are unrooted because we do not know the direction of changes among species (e.g. for a single difference we are unable to say if an A mutated to a T or vice versa).
+Thus, we should properly view out trees as unrooted.</p>
+<pre><code>plot(tax1, &quot;u&quot;, show.node.label = TRUE, cex = .5)</code></pre>
+<p>Note that I have added an argument to make the font size bit smaller so we can read all of the labels.
+You should adjust this value as needed and use the Zoom feature to better view your tree.</p>
+<p>However, we have created taxon sets where one of the included species is known to be more distantly related.
+We can use this to set the root for the tree.
+You should view the list of taxa for your group in the file in the shared folder for this workshop.
+The last taxon in your list is the outgroup.
+You can root your tree as in the following example using the <code>root</code> command and the outgroup argument.
+Note that your outgroup will be different if you are using a different taxon set.
+Additionally you must use the tip label that you can see on your tree not the labels in this spreadsheet.
+If you want to view the tip labels as a list use</p>
+<pre><code>tax1$tip.label
+tax1_root &lt;- root(tax1, outgroup = &quot;A217_CKDN220062756-1A&quot;)</code></pre>
+<p>Now that you have rooted your tree you can plot this new tree as before.</p>
 </div>
 <div id="relabeling-your-tips-with-species-information" class="section level4 hasAnchor" number="7.4.2.2">
 <h4><span class="header-section-number">7.4.2.2</span> Relabeling your tips with species information<a href="results.html#relabeling-your-tips-with-species-information" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>There are a couple of ways to relabel the tips of your trees with correct species names.
+We will use a straightforward, manual approach.
+We will look at the list of tips and then manually replace them with a list of species names.
+You should keep in mind that this approach is prone to error and challenging for many taxa; however an automated approach is a bit more challenging to set up in this course.</p>
+<ul>
+<li>List the tip labels as you did in the previous step</li>
+<li>Make a list of new tip labels - it should look something like the following but with more and different species</li>
+</ul>
+<pre><code>sp_names &lt;- c(&quot;Centropogon mandonis&quot;, &quot;Siphocampylus andinus&quot;, &quot;Centropogon mandonis&quot;)</code></pre>
+<ul>
+<li>Assign these species names to the tip labels</li>
+</ul>
+<pre><code>tax1$tip.label &lt;- sp_names</code></pre>
+<p>If you relabeled the tips of your unrooted tree you need to root the tree with the appropriate outgroup name. You can then plot this rooted and corrected tree.</p>
 </div>
 </div>
 <div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="7.4.3">
