@@ -23,8 +23,8 @@ Start by checking which folder you are in using the following command.
 pwd
 ```
 
-If you are already in your project folder you may skip the next step
-Otherwise you much move into that directory. 
+If you are already in your project folder you may skip the next step.
+Otherwise you must move into that directory. 
 To change directories you need two things - the command to change directory and the argument that specifies which directory to move into.
 
 ```
