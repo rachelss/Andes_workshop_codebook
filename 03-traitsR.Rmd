@@ -12,7 +12,7 @@ Let's start by learning how to access our server and run commands without clicki
 
 For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to `rstudio.uri.edu` and log in with the first part of your email address as both the username and password. 
 
-## Load andset up data
+## Load and set up data
 
 We will be using a dataset to practice that will look a lot like the data you plan to collect.
 By the end of this workshop you should be able to examine your own data in a similar way.

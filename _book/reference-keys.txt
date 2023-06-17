@@ -9,7 +9,7 @@ phylogenies
 comparative-analyses
 computational-skills
 log-in-to-the-server
-load-andset-up-data
+load-and-set-up-data
 analyses
 computational-skills-1
 basic-navigation
