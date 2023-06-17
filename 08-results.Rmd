@@ -249,6 +249,8 @@ iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta 
 * Repeat for the astral tree if it differs.
 * View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.
 
+## MrBayes
+
 
 ## What does your tree tell you?
 

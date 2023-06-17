@@ -1,18 +1,8 @@
 # Computational skills
 
-The high-performance computer we'll use for our data doesn't have the graphical interface
-you usually use (like a PC or Mac).
-That means you have to type in your commands - you can't point and click.
-This actually has a hidden benefit because it's easy to write down what you did in
-a line of text rather than having to try to explain where to click on each step.
-
-Let's start by learning how to access our server and run commands without clicking.
-
-## Log in to the server
-
-For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to `rstudio.uri.edu` and log in with the first part of your email address as both the username and password. Click on the `Terminal` tab to access the command line interface.
-
 ## Basic navigation
+
+Click on the `Terminal` tab to access the command line interface, which we'll be using for our genomic analyses.
 
 To see the list of files on this computer in your "home" directory do the following:
 
@@ -21,19 +11,6 @@ ls
 ```
 
 This folder might be empty because you haven't put anything here.
-Let's start our project by getting organized.
-
-We will use both R code and bash/shell scripts in this workshop.
-Because RStudio provides a mechanism for setting up projects we will use this to stay organized.
-In the RStudio File menu select New Project - New Directory - New Project.
-
-* Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.
-* Select R 4.1.2
-* Create Project
-
-By creating a new project you have created a folder for your work.
-When using projects whenever you come back to this project you will return to the same setup.
-This allows you to switch projects with different folders and open files.
 
 We will begin our work using the command line or shell.
 Select the Terminal tab.

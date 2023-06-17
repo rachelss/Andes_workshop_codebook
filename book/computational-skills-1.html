@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction | Andes Phylogenomics Workshop</title>
+  <title>Chapter 5 Computational skills | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Introduction | Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 5 Computational skills | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a basic project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction | Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 5 Computational skills | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a basic project in phylogenomics." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="data-and-analysis.html"/>
+<link rel="prev" href="computational-skills.html"/>
+<link rel="next" href="getting-your-data.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -150,38 +150,45 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="intro" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Introduction<a href="intro.html#intro" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Syllabus of Wasta et al. 2020 <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7188297/#pbio.3000667.s003" class="uri">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7188297/#pbio.3000667.s003</a> provides the following example:</p>
-<div id="introduction" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Introduction<a href="intro.html#introduction" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Biological research is turning to genetic research methods for a deeper look into the biological factors that encode various traits.
-We can use genetic techniques to delimit species, define populations, understand reproductive patterns systems, and answer many other interesting biological questions.</p>
-<p>This program is set in Colombia, where students will learn how field research is conducted, participate in sample collection, and then interpret genetic data from these species to examine their relationships and understand how to accurately conduct analyses in these areas.<br />
-This program will provide an introduction to next-generation sequencing technology to biologists, who will gain not only the skills requisite for field research but the technical know-how to employ genetic research tools.</p>
-</div>
-<div id="case-studies" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Case Studies<a href="intro.html#case-studies" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this course, we will focus on three specific cases</p>
-<p>We will use data from species in the family Campanulaceae.
-We will break into groups and each examine a subset of these data.
-We will examine different datasets using different approaches to understand how individual datasets contribute to phylogeny estimation.</p>
-<p>This tutorial steps through the basic process of analyses in evolutionary biology.
-We use genome sequence data to build phylogenetic trees.
-We then use these phylogenies and trait data to understand…</p>
-</div>
-<div id="course-objectives" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Course Objectives<a href="intro.html#course-objectives" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The goals of this course are to give participants advanced training in techniques important to the collection and analysis of plant evolution.</p>
-<p>The course has the following broad objectives:</p>
-<ul>
-<li>To engage in both independent and team-based data collection</li>
-<li>To teach sample collection techniques for plants</li>
-<li>Learn to examine sequence data with code</li>
-<li>Learn to build phylogenies from large datasets</li>
-<li>Basic ability to look at other types of data</li>
-<li>Be able to use comparative approaches to look at evolutionary questions based on phylogenies</li>
-</ul>
+<div id="computational-skills-1" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Computational skills<a href="computational-skills-1.html#computational-skills-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="basic-navigation" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Basic navigation<a href="computational-skills-1.html#basic-navigation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Click on the <code>Terminal</code> tab to access the command line interface, which we’ll be using for our genomic analyses.</p>
+<p>To see the list of files on this computer in your “home” directory do the following:</p>
+<pre><code>ls</code></pre>
+<p>This folder might be empty because you haven’t put anything here.</p>
+<p>We will begin our work using the command line or shell.
+Select the Terminal tab.
+First, make a directory to put your scripts in inside your workshop folder.
+We’ll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.</p>
+<p>Start by checking which folder you are in using the following command.</p>
+<pre><code>pwd</code></pre>
+<p>If you are already in your project folder you may skip the next step
+Otherwise you much move into that directory.
+To change directories you need two things - the command to change directory and the argument that specifies which directory to move into.</p>
+<pre><code>cd evolution_workshop</code></pre>
+<p>To make a directory you again need a command (make directory) and an argument (the name).</p>
+<pre><code>mkdir scripts </code></pre>
+<p>Now we can move into that folder.
+<code>cd</code> means change directory so we’ll use that a lot to open different folders.
+This command also has an argument.</p>
+<pre><code>cd scripts </code></pre>
+<p>Now to get back to your home folder you can’t <code>cd</code> and give it a folder name because
+the computer will look in your current folder (scripts) for another folder.
+Instead you need to tell the computer to “move one level up”, going outside the current folder to the one containing it.</p>
+<pre><code>cd ..</code></pre>
+<p>To practice, repeat this process but make a directory called <code>results</code>.
+Now list the files in your current home directory again.
+Do you see the two folders you just made?</p>
+<p>If you want to check out what is in these folders (they are currently empty but we will add to them later)
+you have two options.
+First, you can change directory with the <code>cd</code> command and list the contents of the folder with <code>ls</code>.
+Think about these folder just like a filing cabinet.
+You started off in your home folder and now you are opening the results folder.</p>
+<p>Alternatively, list the contents of a folder by given <code>ls</code> the folder name as an argument (e.g. <code>ls scripts</code>).</p>
+<p>We will learn lots more commands as we work through our data.</p>
+<p>Adapted from <a href="http://swcarpentry.github.io/shell-novice/" class="uri">http://swcarpentry.github.io/shell-novice/</a></p>
 
 </div>
 </div>
@@ -190,8 +197,8 @@ We then use these phylogenies and trait data to understand…</p>
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="data-and-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="computational-skills.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="getting-your-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -222,7 +229,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/01-intro.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-computing.Rmd",
 "text": "Edit"
 },
 "history": {

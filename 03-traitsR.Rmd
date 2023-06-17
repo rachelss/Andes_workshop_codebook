@@ -1,0 +1,149 @@
+# Computational skills
+
+The high-performance computer we'll use for our data doesn't have the graphical interface
+you usually use (like a PC or Mac).
+That means you have to type in your commands - you can't point and click.
+This actually has a hidden benefit because it's easy to write down what you did in
+a line of text rather than having to try to explain where to click on each step.
+
+Let's start by learning how to access our server and run commands without clicking.
+
+## Log in to the server
+
+For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to `rstudio.uri.edu` and log in with the first part of your email address as both the username and password. 
+
+## Load andset up data
+
+We will be using a dataset to practice that will look a lot like the data you plan to collect.
+By the end of this workshop you should be able to examine your own data in a similar way.
+Our practice dataset comes from Onstein et al. 2019, which you can find at https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552.
+We have uploaded this paper to the server you are working on and we will show you how to access it there shortly.
+
+Let's start by getting organized.
+We will use both R code and bash/shell scripts in this workshop.
+Because RStudio provides a mechanism for setting up projects we will use this to stay organized.
+In the RStudio File menu select New Project - New Directory - New Project.
+
+* Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.
+* Select R 4.1.2
+* Create Project
+
+By creating a new project you have created a folder for your work.
+When using projects whenever you come back to this project you will return to the same setup.
+This allows you to switch projects with different folders and open files.
+
+## Analyses
+
+Begin your work by making a script.
+This is where you will keep track of all of your analytical commands.
+From the File menu select New File - R script.
+
+To analyze data in `R` we need to load some helper "libraries". A common library for analysis is the `tidyverse`, which wraps multiple libraries made by RStudio. For details and cheatsheets see https://www.tidyverse.org/ . We will also use a library that allows us to read Excel files.
+
+Put the following in your script then click the Run icon.
+
+```
+library(readxl)
+library(tidyverse)
+```
+
+Now we will write a command to read the Excel file with the data from the paper.
+The command we use is `read_xlsx`.
+This command takes two arguments in parentheses.
+The first is the "path" to the data.
+We will discuss paths more extensively later.
+For now use the provided argument.
+The second argument is the Excel sheet or tab we want to read.
+Additionally, when we read the file into memory we assign the information to a "variable".
+You can think of the variable as a box to contain the information.
+
+```
+onstein <- read_xlsx('../../shared/AndesWorkshop2023/Onstein_data.xlsx',
+                     sheet = 'Matrix for analysis')
+```
+
+When you run this command you will see the data saved in the environment.
+When you click on the variable in the environment you will be able to view the data in tabular format.
+
+Before we can do anything with the data, we need to make sure that the computer understands
+the data the way we expect.
+Click on the arrow next to the variable name in the environment.
+Note that all of the columns of data are listed as "chr".
+This means that the information is viewed as characters.
+Some of our data is actually numeric and we must convert it in order to analyze it correctly.
+
+To view the column names we use the `colnames` command and provide the dataset as the argument.
+
+We access a single column by specifying the dataset name, followed by a `$` followed by the column name. For example:
+
+```
+onstein$Log_Fruit_length_avg
+```
+
+We assign a "corrected" version of the data to this variable.
+For example:
+
+```
+onstein$Log_Fruit_length_avg <- as.numeric(onstein$Log_Fruit_length_avg)
+```
+
+Repeat this analysis to ensure that all columns match your expectations.
+
+Now we can visualize the data.
+We use the command `ggplot` and provide the data and the independent and dependent variables we expect on the graph.
+For example, we can examine the relationship between seed length and width.
+
+```
+ggplot(onstein, aes(Log_Seed_width_avg, Log_Seed_length_avg))
+```
+
+Note that the variables are provided in an extra function `aes`.
+
+If you run this command it will generate an empty plot. To plot the points you have to "add" a "layer" on this base of the plot style. In this case we use the `geom_point` function to add the data as a scatter plot.
+
+```
+ggplot(onstein, aes(Log_Seed_width_avg, Log_Seed_length_avg)) + geom_point()
+```
+
+Do you notice an apparent relationship between these variables?
+We can view this more clearly by *adding* a regression line to our plot.
+
+```
+geom_smooth(method = "lm", se = FALSE)
+```
+
+The paper from which these data are drawn found "syndromes" in frugivory-related traits
+such that fruits and seeds with dispersal by particular mechanisms (e.g. mammals, birds, and bats) have common trait values.
+Thus, we can see relationships among traits as above.
+The paper describes:
+
+* "mammal syndromes of few, syncarpous fruits with many seeds, large fruits, and large seeds"
+* "bird syndromes of many, bright-coloured, small fruits with few, small seeds and long stipes"
+* "bird syndromes of dehiscent fruits with small seeds"
+* "bat syndromes of dull-coloured, cauliflorous fruits"
+
+Try plotting some relationship on your own. To get you started, you can plot `Log_Fruit_length_avg` v `Log_Seed_number_avg` and `Log_Fruit_length_avg` v. `Log_Seed_length_avg`. Try others as well.
+
+If you tried plotting with a character variable on the x axis you might find the results difficult to look at.
+You can try using a boxplot with `geom_boxplot()` or other plot type instead.
+Check out the ggplot cheatsheet for ideas: https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&_page=2/
+
+When you have several interesting relationships it's advisable to confirm that the relationship is statistically significant.
+We can examine relationships with a linear model using the `lm` function.
+For example:
+
+```
+lm(Log_Seed_length_avg ~ Log_Seed_width_avg, data = onstein)
+```
+
+Note that the format of the arguments is slightly different than in a `ggplot`.
+
+The output of this function does not provide information without additional work.
+Assign the output to a new variable. 
+Then provide this variable as the argument to the `summary` command.
+Examine the p and r-squared value.
+Do these match your observation from the graph?
+
+Note: make sure your variable names are informative.
+
+Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.

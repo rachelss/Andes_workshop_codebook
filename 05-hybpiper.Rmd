@@ -123,32 +123,18 @@ However, R is excellent for reading data in this format.
 * While you could run commands here as you have in the shell, instead we will create a script to keep track of all of your commands. Note that this is also possible in the shell.
 * Select File - New File - R script
 * Save this file in the scripts folder
+* Load the tidyverse library
 
-To analyze data in `R` we need to load some helper "libraries". A common library for analysis is the `tidyverse`, which wraps multiple libraries made by RStudio. For details and cheatsheets see https://www.tidyverse.org/
-
-Put the following in your script then click the Run icon.
-
-```
-library(tidyverse)
-```
+We will use the `read.table` command because our data are plain text separated by tabs.
+We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.
 
 Note: R assumes you are in your project folder so all paths should be relative to this.
-
-As for our work in shell we will use commands that require arguments. 
-However, the format is slightly different.
-We will use the `read.table` command.
-In this case arguments are placed in parentheses following the command.
-We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.
-Additionally, when we read the file into memory we assign the information to a "variable".
-You can think of the variable as a box to contain the information
 
 ```
 stats <- read.table("results/hybpiper_stats.tsv", sep = "\t", header = TRUE)
 ```
 
-When you run this command you will see the data saved in the environment.
-When you click on the variable in the environment you will be able to view the data in tabular format.
-We will work more extensively with data like this later.
+View your stats data.
 
 Repeat this analysis for `seq_lengths.tsv`.
 
@@ -172,27 +158,9 @@ that I have made for you that includes stats for just two samples in "long form.
 
 * Read the file in the shared workshop folder using the `read_csv` command.
 * Take a look at how these data are organized. Can you see how the data are organized that each row contains one piece of information?
+* Plot `value` v. `stat` as a scatter plot.
 
-The first thing we can do is visualize the variation in the data.
-We use the command `ggplot` and provide the data and the independent and dependent variables we expect on the graph.
-
-```
-ggplot(stats_example, aes(stat, value))
-```
-
-Note that the variables are provided in an extra function `aes`.
-
-If you run this command it will generate an empty plot. To plot the points you have to "add" a "layer" on this base of the plot style. In this case we use the `geom_point` function to add the data as a scatter plot.
-
-```
-ggplot(stats_example, aes(stat, value)) + geom_point()
-```
-
-We can add a couple of tweaks to make our view better. First we can specify that we want each sample to be a different color. Second we can rotate the graph 90 degrees to better view the data and labels.
-
-```
-ggplot(stats_example, aes(stat, value, color = Name)) + geom_point() + coord_flip()
-```
+We can add a couple of tweaks to make our view better. First we can specify that we want each sample to be a different color by including a `color = Name` argument in our `aes`. Second we can rotate the graph 90 degrees to better view the data and labels by adding a layer `coord_flip()`.
 
 We can also generate a summary table with one row per stat and information in that row including the mean, standard deviation, etc. across genes.
 
