@@ -251,6 +251,9 @@ iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta 
 
 ## MrBayes
 
+```
+../../shared/bin/mb
+```
 
 ## What does your tree tell you?
 
