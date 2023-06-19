@@ -1,0 +1,34 @@
+# Dates and Evolution
+
+## Dates / Times on Trees
+
+If you look at your tree, you will notice the tips don't "line up"
+on the right side.
+It's as if not all species made it to the present day.
+This is only an appearance because branch lengths are in substitutions per site and not 
+all species have the same substitution rate.
+We can adjust the branch lengths to match time using the rates.
+Usually we have calibration dates with complex probability distributions.
+In this case we are taking an extremely simple approach solely for the purpose of seeing 
+a phylogeny where the branches appear to be time.
+
+```
+mrbayes_chronos <- chronos(mrbayes_phylo)
+```
+
+We can also generate the tree using a "strict clock model".
+
+```
+### strict clock model:
+clock_rate <- chronos.control(nb.rate.cat = 1)
+mrbayes_chronos_clock <- chronos(mrbayes_phylo, model = "discrete", control = ctrl)
+```
+
+Now let's plot all three trees together so you can compare the branch lengths.
+
+```
+par(mfrow = c(3,1))
+plot(mrbayes_phylo, cex = 1)
+plot(mrbayes_chronos, cex = 1)
+plot(mrbayes_chronos_clock, cex = 1)
+```
