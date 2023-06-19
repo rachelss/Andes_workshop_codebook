@@ -35,4 +35,4 @@ tree-for-all-data-using-output-of-individual-hybpiper-runs
 species-tree-analyses
 support-for-relationships
 mrbayes
-what-does-your-tree-tell-you
+what-do-your-trees-tell-you
