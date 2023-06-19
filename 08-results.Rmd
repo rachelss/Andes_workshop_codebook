@@ -309,6 +309,8 @@ Add a block for the MCMC parameters.
 ```
 mbblock2 <- "
   mcmc ngen=1000000 nruns=2 nchains=2 samplefreq=1000;
+  sump;
+  sumt;
 end;
 "
 ```
