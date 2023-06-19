@@ -308,7 +308,7 @@ Add a block for the MCMC parameters.
 
 ```
 mbblock2 <- "
-  mcmc ngen=1000000 nruns=2 nchains=2 samplefreq=1000;
+  mcmc ngen=10000000 nruns=2 nchains=2 samplefreq=1000;
   sump;
   sumt;
 end;
@@ -322,18 +322,26 @@ myseqs_nexus_withmb <- paste(paste(myseqs_nex,collapse="\n"),mbblock1,mbblock2,s
 write(myseqs_nexus_withmb,file="concatenated.nex.mb")
 ```
 
-Now run (on the command line)
+Now run (on the command line) (probably in background as you did previously).
 ```
 ../../shared/bin/mb "results/concatenated.nex.mb"
 ```
+
+Before looking at your tree check the output. In some cases you may need to run your analysis for longer and a note to this effect will be toward the end of the output. Make sure to give the log file for this run a relevant name. You don't want to overwrite the output from HybPiper and you might want to keep this output if you do a longer run. Additionally, if you rerun the analysis with additional time make sure you don't overwrite the current tree output.
 
 You can find your tree in your results folder with the extension `.con.tre`.
 Because Mr. Bayes generates output in a particular format you will need to read it in slightly differently and convert it to the standard `phylo` format.
 
 ```
 mrbayes_tree <- treeio::read.mrbayes("results/concatenated.nex.mb.con.tre")
-mrbayes_tree <- treeio::as.phylo(mrbayes_tree)
+mrbayes_phylo <- treeio::as.phylo(mrbayes_tree)
+probs = as_tibble(mrbayes_tree) %>% pull(prob_percent)
+mrbayes_phylo$node.label = probs[(length(mrbayes_phylo$tip.label)+1):length(probs)]
 ```
+
+* Reroot your tree
+* Fix the names to be species
+* Plot your tree
 
 ## What do your trees tell you?
 
