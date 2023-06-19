@@ -359,6 +359,10 @@ end;
 write(myseqs_nexus_withmb,file=&quot;concatenated.nex.mb&quot;)</code></pre>
 <p>Now run (on the command line)</p>
 <pre><code>../../shared/bin/mb &quot;results/concatenated.nex.mb&quot;</code></pre>
+<p>You can find your tree in your results folder with the extension <code>.con.tre</code>.
+Because Mr. Bayes generates output in a particular format you will need to read it in slightly differently and convert it to the standard <code>phylo</code> format.</p>
+<pre><code>mrbayes_tree &lt;- treeio::read.mrbayes(&quot;results/concatenated.nex.mb.con.tre&quot;)
+mrbayes_tree &lt;- treeio::as.phylo(mrbayes_tree)</code></pre>
 </div>
 <div id="what-do-your-trees-tell-you" class="section level2 hasAnchor" number="8.8">
 <h2><span class="header-section-number">8.8</span> What do your trees tell you?<a href="results.html#what-do-your-trees-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>

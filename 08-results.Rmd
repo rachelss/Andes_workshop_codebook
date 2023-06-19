@@ -327,6 +327,14 @@ Now run (on the command line)
 ../../shared/bin/mb "results/concatenated.nex.mb"
 ```
 
+You can find your tree in your results folder with the extension `.con.tre`.
+Because Mr. Bayes generates output in a particular format you will need to read it in slightly differently and convert it to the standard `phylo` format.
+
+```
+mrbayes_tree <- treeio::read.mrbayes("results/concatenated.nex.mb.con.tre")
+mrbayes_tree <- treeio::as.phylo(mrbayes_tree)
+```
+
 ## What do your trees tell you?
 
 
