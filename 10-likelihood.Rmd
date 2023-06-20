@@ -9,8 +9,8 @@ Ari started timing the freezing behavior for some of these birds and was able to
 This is his sample and you will be using it to understand evidence in likelihood.
 
 ```{r echo=TRUE, eval=FALSE}
-bird.alarms <- read.csv("../../shared/AndesWorkshop2023/birdalarms.csv",stringsAsFactors=FALSE)
-head(bird.alarms)
+bird_alarms <- read_csv("../../shared/AndesWorkshop2023/birdalarms.csv")
+head(bird_alarms)
 ```
 
 ### The model
@@ -21,7 +21,16 @@ What is an exponential distribution with parameter $1/\theta$?
 
 ### The likelihood function
 
-The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. In R we can code it using the ```dexp()``` probability function.
+The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. 
+In order to do this calculation repeatedly we are going to make our own function in R.
+Just like the functions you have been using, your function
+is designed to do a suite of commands.
+This allows you to avoid copying and pasting the commands multiple times and changing all their arguments.
+
+We define `likelihood.fuction` using the ```dexp()``` probability function.
+We return the negative likelihood, which is the product of all probabilities derived from our observations.
+Once you have defined this function and know what it does, you do not have to think about
+how to calculated likelihoods again.
 
 ```{r echo=TRUE, eval=FALSE}
 likelihood.function <- function(parameter, observations){
@@ -31,11 +40,12 @@ likelihood.function <- function(parameter, observations){
 }
 ```
 
-The likelihood function is much more difficult depending on the model we select. We will discuss more about its construction when we discuss substitution models. However the way to think about it is always as the probability of the data given a model (or set of parameters) $P(Daata|Model)$.
+The likelihood function is much more difficult depending on the model we select. We will discuss more about its construction when we discuss substitution models. However the way to think about it is always as the probability of the data given a model (or set of parameters) $P(Data|Model)$.
 
 Knowing this definition of the likelihood then let's ask
-+ What is the input of the likelihood function?
-+ What is the output of the likelihood function? ( and why is it negative?)
+
+* What is the input of the likelihood function?
+* What is the output of the likelihood function? ( and why is it negative?)
 
 
 ### A mini example with a sample size of two
@@ -46,7 +56,9 @@ If we have a sample size of two birds freezing responses $X=2,10$ the maximum li
 (mle<-(2+10)/2)
 ```
 
-However, most of the time in difficult likelihoods it is impossible to calculate exactly who the mle so we do it numerically
+Note that by putting the whole command in () we both assign the output to the variable and print it.
+
+However, most of the time in difficult likelihoods it is impossible to calculate exactly who the mle so we do it numerically.
 
 ```{r echo=TRUE, eval=FALSE}
 (likelihood.optimization <- optimize(f=likelihood.function, interval=c(0,10), observations=c(2,10)))
@@ -61,13 +73,13 @@ What are the outputs?
 In Ari's example we have the dead-leaf gleaning species
 
 ```{r echo=TRUE, eval=FALSE}
-dl.forager <- bird.alarms$Response[which(bird.alarms$Forage=="DL")] 
+dl.forager <- bird_alarms %>% filter(Forage == "DL") %>% pull(Response)
 ```
 
 and the flycatchers
 
 ```{r echo=TRUE, eval=FALSE}
-f.forager<-bird.alarms$Response[which(bird.alarms$Forage=="F")] #11
+f.forager <- bird_alarms %>% filter(Forage =="F") %>% pull(Response) #11
 ```
 
 #### Calculate the MLE for DL and F and the likelihood value evaluated at the MLE
@@ -81,7 +93,7 @@ dl.optimization <- optimize(f=likelihood.function, interval=c(10,30), observatio
 (likelihoodval.dl <- -dl.optimization$objective)
 
 (mle.f <- mean(f.forager))
-(likelihoodval.f<--likelihood.function(mle.f,observations=f.forager))
+(likelihoodval.f <- likelihood.function(mle.f,observations=f.forager))
 ```
 
 So, are the flycatchers behaving differently than the dead-leaf gleaners? What is the evidence? Can we compare these likelihoods or MLEs?
@@ -143,6 +155,8 @@ Usually you will go ahead and do some statistical test to say "I reject that the
 
 Using relative likelihoods we can compare the evidence between the two groups
 ```{r echo=TRUE, eval=FALSE}
+par(mfrow=c(1,1))
+
 plot(parameter.vals, p.likelihoodf/likelihoodval.f, type="l",main="Evidence for responses",xlab="Rate Parameter",ylab="Likelihood")
 lines(parameter.vals, p.likelihooddl/likelihoodval.dl,lty=2,col="red",lwd=2)
 legend(x=35,y=0.8, col=c("black","red"),legend=c("flycatcher","dead-leaf"),lty=1:2)
