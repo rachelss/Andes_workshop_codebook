@@ -15,6 +15,7 @@ computational-skills-1
 basic-navigation
 getting-your-data
 repeating-analyses
+tree-thinking-quiz
 target-capture-data
 background
 running-hybpiper-to-assemble-genes

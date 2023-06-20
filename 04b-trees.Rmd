@@ -1,0 +1,3 @@
+# Tree thinking quiz
+
+Before we delve into trees it's good to see what you are thinking so you can understand (at least partly) what you learn later.
