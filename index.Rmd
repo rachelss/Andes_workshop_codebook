@@ -1,6 +1,6 @@
 --- 
 title: "Andes Phylogenomics Workshop"
-author: "Rachel Schwartz"
+author: "Rachel Schwartz and Rosana Zenil-Ferguson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -9,7 +9,7 @@ bibliography: [book.bib, packages.bib]
 biblio-style: apalike
 link-citations: yes
 github-repo: rachelss/Andes_workshop_codebook
-description: "Step-by-step guide to a basic project in phylogenomics."
+description: "Step-by-step guide to a project in phylogenomics."
 ---
 
 # Getting Started
