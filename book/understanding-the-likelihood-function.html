@@ -201,15 +201,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="11" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html"><i class="fa fa-check"></i><b>11</b> Understanding the likelihood function</a>
 <ul>
-<li class="chapter" data-level="11.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#background-1"><i class="fa fa-check"></i><b>11.1</b> Background</a>
+<li class="chapter" data-level="11.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#background-1"><i class="fa fa-check"></i><b>11.1</b> Background</a></li>
+<li class="chapter" data-level="11.2" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-model"><i class="fa fa-check"></i><b>11.2</b> The model</a></li>
+<li class="chapter" data-level="11.3" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-likelihood-function"><i class="fa fa-check"></i><b>11.3</b> The likelihood function</a></li>
+<li class="chapter" data-level="11.4" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#a-mini-example-with-a-sample-size-of-two"><i class="fa fa-check"></i><b>11.4</b> A mini example with a sample size of two</a></li>
+<li class="chapter" data-level="11.5" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-bird-alarm-example"><i class="fa fa-check"></i><b>11.5</b> The bird alarm example</a>
 <ul>
-<li class="chapter" data-level="11.1.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-model"><i class="fa fa-check"></i><b>11.1.1</b> The model</a></li>
-<li class="chapter" data-level="11.1.2" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-likelihood-function"><i class="fa fa-check"></i><b>11.1.2</b> The likelihood function</a></li>
-<li class="chapter" data-level="11.1.3" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#a-mini-example-with-a-sample-size-of-two"><i class="fa fa-check"></i><b>11.1.3</b> A mini example with a sample size of two</a></li>
-<li class="chapter" data-level="11.1.4" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-bird-alarm-example"><i class="fa fa-check"></i><b>11.1.4</b> The bird alarm example</a></li>
-<li class="chapter" data-level="11.1.5" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#where-is-the-evidence-for-different-behavior"><i class="fa fa-check"></i><b>11.1.5</b> Where is the evidence for different behavior?</a></li>
-<li class="chapter" data-level="11.1.6" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#are-the-freezing-times-different-for-the-two-groups"><i class="fa fa-check"></i><b>11.1.6</b> Are the freezing times different for the two groups?</a></li>
+<li class="chapter" data-level="11.5.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle"><i class="fa fa-check"></i><b>11.5.1</b> Calculate the MLE for DL and F and the likelihood value evaluated at the MLE</a></li>
 </ul></li>
+<li class="chapter" data-level="11.6" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#where-is-the-evidence-for-different-behavior"><i class="fa fa-check"></i><b>11.6</b> Where is the evidence for different behavior?</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#plot-the-likelihood-for-dead-leaf-gleaners"><i class="fa fa-check"></i><b>11.6.1</b> Plot the likelihood for dead-leaf gleaners</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#are-the-freezing-times-different-for-the-two-groups"><i class="fa fa-check"></i><b>11.7</b> Are the freezing times different for the two groups?</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -240,13 +244,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>This is his sample and you will be using it to understand evidence in likelihood.</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="understanding-the-likelihood-function.html#cb61-1" aria-hidden="true" tabindex="-1"></a>bird_alarms <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;../../shared/AndesWorkshop2023/birdalarms.csv&quot;</span>)</span>
 <span id="cb61-2"><a href="understanding-the-likelihood-function.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(bird_alarms)</span></code></pre></div>
-<div id="the-model" class="section level3 hasAnchor" number="11.1.1">
-<h3><span class="header-section-number">11.1.1</span> The model<a href="understanding-the-likelihood-function.html#the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="the-model" class="section level2 hasAnchor" number="11.2">
+<h2><span class="header-section-number">11.2</span> The model<a href="understanding-the-likelihood-function.html#the-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We are going to model freezing time using an exponential distribution with parameter <span class="math inline">\(1/\theta\)</span>, where <span class="math inline">\(\theta\)</span> is the expected time that birds of a group freeze.</p>
 <p>What is an exponential distribution with parameter <span class="math inline">\(1/\theta\)</span>?</p>
 </div>
-<div id="the-likelihood-function" class="section level3 hasAnchor" number="11.1.2">
-<h3><span class="header-section-number">11.1.2</span> The likelihood function<a href="understanding-the-likelihood-function.html#the-likelihood-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-likelihood-function" class="section level2 hasAnchor" number="11.3">
+<h2><span class="header-section-number">11.3</span> The likelihood function<a href="understanding-the-likelihood-function.html#the-likelihood-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The likelihood function <span class="math inline">\(L(\theta;X)=P(\theta|X)\)</span> is the product of the exponential density evaluated in every value of the sample observed.
 In order to do this calculation repeatedly we are going to make our own function in R.
 Just like the functions you have been using, your function
@@ -268,8 +273,8 @@ how to calculated likelihoods again.</p>
 <li>What is the output of the likelihood function? ( and why is it negative?)</li>
 </ul>
 </div>
-<div id="a-mini-example-with-a-sample-size-of-two" class="section level3 hasAnchor" number="11.1.3">
-<h3><span class="header-section-number">11.1.3</span> A mini example with a sample size of two<a href="understanding-the-likelihood-function.html#a-mini-example-with-a-sample-size-of-two" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="a-mini-example-with-a-sample-size-of-two" class="section level2 hasAnchor" number="11.4">
+<h2><span class="header-section-number">11.4</span> A mini example with a sample size of two<a href="understanding-the-likelihood-function.html#a-mini-example-with-a-sample-size-of-two" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>If we have a sample size of two birds freezing responses <span class="math inline">\(X=2,10\)</span> the maximum likelihood estimate is the average <span class="math inline">\(\hat{\theta}=\sum_{i=1}^n x_i/n\)</span>. Therefore</p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="understanding-the-likelihood-function.html#cb63-1" aria-hidden="true" tabindex="-1"></a>(mle<span class="ot">&lt;-</span>(<span class="dv">2</span><span class="sc">+</span><span class="dv">10</span>)<span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
 <p>Note that by putting the whole command in () we both assign the output to the variable and print it.</p>
@@ -278,14 +283,14 @@ how to calculated likelihoods again.</p>
 <p>The function <code>optimize</code> is used when we have unidimensional functions (one parameter). For multidimensional we use <code>optim</code> or even better <code>nloptr</code> from the package with the same name.</p>
 <p>What are the outputs?</p>
 </div>
-<div id="the-bird-alarm-example" class="section level3 hasAnchor" number="11.1.4">
-<h3><span class="header-section-number">11.1.4</span> The bird alarm example<a href="understanding-the-likelihood-function.html#the-bird-alarm-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="the-bird-alarm-example" class="section level2 hasAnchor" number="11.5">
+<h2><span class="header-section-number">11.5</span> The bird alarm example<a href="understanding-the-likelihood-function.html#the-bird-alarm-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In Ari’s example we have the dead-leaf gleaning species</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="understanding-the-likelihood-function.html#cb65-1" aria-hidden="true" tabindex="-1"></a>dl.forager <span class="ot">&lt;-</span> bird_alarms <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Forage <span class="sc">==</span> <span class="st">&quot;DL&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Response)</span></code></pre></div>
 <p>and the flycatchers</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="understanding-the-likelihood-function.html#cb66-1" aria-hidden="true" tabindex="-1"></a>f.forager <span class="ot">&lt;-</span> bird_alarms <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Forage <span class="sc">==</span><span class="st">&quot;F&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Response) <span class="co">#11</span></span></code></pre></div>
-<div id="calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle" class="section level4 hasAnchor" number="11.1.4.1">
-<h4><span class="header-section-number">11.1.4.1</span> Calculate the MLE for DL and F and the likelihood value evaluated at the MLE<a href="understanding-the-likelihood-function.html#calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle" class="section level3 hasAnchor" number="11.5.1">
+<h3><span class="header-section-number">11.5.1</span> Calculate the MLE for DL and F and the likelihood value evaluated at the MLE<a href="understanding-the-likelihood-function.html#calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>You should be getting approximately the following values:</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="understanding-the-likelihood-function.html#cb67-1" aria-hidden="true" tabindex="-1"></a>dl.optimization <span class="ot">&lt;-</span> <span class="fu">optimize</span>(<span class="at">f=</span>likelihood.function, <span class="at">interval=</span><span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">30</span>), <span class="at">observations=</span>dl.forager)</span>
 <span id="cb67-2"><a href="understanding-the-likelihood-function.html#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -297,8 +302,8 @@ how to calculated likelihoods again.</p>
 <p>So, are the flycatchers behaving differently than the dead-leaf gleaners? What is the evidence? Can we compare these likelihoods or MLEs?</p>
 </div>
 </div>
-<div id="where-is-the-evidence-for-different-behavior" class="section level3 hasAnchor" number="11.1.5">
-<h3><span class="header-section-number">11.1.5</span> Where is the evidence for different behavior?<a href="understanding-the-likelihood-function.html#where-is-the-evidence-for-different-behavior" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="where-is-the-evidence-for-different-behavior" class="section level2 hasAnchor" number="11.6">
+<h2><span class="header-section-number">11.6</span> Where is the evidence for different behavior?<a href="understanding-the-likelihood-function.html#where-is-the-evidence-for-different-behavior" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Likelihood functions are not only about the maximum likelihood estimate. Likelihoods represent plausibility. This is represented in the full likelihood function so it is important to explore it.</p>
 <p>We select a series of parameters and measure their plausibility for example in the interval <span class="math inline">\((0,50)\)</span></p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="understanding-the-likelihood-function.html#cb68-1" aria-hidden="true" tabindex="-1"></a>parameter.vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fl">0.0001</span>,<span class="dv">50</span>,<span class="fl">0.01</span>) <span class="co">#creating an interval for possible values for the likelihood</span></span>
@@ -319,8 +324,8 @@ how to calculated likelihoods again.</p>
 <span id="cb69-8"><a href="understanding-the-likelihood-function.html#cb69-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Relative likelihood: Likelihood divided by the likelihood value at the MLE</span></span>
 <span id="cb69-9"><a href="understanding-the-likelihood-function.html#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(parameter.vals, p.likelihoodf<span class="sc">/</span>likelihoodval.f, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">main=</span><span class="st">&quot;Relative likelihood for flycatchers&quot;</span>,<span class="at">xlab=</span><span class="fu">expression</span>(theta),<span class="at">ylab=</span><span class="st">&quot;Likelihood&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>,<span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">5</span>))</span></code></pre></div>
 <p>What do you think about the sample size for flycatchers?</p>
-<div id="plot-the-likelihood-for-dead-leaf-gleaners" class="section level4 hasAnchor" number="11.1.5.1">
-<h4><span class="header-section-number">11.1.5.1</span> Plot the likelihood for dead-leaf gleaners<a href="understanding-the-likelihood-function.html#plot-the-likelihood-for-dead-leaf-gleaners" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="plot-the-likelihood-for-dead-leaf-gleaners" class="section level3 hasAnchor" number="11.6.1">
+<h3><span class="header-section-number">11.6.1</span> Plot the likelihood for dead-leaf gleaners<a href="understanding-the-likelihood-function.html#plot-the-likelihood-for-dead-leaf-gleaners" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>It should look like this</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="understanding-the-likelihood-function.html#cb70-1" aria-hidden="true" tabindex="-1"></a>p.likelihooddl<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="dv">0</span>,long)</span>
 <span id="cb70-2"><a href="understanding-the-likelihood-function.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>long){</span>
@@ -335,8 +340,8 @@ how to calculated likelihoods again.</p>
 <span id="cb70-11"><a href="understanding-the-likelihood-function.html#cb70-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(parameter.vals, p.likelihooddl<span class="sc">/</span>likelihoodval.dl, <span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">main=</span><span class="st">&quot;Relative likelihood for flycatchers&quot;</span>,<span class="at">xlab=</span><span class="st">&quot;Rate Parameter&quot;</span>,<span class="at">ylab=</span><span class="st">&quot;Likelihood&quot;</span>,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
 </div>
 </div>
-<div id="are-the-freezing-times-different-for-the-two-groups" class="section level3 hasAnchor" number="11.1.6">
-<h3><span class="header-section-number">11.1.6</span> Are the freezing times different for the two groups?<a href="understanding-the-likelihood-function.html#are-the-freezing-times-different-for-the-two-groups" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="are-the-freezing-times-different-for-the-two-groups" class="section level2 hasAnchor" number="11.7">
+<h2><span class="header-section-number">11.7</span> Are the freezing times different for the two groups?<a href="understanding-the-likelihood-function.html#are-the-freezing-times-different-for-the-two-groups" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Usually you will go ahead and do some statistical test to say “I reject that the average freezing time of the groups is the same”. Except that you can’t do a T-test (not normal), sample sizes are really small (so not so much power). The evidence of likelihood comes to the rescue.</p>
 <p>Using relative likelihoods we can compare the evidence between the two groups</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="understanding-the-likelihood-function.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
@@ -345,7 +350,6 @@ how to calculated likelihoods again.</p>
 <span id="cb71-4"><a href="understanding-the-likelihood-function.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(parameter.vals, p.likelihooddl<span class="sc">/</span>likelihoodval.dl,<span class="at">lty=</span><span class="dv">2</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">lwd=</span><span class="dv">2</span>)</span>
 <span id="cb71-5"><a href="understanding-the-likelihood-function.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">35</span>,<span class="at">y=</span><span class="fl">0.8</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;flycatcher&quot;</span>,<span class="st">&quot;dead-leaf&quot;</span>),<span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code></pre></div>
 
-</div>
 </div>
 </div>
             </section>

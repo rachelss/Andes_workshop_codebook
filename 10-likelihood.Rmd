@@ -13,13 +13,13 @@ bird_alarms <- read_csv("../../shared/AndesWorkshop2023/birdalarms.csv")
 head(bird_alarms)
 ```
 
-### The model
+## The model
 
 We are going to model freezing time using an exponential distribution with parameter $1/\theta$, where $\theta$ is the expected time that birds of a group freeze.
 
 What is an exponential distribution with parameter $1/\theta$?
 
-### The likelihood function
+## The likelihood function
 
 The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. 
 In order to do this calculation repeatedly we are going to make our own function in R.
@@ -48,7 +48,7 @@ Knowing this definition of the likelihood then let's ask
 * What is the output of the likelihood function? ( and why is it negative?)
 
 
-### A mini example with a sample size of two
+## A mini example with a sample size of two
 
 If we have a sample size of two birds freezing responses $X=2,10$ the maximum likelihood estimate is the average $\hat{\theta}=\sum_{i=1}^n x_i/n$. Therefore
 
@@ -68,7 +68,7 @@ The function `optimize` is used when we have unidimensional functions (one param
 
 What are the outputs?
 
-### The bird alarm example
+## The bird alarm example
 
 In Ari's example we have the dead-leaf gleaning species
 
@@ -82,7 +82,7 @@ and the flycatchers
 f.forager <- bird_alarms %>% filter(Forage =="F") %>% pull(Response) #11
 ```
 
-#### Calculate the MLE for DL and F and the likelihood value evaluated at the MLE
+### Calculate the MLE for DL and F and the likelihood value evaluated at the MLE
 
 You should be getting approximately the following values:
 
@@ -98,7 +98,7 @@ dl.optimization <- optimize(f=likelihood.function, interval=c(10,30), observatio
 
 So, are the flycatchers behaving differently than the dead-leaf gleaners? What is the evidence? Can we compare these likelihoods or MLEs?
 
-### Where is the evidence for different behavior?
+## Where is the evidence for different behavior?
 
 Likelihood functions are not only about the maximum likelihood estimate. Likelihoods represent plausibility. This is represented in the full likelihood function so it is important to explore it.
 
@@ -132,7 +132,7 @@ plot(parameter.vals, p.likelihoodf/likelihoodval.f, type="l",main="Relative like
 What do you think about the sample size for flycatchers?
 
 
-#### Plot the likelihood for dead-leaf gleaners
+### Plot the likelihood for dead-leaf gleaners
 It should look like this
 
 ```{r echo=TRUE, eval=FALSE}
@@ -149,7 +149,7 @@ plot(parameter.vals, log(p.likelihooddl), type="l",main="log-likelihood for flyc
 plot(parameter.vals, p.likelihooddl/likelihoodval.dl, type="l",main="Relative likelihood for flycatchers",xlab="Rate Parameter",ylab="Likelihood",lty=2,col="red",lwd=2)
 ```
 
-### Are the freezing times different for the two groups?
+## Are the freezing times different for the two groups?
 
 Usually you will go ahead and do some statistical test to say "I reject that the average freezing time of the groups is the same". Except that you can't do a T-test (not normal), sample sizes are really small (so not so much power). The evidence of likelihood comes to the rescue.
 
