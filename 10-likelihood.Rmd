@@ -8,8 +8,8 @@ Ari started timing the freezing behavior for some of these birds and was able to
 
 This is his sample and you will be using it to understand evidence in likelihood.
 
-```{r dataset}
-#Set your workind directory
+```{r echo=TRUE, eval=FALSE}
+#Set you workind directory
 setwd('../../shared/AndesWorkshop2023/')
 bird.alarms<-read.csv("birdalarms.csv",stringsAsFactors=FALSE)
 head(bird.alarms)
@@ -23,7 +23,7 @@ What is an expoential distribution with parameter $1/\theta$?
 
 ### The likelihood function
 The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. In R we can code it using the ```dexp()``` probability function
-```{r likelihood}
+```{r echo=TRUE, eval=FALSE}
 likelihood.function<- function(parameter, observations){
 	probabilities <-dexp(observations, rate=1/parameter,log=FALSE)
 	L <- prod(probabilities)
@@ -41,12 +41,12 @@ Knowing this definition of the likelihood then let's ask
 ### A mini example with a sample size of two
 
 If we have a sample size of two birds freezing responses $X=2,10$ the maximum likelihood estimate is the average $\hat{\theta}=\sum_{i=1}^n x_i/n$. Therefore
-```{r}
+```{r echo=TRUE, eval=FALSE}
 (mle<-(2+10)/2)
 ```
 
 However, most of the time in difficult likelihoods it is impossible to calculate exactly who the mle so we do it numerically
-```{r optimization}
+```{r echo=TRUE, eval=FALSE}
 (likelihood.optimization<-optimize(f=likelihood.function, interval=c(0,10), observations=c(2,10)))
 ```
 
@@ -57,17 +57,17 @@ What are the outputs?
 ### The bird alarm example
 
 In Ari's example we have the dead-leaf gleaning species
-```{r dl}
+```{r echo=TRUE, eval=FALSE}
 dl.forager<- bird.alarms$Response[which(bird.alarms$Forage=="DL")] 
 ```
 and the flycatchers
-```{r f}
+```{r echo=TRUE, eval=FALSE}
 f.forager<-bird.alarms$Response[which(bird.alarms$Forage=="F")] #11
 ```
 
 #### Calculate the MLE for DL and F and the likelihood value evaluated at the MLE
 You should be getting approximately the following values:
-```{r echo=FALSE}
+```{r echo=TRUE,eval=FALSE}
 dl.optimization<-optimize(f=likelihood.function, interval=c(10,30), observations=dl.forager)
 
 (mle.dl<-dl.optimization$minimum)
@@ -84,7 +84,7 @@ So, are the flycatchers behaving differently than the dead-leaf gleaners? What i
 Likelihood functions are not only about the maximum likelihood estimate. Likelihoods represent plausibility. This is represented in the full likelihood function so it is important to explore it.
 
 We select a series of parameters and measure their plausibility for example in the interval $(0,50)$
-```{r interval}
+```{r echo=TRUE, eval=FALSE}
 parameter.vals<-seq(0.0001,50,0.01) #creating an interval for possible values for the likelihood
 long<-length(parameter.vals) 
 # Evaluating the likelihood for each of those values
@@ -96,7 +96,7 @@ p.likelihoodf[i]<- -likelihood.function(parameter.vals[i],observations=f.forager
 
 In different studies likelihood can be represented using different scales
 
-```{r likelihoodforf}
+```{r echo=TRUE, eval=FALSE}
 par(mfrow=c(1,3))
 # Straight likelihood function
 plot(parameter.vals, p.likelihoodf, type="l",main="Likelihood for flycatchers",xlab=expression(theta),ylab="Likelihood", lwd=2,xlim=c(0,5))
@@ -116,7 +116,7 @@ What do you think about the sample size for flycatchers?
 #### Plot the likelihood for dead-leaf gleaners
 It should look like this
 
-```{r echo=FALSE}
+```{r echo=TRUE, eval=FALSE}
 p.likelihooddl<-rep(0,long)
 for (i in 1:long){
 p.likelihooddl[i]<- -likelihood.function(parameter.vals[i],observations=dl.forager)
@@ -135,7 +135,7 @@ Usually you will go ahead and do some statistical test to say "I reject that the
 
 
 Using relative likelihoods we can compare the evidence between the two groups
-```{r evidenceplots}
+```{r echo=TRUE, eval=FALSE}
 plot(parameter.vals, p.likelihoodf/likelihoodval.f, type="l",main="Evidence for responses",xlab="Rate Parameter",ylab="Likelihood")
 lines(parameter.vals, p.likelihooddl/likelihoodval.dl,lty=2,col="red",lwd=2)
 legend(x=35,y=0.8, col=c("black","red"),legend=c("flycatcher","dead-leaf"),lty=1:2)
