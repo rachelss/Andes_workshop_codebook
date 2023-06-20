@@ -9,29 +9,29 @@ Ari started timing the freezing behavior for some of these birds and was able to
 This is his sample and you will be using it to understand evidence in likelihood.
 
 ```{r echo=TRUE, eval=FALSE}
-#Set you workind directory
-setwd('../../shared/AndesWorkshop2023/')
-bird.alarms<-read.csv("birdalarms.csv",stringsAsFactors=FALSE)
+bird.alarms <- read.csv("../../shared/AndesWorkshop2023/birdalarms.csv",stringsAsFactors=FALSE)
 head(bird.alarms)
 ```
 
 ### The model
+
 We are going to model freezing time using an exponential distribution with parameter $1/\theta$, where $\theta$ is the expected time that birds of a group freeze.
 
-
-What is an expoential distribution with parameter $1/\theta$?
+What is an exponential distribution with parameter $1/\theta$?
 
 ### The likelihood function
-The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. In R we can code it using the ```dexp()``` probability function
+
+The likelihood function $L(\theta;X)=P(\theta|X)$ is the product of the exponential density evaluated in every value of the sample observed. In R we can code it using the ```dexp()``` probability function.
+
 ```{r echo=TRUE, eval=FALSE}
-likelihood.function<- function(parameter, observations){
-	probabilities <-dexp(observations, rate=1/parameter,log=FALSE)
+likelihood.function <- function(parameter, observations){
+	probabilities <- dexp(observations, rate=1/parameter,log=FALSE)
 	L <- prod(probabilities)
 	return(-L)
 }
 ```
 
-The likelihood function is much more difficult depending on the model we select. We will discuss more about its construction when we discuss substitution models. However the way to think about it is alwasy as the probability of the data given a model (or set of parameters) $P(Daata|Model)$.
+The likelihood function is much more difficult depending on the model we select. We will discuss more about its construction when we discuss substitution models. However the way to think about it is always as the probability of the data given a model (or set of parameters) $P(Daata|Model)$.
 
 Knowing this definition of the likelihood then let's ask
 + What is the input of the likelihood function?
@@ -41,39 +41,46 @@ Knowing this definition of the likelihood then let's ask
 ### A mini example with a sample size of two
 
 If we have a sample size of two birds freezing responses $X=2,10$ the maximum likelihood estimate is the average $\hat{\theta}=\sum_{i=1}^n x_i/n$. Therefore
+
 ```{r echo=TRUE, eval=FALSE}
 (mle<-(2+10)/2)
 ```
 
 However, most of the time in difficult likelihoods it is impossible to calculate exactly who the mle so we do it numerically
+
 ```{r echo=TRUE, eval=FALSE}
-(likelihood.optimization<-optimize(f=likelihood.function, interval=c(0,10), observations=c(2,10)))
+(likelihood.optimization <- optimize(f=likelihood.function, interval=c(0,10), observations=c(2,10)))
 ```
 
-The function `optimize` is used when we have unidimensional functions (one parameter). For multidimensional we use `optim`  or even better `nloptr` from the package with the same name.
+The function `optimize` is used when we have unidimensional functions (one parameter). For multidimensional we use `optim` or even better `nloptr` from the package with the same name.
 
 What are the outputs?
 
 ### The bird alarm example
 
 In Ari's example we have the dead-leaf gleaning species
+
 ```{r echo=TRUE, eval=FALSE}
-dl.forager<- bird.alarms$Response[which(bird.alarms$Forage=="DL")] 
+dl.forager <- bird.alarms$Response[which(bird.alarms$Forage=="DL")] 
 ```
+
 and the flycatchers
+
 ```{r echo=TRUE, eval=FALSE}
 f.forager<-bird.alarms$Response[which(bird.alarms$Forage=="F")] #11
 ```
 
 #### Calculate the MLE for DL and F and the likelihood value evaluated at the MLE
+
 You should be getting approximately the following values:
+
 ```{r echo=TRUE,eval=FALSE}
-dl.optimization<-optimize(f=likelihood.function, interval=c(10,30), observations=dl.forager)
+dl.optimization <- optimize(f=likelihood.function, interval=c(10,30), observations=dl.forager)
 
-(mle.dl<-dl.optimization$minimum)
-(likelihoodval.dl<- -dl.optimization$objective)
+(mle.dl <- dl.optimization$minimum)
+(likelihoodval.dl <- -dl.optimization$objective)
 
-(mle.f<-mean(f.forager))
+(mle.f <- mean(f.forager))
 (likelihoodval.f<--likelihood.function(mle.f,observations=f.forager))
 ```
 
@@ -84,13 +91,14 @@ So, are the flycatchers behaving differently than the dead-leaf gleaners? What i
 Likelihood functions are not only about the maximum likelihood estimate. Likelihoods represent plausibility. This is represented in the full likelihood function so it is important to explore it.
 
 We select a series of parameters and measure their plausibility for example in the interval $(0,50)$
+
 ```{r echo=TRUE, eval=FALSE}
-parameter.vals<-seq(0.0001,50,0.01) #creating an interval for possible values for the likelihood
-long<-length(parameter.vals) 
+parameter.vals <- seq(0.0001,50,0.01) #creating an interval for possible values for the likelihood
+long <- length(parameter.vals) 
 # Evaluating the likelihood for each of those values
-p.likelihoodf<-rep(0,long)
+p.likelihoodf <- rep(0,long)
 for (i in 1:long){
-p.likelihoodf[i]<- -likelihood.function(parameter.vals[i],observations=f.forager) # Remeber is negative so we need to add a sign
+p.likelihoodf[i]<- -likelihood.function(parameter.vals[i],observations=f.forager) # Remember is negative so we need to add a sign
 }
 ```
 
@@ -100,7 +108,6 @@ In different studies likelihood can be represented using different scales
 par(mfrow=c(1,3))
 # Straight likelihood function
 plot(parameter.vals, p.likelihoodf, type="l",main="Likelihood for flycatchers",xlab=expression(theta),ylab="Likelihood", lwd=2,xlim=c(0,5))
-
 
 #log-likelihood function, most commonly used
 plot(parameter.vals, log(p.likelihoodf), type="l",main="log-likelihood for flycatchers",xlab=expression(theta),ylab="Likelihood",lwd=2,xlim=c(0,5))
@@ -131,8 +138,8 @@ plot(parameter.vals, p.likelihooddl/likelihoodval.dl, type="l",main="Relative li
 ```
 
 ### Are the freezing times different for the two groups?
-Usually you will go ahead and do some statistical test to say "I reject that the average freezing time of the groups is the same". Except that you can't do a T-test (not normal), sample sizes are really small (so not so much power). The evidence of likelihood comes to the rescue.
 
+Usually you will go ahead and do some statistical test to say "I reject that the average freezing time of the groups is the same". Except that you can't do a T-test (not normal), sample sizes are really small (so not so much power). The evidence of likelihood comes to the rescue.
 
 Using relative likelihoods we can compare the evidence between the two groups
 ```{r echo=TRUE, eval=FALSE}

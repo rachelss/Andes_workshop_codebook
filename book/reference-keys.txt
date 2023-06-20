@@ -39,3 +39,13 @@ mrbayes
 what-do-your-trees-tell-you
 dates-and-evolution
 dates-times-on-trees
+understanding-the-likelihood-function
+background-1
+the-model
+the-likelihood-function
+a-mini-example-with-a-sample-size-of-two
+the-bird-alarm-example
+calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle
+where-is-the-evidence-for-different-behavior
+plot-the-likelihood-for-dead-leaf-gleaners
+are-the-freezing-times-different-for-the-two-groups
