@@ -1,0 +1,157 @@
+# Introduction to macroevolution modeling
+
+In this section, we will work on modeling a continuous trait and understanding what Brownian motion is.
+```{r echo=TRUE, eval=FALSE}
+#Libraries required
+library(ape) #contains read.nexus. plot.phylo
+library(geiger)#fitContinuous
+library(phytools) #vcvPhylo
+library(nlme)
+library(phylolm)
+```
+
+## Reading dataset and phylogenetic tree
+This data comes from Landis et al.2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
+
+```{r echo=TRUE, eval=FALSE}
+## Read the data
+pole_tree<-read.nexus("pole_tree.nex")
+```
+
+This is a dataset of traits and pollinators visiting the flowers on the tips of the tree
+
+```{r echo=TRUE, eval=FALSE}
+pole_dataset<-read.csv("pole_dataset.csv",header=TRUE)
+head(pole_dataset)
+rownames(pole_dataset) <- pole_tree$tip.label 
+head(pole_dataset)
+```
+
+For many phylogenetic models we need to make sure that the row names match the tip labels on the tree.
+This assumes that the dataset is already in the same order as the tree file
+
+
+## Plotting a phylogenetic tree with data
+
+Easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion
+
+```{r echo=TRUE, eval=FALSE}
+plot(pole_tree,cex=0.2) #other types of plot, type=...
+```
+
+but when you have a lot of tips, circular phylogenies can be more useful
+```{r echo=TRUE, eval=FALSE}
+plot(pole_tree,cex=0.2,type="fan") #other types of plot, type=...
+```
+
+
+### Plotting continuous data
+
+```{r echo=TRUE, eval=FALSE}
+lengthplot<-setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
+plotTree.barplot(tree=pole_tree, x=lengthplot,args.plotTree=list(fsize=0.2,ftype="i"),args.barplot=list(xlab="Flower length (cm)"))
+```
+
+Stop and see, what do you notice. Practice your tree-thinking skills
+
+### Plotting discrete and continuous data
+```{r echo=TRUE, eval=FALSE}
+# Plotting by hummingbird pollination
+mycolors<-rep("blue",length(pole_dataset$Length))
+mycolors[which(pole_dataset$P1==1)]="red"
+
+plotTree.barplot(tree=pole_tree,x=lengthplot,args.plotTree=list(ftype="off"),
+    args.barplot=list(col=mycolors,border=mycolors,xlab=""))
+legend(x=3, y=100,legend=c("Hummingbird pollinated","Other pollination"),pch=22,cex=0.5,pt.bg=c("red","blue"),
+    box.col="transparent")
+
+```
+
+Stop and see, what kind of (macroevolution) questions can you ask after seeing this?
+
+## Introduction to Brownian Motion
+
+Probability approaches have proven really useful to recreate evolutionary history across species. Although some of these models can be simplistic, they can be useful to establish some basic scenarios at which traits can evolve.
+
+One of these simple, yet important models is Brownian motion (sometimes called Wiener process). The movement itself was first described by a botanist(!!!) Robert Brown (1827) who wanted to describe how pollen of Clarkia pulchella moved in water. The mathematical model was actually described by Albert Einstein in 1905.
+
+Brownian motion is the result of many small forces that are added to create movement. My postdoc advisor Luke Harmon, says that it is hard for him to imagine pollen in fluid so he uses the analogy of a ball being bounced around in a large stadium as a great visual for using Brownian motion model (BM) to model the movement of the ball. It is the many small forces and directions of the people in the stadium which ultimately moves the ball all across the place.
+
+Mathematically, Brownian motion is a stochastic process. This means that it is a probability model that occurs as time advances. We denote stochastic processes as ${X(t): t\geq 0}$, meaning a random variable over time, when time is greater or equal than zero. Brownian motion has three important properties:
+
+1. The expected value of the process as time advances is the same value at which the process started. In mathematical terms $E[X(t)]=X(0).$
+2. In each successive  and non-overlapping time interval  the process is independent. This iproperty is what we call in probability a Markovian property. In mathematical terms, we have two intervals of time $(0,t)$ and $(t, t+s)$, then $[X(t)-X(0)]$ is independent from $[X(t+s)-X(t))]$.
+3. The process at time $t$, that is $X(t)$ has a Normal probability distribution. This normal probability distribution has as mean value, the value at which the process started and a variance that is a function of time. In mathematical terms $X(t)\sim N(X(0),\sigma^2t).$
+
+## Brownian motion in phylogenetic comparative methods
+
+In phylogenetic comparative methods, we are assuming then that an observation of a phenotype (trait) for species A $x_A$ is then representative of the average of the population after some time. Again, this is an assumption, and as every assumption, we should question this when it comes to real data. 
+
+There are many traits that could be model as BM, think about body mass, brain size, foot length, all those continuous. How appropriate is to model them as BM, totally depends on the scale, and how much we believe that the trait "randomly wanders" through time. There exists other models who put a limit on how much the trait wanders, or change rapidly away from having the same expected value altogether.
+
+For the purposes of this lecture, we are interested then in understanding the evolution of trait $X(t)$ (notice is a random variable over time) for two species for which we have observed values of the trait $(x_A,x_B)$. These two species are not independent, they have a shared evolutionary history dictated by a phylogenetic tree. This is a key point, in the past, all of your samples have been INDEPENDENT and identically distributed. The independent assumption is gone, so how do we go about acknowledging the shared evolutionary history?
+
+
+Using BM model we know that 
+$$x_A\sim N(\mu_0, \sigma^2 (t_1+t_2))$$
+and that
+$$x_B\sim N(\mu_0,\sigma^2(t_1+t_3))$$
+
+with $\mu_0=x(0)$. Since $(x_A, x_B)$ are not independent from each other and share branch $(t_1)$ in the phylogeny  we can think of each value in the tips as the result of a the sum of two evolutionary changes
+1. $x_A=\Delta x_1+\Delta x_2$  (the change of trait value during $t_1$  plus the change in trait value during the $t_2$ branch)
+2. $x_B=\Delta x_1+\Delta x_3$  (the change of trait value during $t_1$  plus the change in trait value during the $t_3$ branch)
+
+Because of the Markovian property of BM (property 2 in the introduction). We know that the change $\delta x_2$ is independent from the change in $\delta x_1$. Also, the only shared change for the two species is whatever happened during $t_1$. Therefore, the shared evolutionary history for the trait for species A and B is
+$$cov(x_A, x_B)= var(\Delta x_1)=\sigma^2 t_1$$
+This covariance equation is the most important and key result used in macroevolution. Extensions of these covariance represent other popular models of continuous variables (e.g. OU, EB, Lévy).
+
+## Shared ancestry and continuous character evolution
+
+```{r echo=TRUE, eval=FALSE}
+## Calculate the C matrix using the vcvPhylo() function
+
+C <- vcvPhylo(pole_tree, anc.nodes=FALSE) #covaraince matrix of ...? how to interpet variance terms?
+# Check the dimensions. What is this matrix C composed of?
+# Why is it called vcvPhylo?
+
+# We are interested in calculating the the amount of evolution using Brownian motion for flower length. We will do this with the function fitContinuous() from package geiger
+```
+
+### Always visualize your data
+
+```{r echo=TRUE, eval=FALSE}
+flower.length<- pole_dataset$Length
+names(flower.length)<-pole_tree$tip.label
+hist(flower.length) # What do you see here? do you think Brownian motion could be a good model for evolution for flower length?
+
+# Sometimes to better model BM in traits that can only be positivy we often log-transform
+log.flowerlength<-log(flower.length)
+hist(log.flowerlength)
+# But much harder to interpret in log-scale
+```
+
+
+### Fitting BM on flower length
+
+```{r echo=TRUE, eval=FALSE}
+fitted.BM<- fitContinuous(pole_tree,flower.length, model="BM")
+fitted.BM
+```
+
+
+Stop and Interpret the output of fitContinuous
+
+1. Type ```fitted.BM$opt``` explore a little bit what this object has
+2. What is ```fitted.BM$opt$z0``` telling us about the Brownian motion process?
+3. What is ```fitted.BM$opt$sigsq``` telling us about the Brownian motion process?
+4. What is the log-likelihood?
+
+
+If you assume no phylogenetic tree and complete independence in the data, what happens with the parameters?
+```{r echo=TRUE, eval=FALSE}
+fitted.Normal<-fitContinuous(pole_tree,flower.length, model="white")
+fitted.Normal
+```
+Which model is better? (Hint: Think about model selection, but also argue about the importance of considering the phylogeny)
+
+
