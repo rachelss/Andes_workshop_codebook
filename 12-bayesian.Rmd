@@ -1,0 +1,370 @@
+
+# What is Bayesian statistics?
+
+Bayesian statistics is a branch of statistics that focuses in inferring and forecasting the probability of events making sure we account for uncertainty.
+
+There are two central differences from traditional (frequentist) statistics
+
+1. The way Bayesians define probabilities
+
+2. Parameters are unknown but random and we need to measure their uncertainty.
+
+At all times we need to make sure we think about these two key issues.
+
+## What about all the fighting of "frequentists" vs. "Bayesians"
+
+From a practical point of view all the fighting is just a series of bad misunderstandings. Frequentist statistics has a long history of fighting that started early with the introduction of a concept that we have studied *likelihood function*. Interestingly, people confuse the likelihood function with frequentist statistics, and now people host talks arguing that frequentist (or likelihood statistics) are bad even though likelihood can have the same inference potential than Bayesian statistics.
+
+## When do we choose Bayesian statistics?
+
+In Biology we choose Bayesian statistics because they have a powerful computational tool that is called *MCMC* that stands for Monte Carlo Markov Chain optimization. This tool is extremely easy to implement in new software and deals with very complex models quickly. It is so powerful that an MCMC can give us estimates of many parameters without optimization nightmares.  Today we will explore this power.
+
+
+## Basic concepts of Bayesian Statistics
+
+Bayesian statistics inherit their from the Bayes' Theorem. We have two events $A$ and $B$ so the conditional probability of $A$ **given** $B$ is defined as
+
+$$P(A|B)=\frac{P(AB)}{P(B)}$$
+or applying twice Bayes' Theorem we get 
+
+$$ P(A|B)=\frac{P(B|A)P(A)}{P(B)}$$
+
+## Example: Online dating
+
+Dating online can be daunting for introverts. An introvert lets call them Felix (F) asks out a person Pepa (P) out for dinner, and Pepa accepts. F is super nervous and thinking about these two events
+
+- A: is the event that P is into F
+- B: is the event that represents a date between F and P going well
+
+The probability $P(A)$ represents *a priori* how much F believes P is into them. For example, $P(A)=0.1$ represents lack of confidence, meaning F doesn't believe P is that interested in them. An overly confident person can have a $P(A)=0.9$.
+
+However, F knows how to play the long game. They are interested in $P(A|B)$ meaning, after observing how well and fun their date goes, F can *update* their expectations, that is, if the dinner goes well, maybe they increased their chances of dating for longer P. 
+
+### $P(A|B)$ is difficult to estimate
+
+How do we update the probability of  P liking F given how the date went? It is always easier to think on the opposite conditional:
+
+$P(B|A)$: *Given that P is into F* the probability of dinner going well is...
+
+and we can go beyond this. We can think on the complement of event $A$ denoted as $A^C$ that is the event that P is NOT into F. In probability world the rule is that the complement has a probability 
+$$P(A^C)=1-P(A)$$
+(the probability of P is not into F is one minus the probability of P liking F, hence complementary probabilities)
+
+### Coming back to the initial idea of how we define Bayesian statistics
+
+1. **The way Bayesians define probabilities**- It is all about betting. There is no great way to *a priori* decide what $P(A)$ (the probability of a person liking me). This is subjective and up to the modeler. This is why we want to be careful with prior distributions. 
+
+### The random variable
+
+To become a true Bayesian and be able to infer how dating is going we need to move from the space of events A and B to the space of numbers using an important concept: **random variables**. Random variables represent a **function** that takes us from an event to a number.
+
+Let's define our first one
+
+$A$: The event that Pepa likes Felix.
+
+$X$: random variable (a function that takes us from an event to a number). Define as
+
+$$X= \begin{cases}
+      0 & \textrm{when } A^C  \textrm{ happens}\\
+      1 & \textrm{when } A  \textrm{ happens}
+    \end{cases}$$
+
+So now instead of using the probability $P(A)$ we can use instead $P(X=1)$ and both mean the same.
+
+### The prior distribution
+
+Now suppose that $P(X=1)$ is redefined using a parameter called $\theta$ (\theta) that is between 0 and 1, and this also means that $P(X=0)=1-\theta$. Just like Felix declared his shyness initially $\theta=0.1$. That would be all well if you are completely certain, but as any person in the world, sometimes a person likes you and sometimes they don't. So it would be much better to assume $\theta$ (parameter) is uncertain  and try to model it.
+
+For that we are going to use a probability distribution called **Beta**. A beta distribution is convenient because it goes from (0, 1). You could choose any other distribution you wish as long as it makes $\theta$ go between (0,1).
+
+But let's explore what a Beta distribution does
+
+
+```{r echo=TRUE, eval=FALSE}
+theta <- .1 # the statistician is shy
+# Beta has two parameters a and b  and the mean of the distribution is a/(a+b)
+a     <- 2
+b     <- 5
+
+prior_distribution<-function(theta, a, b){
+beta_val<-dbeta(theta, a, b)
+return(beta_val)}# Why is this larger than 1?- It is not a probability 
+```
+
+```{r echo=TRUE, eval=FALSE}
+# Tidyverse organizes data and creates "tibbles" tables that are easier to manipulate
+
+# install.packages(tidyverse) #Install these packages if you don't have them 
+
+# ggplot2 allows us to graph complex objects
+
+# install.packages(ggplot2)
+library(tidyverse,warn.conflicts = F, quietly = T)
+library(ggplot2,warn.conflicts = F, quietly = T)
+
+length <- 1e4
+
+#Creating a table of values a and b so we can see the different shapes of Beta distribution
+d <-
+  crossing(shape1 = c(.1, 1:4),
+           shape2 = c(.1, 1:4)) %>%
+  expand(nesting(shape1, shape2), 
+         x = seq(from = 0, to = 1, length.out = length)) %>% 
+  mutate(a     = str_c("a =", shape1),
+         b     = str_c("b =", shape2),
+         group = rep(1:length, each = 25))
+
+head(d) #you can see what is in the table
+
+
+# Plotting different Beta distributions
+d %>% 
+  ggplot(aes(x = x, group = group)) +
+  
+  geom_line(aes(y = dbeta(x, shape1 = shape1, shape2 = shape2)),
+            color = "grey50", size = 1.25) +
+  scale_x_continuous(breaks = c(0, .5, 1)) +coord_cartesian(ylim = c(0,3))+
+  labs(x = expression(theta),
+       y = expression(paste("p(", theta, ")"))) +
+  theme(panel.grid = element_blank()) +
+  facet_grid(b~a)
+```
+
+Let's interpret the Beta distributions. These are potential prior distributions, they are subjective and represent different beliefs that we have about the statisticians.
+
+Here, we are focusing on the second central idea of Bayesian statistics:
+
+2. Parameters are unknown but random and we need to measure their uncertainty.
+
+We do this by assuming the parameter $\theta$ has a **prior distribution** $Beta(a,b)$.
+
+### The Data and their distribution
+
+In our case, Felix goes out for one dinner (or more) trying to figure out if Pepa is interested. Let's assume a crazy Netflix show scenario (like "Love is Blind"- don't judge me!). Felix and Pepa decide to date for exactly three dates $N=3$. How can we model this?
+
+$$Y \textrm{ is the random variable of the number of dates that went well so the values } Y=0,1,2,...,N \textrm{ are our only possibilities}$$
+The probability of the number of dates that wentwell is going to be dependent on the likeability of the statistician $\theta$. We can model this using a Binomial distribution
+$$P(Y=k|\theta)= {N\choose k} \theta^k (1-\theta)^{N-k}$$
+Let's see what this Binomial distribution looks like
+```{r echo=TRUE, eval=FALSE}
+# install.packages(grid)
+library(grid)
+
+date_number  <- 0:3
+theta<-0.1
+df <- data.frame(x = date_number, y = dbinom(date_number, 3, 0.1))
+
+p1 <- ggplot(df, aes(x = x, y = y)) + geom_bar(stat = "identity", col = "hotpink", fill = "hotpink") + 
+  scale_y_continuous(expand = c(0.01, 0)) + xlab("x") + ylab("Density") + 
+  labs(title = "dbinom(x, 20, 0.5)") + theme_bw(16, "serif") + 
+  theme(plot.title = element_text(size = rel(1.2), vjust = 1.5))+labs(title="Binomial distribution", x ="Number of dates that went well", y = "Probability")
+
+p1
+```
+## The likelihood function
+
+Likelihood approaches have gotten a bad rap over the years. The likelihood function often gets bunked as a "frequentist" approach. This is incorrect, likelihood functions are extremely useful depending the problem, and they are better understood if we think of them as the function of evidence (discussion to come). 
+
+
+Let's say the three dates are completed and 2 out of the 3 went well therefore the probability of 2 dates going well is
+
+$$P(Y=2|\theta)= {3\choose 2} \theta^2 (1-\theta)^1$$
+If $\theta=0.1$ then $P(Y=2|\theta=0.1)= {3\choose 2} 0.1^2 (0.9)^1=0.027$. So if Felix is not a likable person the probability of two dates going well is really low 2.7%. This is an *unlikely* scenario (you see where the word likelihood comes from now?).
+
+
+Now, let's think that this Netflix show goes crazier and Felix has to date two people three times. With the first person they have $y_1=1$ good date and with the second $y_2=2$ good dates. Then the likelihood function in this situation is
+
+$$P(Y=y_1|\theta)\times P(Y=y_2|\theta) = {3\choose 1} \theta^1 (1-\theta)^{2}\times {3\choose 2} \theta^2 (1-\theta)^{1} \approx \theta^{1+2}(1-\theta)^{2+1}=\theta^3(1-\theta)^3$$
+Formally,  **the likelihood function** is the probability of the data given the model, and that is a product of the individual probabilities of each couple dating.
+
+$$P(Data|\theta)= \prod_{y_i=1}^{2}P(Y=y_i|\theta)\approx \theta^3(1-\theta)^3$$
+If you didn't have any information a priori about $\theta$, what would you say about it after observing that in the first three dates two went well, and in the second three dates only one went well? 
+
+```{r echo=TRUE, eval=FALSE}
+binomial_likelihood <- function(theta, data,n) {
+  
+  # `theta` = success probability parameter ranging from 0 to 1
+  # `data`  = the vector of data (i.e., a series of 0s and 1s)
+  long<-length(theta)
+  z<-rep(0,long)
+  for(i in 1:long){
+  prob.vect<-sapply(data,FUN=dbinom, size=n, prob=theta[i])
+  z[i]<- prod(prob.vect)
+  }
+  return(z)
+}
+
+observed_dates<- c(2,1)
+binomial_likelihood(theta=c(0.1,0.3), data=observed_dates,n=3)
+```
+
+
+# The update! The posterior distribution
+
+The posterior distribution then is the updated probability of likability of Felix. After going for some dates, they should have a better way to say "I'm a nice person to go out with". That's why Bayesians refer to posterior distributions as updated probabilities.
+
+
+The posterior distribution is **proportional**  to the likelihood multiplied by a prior distribution for the model
+$$\underbrace{P(\theta|Data)}_{Posterior} \propto \underbrace{P(Data|\theta)}_{Likelihood} \times \underbrace{P(\theta)}_{Prior}$$
+Remember the proportional part comes from ignoring in the Bayes' Rule the denominator .That is, we ignore the probability of the data aggregated for all the possible models for $\theta$ that is $P(\theta)$.
+
+Okay so let's calculate the posterior distribution
+
+$$P(\theta|Data) \propto \underbrace{\theta^k(1-\theta)^{n-k}}_{\textrm{Likelihood (product of binomials)}} \times \underbrace{\theta^{a-1}(1-\theta)^{b-1}}_{\textrm{prior Beta distribution}}$$
+This is a horrible object, how do we deal with this? how do we know how the posterior looks like?
+
+```{r echo=TRUE, eval=FALSE}
+
+trial_data <- c(1,2)
+number_dates<-3
+a<-2
+b<-5
+
+d <-
+  tibble(theta0 = seq(from = 0, to = 1, length.out = 100)) %>% 
+  mutate(`Prior (beta)`           = dbeta(theta0, 
+                                          shape1 = a, 
+                                          shape2 = b),
+         `Likelihood (Binomial)` = binomial_likelihood(theta = theta0, data=trial_data,n=number_dates),
+         `Posterior (beta)`       = dbeta(theta0, 
+                                          shape1 = 4, 
+                                          shape2 = 7))
+
+glimpse(d)
+
+d %>% 
+  gather(key, value, -theta0) %>% 
+  mutate(key = factor(key, levels = c("Prior (beta)", "Likelihood (Binomial)", "Posterior (beta)"))) %>% 
+  
+  ggplot(aes(x = theta0)) +
+  # densities
+  geom_ribbon(aes(ymin = 0, ymax = value),
+              fill = "grey67") +
+          labs(x = expression(theta),
+       y = NULL) +
+  facet_wrap(~key, scales = "free_y", ncol = 1) +
+  theme(panel.grid = element_blank())
+```
+
+The goal in any Bayesian statistics inference is to get the posterior distribution and this is done using a computational algorithm called the MCMC- Markov Chain Monte Carlo that allows us to propose values for $/theta$ from and accept of reject them depending on the odds that the data is likely under those values.
+
+
+
+## Optional section: Doing your first MCMC
+
+The MCMC (Markov Chain Monte Carlo) algorithm allow us to characterize and optimize the posterior distributions of all the parameters of interest. The MCMC you will be doing today is a Metropolis-Hastings, it is a rejection algorithm, it proposes a value for the parameter $\theta$ and then asks: Does that value improves the posterior probability?
+If yes then accept it other wise, go back and propose something new.
+
+Hands on!
+
+### The proposal function
+
+We are going to propose a $\theta_{new}$
+
+```{r echo=TRUE, eval=FALSE}
+proposalfunction <- function(nvals=1){
+  unif_val<-runif(nvals,min=0, max=1)
+  return(unif_val)}
+#Select randomly a value for theta from a uniform distribution
+```
+
+
+### The Metropolis-Hastings
+
+This is the rejection algorithm that we want. We are going to select a starting value  for theta our search ``startvalue`` and a number of times we want to keep searching for new values ``iterations`` the number of times we search will depend completely on whether we achieve convergence (more about convergence to follow).
+
+```{r echo=TRUE, eval=FALSE}
+a<-2
+b<-5
+
+run_metropolis_MCMC <- function(startvalue, iterations){
+    chain = rep (0,iterations+1)
+    chain[1] = startvalue # our algorithm starts here with a set of start values
+    for (i in 1:iterations){
+        theta_old<-chain[i]
+        theta_new = proposalfunction(1) # We propose to move somewhere else, utilizing as the mean of our normal distribution for the proposal the current values we have
+      
+        odds = (binomial_likelihood(theta_new,observed_dates,n=3)*prior_distribution(theta_new, a,b))/(binomial_likelihood(theta_old,observed_dates,n=3)*prior_distribution(theta_old, a,b)) 
+        
+        if (runif(1) < odds){  #if that difference in probability is really big, then awesome we are exploring better the posterior and we should take the proposed values
+            chain[i+1] = theta_new
+        }else{ # not great, better stay where we are and not move, in the next round we will propose other values maybe better ones.
+            chain[i+1] = theta_old
+        }
+    }
+    return(chain)
+}
+
+
+# Test case do only one step, what happened? Compare amongst your classmates
+startvalue = 0.3 # Here is the start value
+chain = run_metropolis_MCMC(startvalue, 1) # Do one step, what happened?
+chain
+
+startvalue = 0.3 # Here is the start value
+iter=100
+chain = run_metropolis_MCMC(startvalue, iter) # Do 10,000 steps
+head(chain)
+```
+
+### Visualizing the MCMC as a way to find out convergence
+
+```{r echo=TRUE, eval=FALSE}
+mcmc <- data.frame(iterations=seq(1,iter+1,1),chain)
+
+# Plot
+ggplot(mcmc, aes(x=iterations, y=chain)) +
+  geom_line(color="hotpink")+
+  labs(title="MCMC run",x="Iterations", y="Posterior distribution")
+
+hist(chain,col="hotpink")
+
+acceptance = 1-mean(duplicated(chain)) # The proportion of accepted moves, how did it go? good or bad
+acceptance
+```
+
+
+## Changing the proposal
+
+```{r echo=TRUE, eval=FALSE}
+proposalfunction2 <- function(nvals=1){
+  beta_val<-rbeta(nvals,shape1=0.1 ,shape2=0.1) # Beta that looks like a U
+  return(beta_val)}
+  
+a<-2
+b<-5
+
+run_metropolis_MCMC2 <- function(startvalue, iterations){
+    chain = rep (0,iterations+1)
+    chain[1] = startvalue # our algorithm starts here with a set of start values
+    for (i in 1:iterations){
+        theta_old<-chain[i]
+        theta_new = proposalfunction2(1) # We propose to move somewhere else, utilizing as the mean of our normal distribution for the proposal the current values we have
+      
+        odds = (binomial_likelihood(theta_new,observed_dates,n=3)*prior_distribution(theta_new, a,b))/(binomial_likelihood(theta_old,observed_dates,n=3)*prior_distribution(theta_old, a,b)) 
+        
+        if (runif(1) < odds){  #if that difference in probability is really big, then awesome we are exploring better the posterior and we should take the proposed values
+            chain[i+1] = theta_new
+        }else{ # not great, better stay where we are and not move, in the next round we will propose other values maybe better ones.
+            chain[i+1] = theta_old
+        }
+    }
+    return(chain)
+}
+
+startvalue = 0.3 # Here is the start value
+iter=100
+chain = run_metropolis_MCMC2(startvalue, iter) # Do 10,000 steps
+
+mcmc <- data.frame(iterations=seq(1,iter+1,1),chain)
+
+# Plot
+ggplot(mcmc, aes(x=iterations, y=chain)) +
+  geom_line(color="hotpink")+
+  labs(title="MCMC run",x="Iterations", y="Posterior distribution")
+
+hist(chain,col="hotpink")
+acceptance = 1-mean(duplicated(chain)) # The proportion of accepted moves, how did it go? good or bad
+acceptance
+```
+
