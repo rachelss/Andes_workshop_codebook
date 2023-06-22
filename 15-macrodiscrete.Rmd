@@ -1,7 +1,11 @@
-#Discrete variable modeling
+# Discrete variable modeling
 
 In this section, we will work on modeling a continuous trait and understanding what Brownian motion is.
-```{r echo=TRUE, eval=FALSE}
+
+* In addition to the libraries loaded in the previous chapters, load `expm` and `corHMM`.
+* Ensure that the tree and dataset from the prior chapters are loaded.
+
+```{r echo=FALSE, eval=FALSE}
 #Libraries required
 library(ape) #contains read.nexus. plot.phylo
 library(geiger)#fitContinuous
@@ -12,58 +16,59 @@ library(expm)
 library(corHMM)
 ```
 
-## Reading dataset and phylogenetic tree
-This data comes from Landis et al.2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
+## Plotting discrete data on a phylogeny
+
+There are multiple ways to plot discrete data on a phylogeny.
+We will use `phytools`, but there are also tools in `ape` and `ggtree`.
+
+Using ``phytools`` we will plot a tree with tip data as colors based on hummingbird pollination.
 
 ```{r echo=TRUE, eval=FALSE}
-## Read the data
-## Read the data
-setwd("~/Desktop")
-pole_tree<-read.nexus("pole_tree.nex")
-pole_tree
-```
-
-This is a dataset of traits and pollinators visiting the flowers on the tips of the tree
-
-```{r echo=TRUE, eval=FALSE}
-pole_dataset<-read.csv("pole_dataset.csv",header=TRUE)
-head(pole_dataset)
-rownames(pole_dataset) <- pole_tree$tip.label 
-head(pole_dataset)
-```
-
-
-### Plotting discrete data
-There are multiple ways to plot discrete data on a phylogeny. Multiple packages too (``ape``,``ggtree``, but we will use ``phytools``).
-
-
-Using ``phytools`` we will plot a tree with tip data as colors.
-```{r echo=TRUE, eval=FALSE}
-# Plotting by hummingbird pollination
 plotTree(pole_tree,ftype="i",offset=0.6,fsize=0.3)
-aux<-as.factor(pole_dataset$P1)
-aux<-setNames(aux, pole_tree$tip.label)
+```
 
-#Need to create a matrix for the pie chart
-discrete.matrix<-to.matrix(aux,levels(aux))
+If you look at `pole_dataset` you see that `P1` (the category of whether butterflies visit or not)
+is either 1 or 0. To the researcher this is like true/false, but the computer considers this vector to be numeric. As we did in a prior chapter (where we converted character data to numeric), we want to let the computer know this is categorical (factor) data.
 
+```
+aux <- as.factor(pole_dataset$P1)
+aux <- setNames(aux, pole_tree$tip.label)
+```
+
+Now we need to create a matrix for the pie chart.
+
+```
+discrete.matrix <- to.matrix(aux,levels(aux))
+```
+
+And finally we add these pies to the tips of the tree.
+You may need to zoom in to see the labels on the tips of the tree.
+
+```
 tiplabels(pie=discrete.matrix,piecol=c("blue","red"),cex=0.1)
+```
+
+What conclusions do you draw about the evolution of polination based on this tree?
+
+For clarity add a legend to your figure.
+
+```
 legend("topleft",levels(aux),pch=21,pt.bg=c("blue","red"),
     pt.cex=2.2)
 ```
 
 Notice that the function ``tiplabels()`` can draw pies, meaning it can draw more than one state for a tip.
+
 ## Discrete character evolution
 
-For models of discrete character evolutin we will use a mathematical model called *Continuous-time Markov chains (CTMC)*. CTMCs are stochastic (random) processes that allow us to follow the evolution of a trait(s) of interest over the branches of the tree. In this example we will focus on the evolution of hummingbird pollination.
+For models of discrete character evolution we will use a mathematical model called *Continuous-time Markov chains (CTMC)*. CTMCs are stochastic (random) processes that allow us to follow the evolution of a trait(s) of interest over the branches of the tree. In this example we will focus on the evolution of hummingbird pollination.
 
 CTMCs are usually denoted in mathematical notation as $$\{X(t), t\geq 0 \}$$; the stochastic process $$X(t)$$ follows the pollination throughout time $$t$$. Time is continuous and it is measured using branch length of our phylogeny. For discrete traits the process $$X(t)$$ takes values  in the natural numbers $$0,1,2,...$$.  CTMCs have many (cool) mathematical properties, but one of the most important  property is the *Markovian property* that states that  the probability distribution of future states of the process conditional on both past and present states depends only upon the present state.
 
-
 Mathematically, CTMC can is defined through a circle and arrow diagram and that gets converted into a matrix that we called the Q-matrix.
 
-
 ### What is a Q-matrix?
+
 In mathematics, the Q-matrix is the derivative of the probability matrix ($$P'(t)=P(t)Q$$). The  elements outside of the diagonal of the $$Q$$ matrix are transition rates and in the diagonal we have the negative sum of all the elements of the row. The row adds to zero this is because probability matrices rows add to 1 so the derivative of the constant 1 is zero.
 
 Let's stop here to think through this problem by drawing it. 
@@ -81,15 +86,15 @@ In phylogenetic comparative methods we have different types of CTMCs. Examples o
 7. Diversification (speciation and extinction) that changes based on state values-> State-dependent diversification models for example BiSSE, HiSSE implemented in ``hisse``
 8. Diversification (speciation and extinction) that changes based on biogeography or cladogenesis -> State-dependent diversification models for example GeoSSE implemented in ``hisse``
 
-Learning about CTMCs is then critical for us to develop hypotheses about trait evolution, diversification..
+Learning about CTMCs is then critical for us to develop hypotheses about trait evolution, diversification.
 
 ### Modeling the transition rates between two states
 
 We are going to use a CTMC model called Mk2 (Markov model with two states). Let's take a minute to draw define the model. We are interested in the rate of evolution of hummingbird pollination in Phlox species.
 
 ```{r echo=TRUE, eval=FALSE}
-data.discrete<-cbind(pole_tree$tip.label, pole_dataset$P1)
-mk2<-corHMM(phy=pole_tree, data=data.discrete, rate.cat=1)
+data.discrete <- cbind(pole_tree$tip.label, pole_dataset$P1)
+mk2 <- corHMM(phy=pole_tree, data=data.discrete, rate.cat=1)
 mk2 #Let's read and interpret the results carefully
 plotMKmodel(mk2)
 ```
@@ -97,12 +102,12 @@ plotMKmodel(mk2)
 Assumption: Equal rates
 
 ```{r echo=TRUE, eval=FALSE}
-LegendAndRateMat<-getStateMat4Dat(data.discrete)
-RateMat<-LegendAndRateMat$rate.mat
-pars2equal<-list(c(1,2))
+LegendAndRateMat <- getStateMat4Dat(data.discrete)
+RateMat <- LegendAndRateMat$rate.mat
+pars2equal <- list(c(1,2))
 constrained.mat<-equateStateMatPars(RateMat,pars2equal)
 constrained.mat
-mk2_equalrates<-corHMM(phy=pole_tree, data=data.discrete, rate.cat=1, rate.mat=constrained.mat)
+mk2_equalrates <- corHMM(phy=pole_tree, data=data.discrete, rate.cat=1, rate.mat=constrained.mat)
 mk2_equalrates
 plotMKmodel(mk2_equalrates)
 ```
@@ -120,9 +125,9 @@ So knowing this, which model of evolution would you choose for this example?
 Visualizing the history of evolution of a trait using stochastic maps. 
 
 ```{r echo=TRUE, eval=FALSE}
-phy = mk2_equalrates$phy
-data = mk2_equalrates$data
-model = mk2_equalrates$solution
+phy <- mk2_equalrates$phy
+data <-mk2_equalrates$data
+model <- mk2_equalrates$solution
 model[is.na(model)] <- 0
 diag(model) <- -rowSums(model)
 # run get simmap (can be plotted using phytools)
@@ -131,7 +136,7 @@ simmap <- makeSimmap(tree=phy, data=data, model=model, rate.cat=1, nSim=10, nCor
 # we import phytools plotSimmap for plotting
 dev.off()
 plotSimmap(simmap[[1]], fsize=.4)
-colors<-setNames(c("black","red"),0:1)
+colors <- setNames(c("black","red"),0:1)
 dev.off()
 densityTree(simmap,method="plotSimmap",lwd=8,nodes="intermediate", ylim=c(1,170),colors=colors, compute.consensus=FALSE, fsize=0.2, show.axis=FALSE, fix.depth=TRUE)
 ```
@@ -148,13 +153,14 @@ We will stop here and draw what these hidden states are!
 
 How do we implement them in R?
 Two different assumptions
+
 ```{r echo=TRUE, eval=FALSE}
-hmm2_2_equal<- corHMM(phy = pole_tree, data = data.discrete, rate.cat = 2, model = "SYM", get.tip.states = TRUE)
-hmm2_2_equal#Let's read and interpret the results carefully
+hmm2_2_equal <- corHMM(phy = pole_tree, data = data.discrete, rate.cat = 2, model = "SYM", get.tip.states = TRUE)
+hmm2_2_equal #Let's read and interpret the results carefully
 plotMKmodel(hmm2_2_equal)
 
 hmm2_2_different<- corHMM(phy = pole_tree, data = data.discrete, rate.cat = 2, model = "ARD", get.tip.states = TRUE)
-hmm2_2_different#Let's read and interpret the results carefully
+hmm2_2_different #Let's read and interpret the results carefully
 plotMKmodel(hmm2_2_different)
 
 ```

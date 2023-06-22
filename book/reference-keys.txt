@@ -80,3 +80,11 @@ phylogenetic-generalized-linear-models
 phylogenetic-linear-models
 testing-the-hypothesis
 what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else
+discrete-variable-modeling
+plotting-discrete-data-on-a-phylogeny
+discrete-character-evolution
+what-is-a-q-matrix
+modeling-using-ctmcs
+modeling-the-transition-rates-between-two-states
+model-comparison
+stochastic-mapping
