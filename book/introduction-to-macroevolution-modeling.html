@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Andes Phylogenomics Workshop</title>
+  <title>Chapter 14 Introduction to macroevolution modeling | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 14 Introduction to macroevolution modeling | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 14 Introduction to macroevolution modeling | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a project in phylogenomics." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="the-update-the-posterior-distribution.html"/>
+<link rel="next" href="phylogenetic-generalized-linear-models.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -285,41 +285,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Andes Phylogenomics Workshop</h1>
-<p class="author"><em>Rachel Schwartz and Rosana Zenil-Ferguson</em></p>
-<p class="date"><em>2023-06-21</em></p>
+<div id="introduction-to-macroevolution-modeling" class="section level1 hasAnchor" number="14">
+<h1><span class="header-section-number">Chapter 14</span> Introduction to macroevolution modeling<a href="introduction-to-macroevolution-modeling.html#introduction-to-macroevolution-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this section, we will work on modeling a continuous trait and understanding what Brownian motion is.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="introduction-to-macroevolution-modeling.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Libraries required</span></span>
+<span id="cb81-2"><a href="introduction-to-macroevolution-modeling.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape) <span class="co">#contains read.nexus. plot.phylo</span></span>
+<span id="cb81-3"><a href="introduction-to-macroevolution-modeling.html#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geiger)<span class="co">#fitContinuous</span></span>
+<span id="cb81-4"><a href="introduction-to-macroevolution-modeling.html#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phytools) <span class="co">#vcvPhylo</span></span>
+<span id="cb81-5"><a href="introduction-to-macroevolution-modeling.html#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb81-6"><a href="introduction-to-macroevolution-modeling.html#cb81-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylolm)</span></code></pre></div>
+<div id="reading-dataset-and-phylogenetic-tree" class="section level2 hasAnchor" number="14.1">
+<h2><span class="header-section-number">14.1</span> Reading dataset and phylogenetic tree<a href="introduction-to-macroevolution-modeling.html#reading-dataset-and-phylogenetic-tree" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This data comes from Landis et al.2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California. We are interested in the rate of evolution of flower length</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="introduction-to-macroevolution-modeling.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read the data</span></span>
+<span id="cb82-2"><a href="introduction-to-macroevolution-modeling.html#cb82-2" aria-hidden="true" tabindex="-1"></a>pole_tree<span class="ot">&lt;-</span><span class="fu">read.nexus</span>(<span class="st">&quot;pole_tree.nex&quot;</span>)</span></code></pre></div>
+<p>This is a dataset of traits and pollinators visiting the flowers on the tips of the tree</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introduction-to-macroevolution-modeling.html#cb83-1" aria-hidden="true" tabindex="-1"></a>pole_dataset<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;pole_dataset.csv&quot;</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb83-2"><a href="introduction-to-macroevolution-modeling.html#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pole_dataset)</span>
+<span id="cb83-3"><a href="introduction-to-macroevolution-modeling.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(pole_dataset) <span class="ot">&lt;-</span> pole_tree<span class="sc">$</span>tip.label </span>
+<span id="cb83-4"><a href="introduction-to-macroevolution-modeling.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pole_dataset)</span></code></pre></div>
+<p>For many phylogenetic models we need to make sure that the row names match the tip labels on the tree.
+This assumes that the dataset is already in the same order as the tree file</p>
 </div>
-<div id="about-this-workshop" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> About this workshop<a href="index.html#about-this-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The evolutionary tree of life is fundamental to our understanding of the natural world.
-This workshop will go through all of the steps of research in understanding the evolutionary history of several groups of Andean plants.
-We will participate in field collections of plants and processing of samples for collections.
-In real research projects, the species and collections should be considered carefully
-with an expectation of the potential for phylogenetic results and evolutionary hypotheses.
-Researchers should create voucher specimens to preserve the samples long-term,
-as well as appropriate samples for DNA extraction.
-Samples should be recorded and given a unique identifier, in order to connect the specimen to the sequencing data.</p>
-<p>In this workshop we will not have an opportunity to experience the expected next step of
-sample processing, DNA extraction, or sequencing.
-Contemporary sequencing is often completed by an outside facility, although we will discuss options as part of this workshop.
-We will continue with the analysis of sequence data,
-particularly target-capture data from genome sequencing.
-As part of this we will learn basic computing on the command line
-and some approaches to writing code in the bash shell and R.
-This will allow us to conduct data analysis that can apply to larger scale work than can be conducted on a laptop.
-As part of the analysis of different datasets, we will see how in many cases we draw different conclusions from different datasets and how we examine phylogenies.
-We will then use these phylogenies to conduct comparative analyses to understand how phylogenies inform our understanding of trait evolution.
-Finally, we will ask you to present the results of your analyses.</p>
+<div id="plotting-a-phylogenetic-tree-with-data" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Plotting a phylogenetic tree with data<a href="introduction-to-macroevolution-modeling.html#plotting-a-phylogenetic-tree-with-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="introduction-to-macroevolution-modeling.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pole_tree,<span class="at">cex=</span><span class="fl">0.2</span>) <span class="co">#other types of plot, type=...</span></span></code></pre></div>
+<p>but when you have a lot of tips, circular phylogenies can be more useful</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="introduction-to-macroevolution-modeling.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pole_tree,<span class="at">cex=</span><span class="fl">0.2</span>,<span class="at">type=</span><span class="st">&quot;fan&quot;</span>) <span class="co">#other types of plot, type=...</span></span></code></pre></div>
+<div id="plotting-continuous-data" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> Plotting continuous data<a href="introduction-to-macroevolution-modeling.html#plotting-continuous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="introduction-to-macroevolution-modeling.html#cb86-1" aria-hidden="true" tabindex="-1"></a>lengthplot<span class="ot">&lt;-</span><span class="fu">setNames</span>(pole_dataset<span class="sc">$</span>Length,<span class="fu">rownames</span>(pole_dataset)) <span class="co">#Stop to see what this line of code is doing</span></span>
+<span id="cb86-2"><a href="introduction-to-macroevolution-modeling.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree.barplot</span>(<span class="at">tree=</span>pole_tree, <span class="at">x=</span>lengthplot,<span class="at">args.plotTree=</span><span class="fu">list</span>(<span class="at">fsize=</span><span class="fl">0.2</span>,<span class="at">ftype=</span><span class="st">&quot;i&quot;</span>),<span class="at">args.barplot=</span><span class="fu">list</span>(<span class="at">xlab=</span><span class="st">&quot;Flower length (cm)&quot;</span>))</span></code></pre></div>
+<p>Stop and see, what do you notice. Practice your tree-thinking skills</p>
+</div>
+<div id="plotting-discrete-and-continuous-data" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> Plotting discrete and continuous data<a href="introduction-to-macroevolution-modeling.html#plotting-discrete-and-continuous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-macroevolution-modeling.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting by hummingbird pollination</span></span>
+<span id="cb87-2"><a href="introduction-to-macroevolution-modeling.html#cb87-2" aria-hidden="true" tabindex="-1"></a>mycolors<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>,<span class="fu">length</span>(pole_dataset<span class="sc">$</span>Length))</span>
+<span id="cb87-3"><a href="introduction-to-macroevolution-modeling.html#cb87-3" aria-hidden="true" tabindex="-1"></a>mycolors[<span class="fu">which</span>(pole_dataset<span class="sc">$</span>P1<span class="sc">==</span><span class="dv">1</span>)]<span class="ot">=</span><span class="st">&quot;red&quot;</span></span>
+<span id="cb87-4"><a href="introduction-to-macroevolution-modeling.html#cb87-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-5"><a href="introduction-to-macroevolution-modeling.html#cb87-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree.barplot</span>(<span class="at">tree=</span>pole_tree,<span class="at">x=</span>lengthplot,<span class="at">args.plotTree=</span><span class="fu">list</span>(<span class="at">ftype=</span><span class="st">&quot;off&quot;</span>),</span>
+<span id="cb87-6"><a href="introduction-to-macroevolution-modeling.html#cb87-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">args.barplot=</span><span class="fu">list</span>(<span class="at">col=</span>mycolors,<span class="at">border=</span>mycolors,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>))</span>
+<span id="cb87-7"><a href="introduction-to-macroevolution-modeling.html#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">100</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Hummingbird pollinated&quot;</span>,<span class="st">&quot;Other pollination&quot;</span>),<span class="at">pch=</span><span class="dv">22</span>,<span class="at">cex=</span><span class="fl">0.5</span>,<span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb87-8"><a href="introduction-to-macroevolution-modeling.html#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.col=</span><span class="st">&quot;transparent&quot;</span>)</span></code></pre></div>
+<p>Stop and see, what kind of (macroevolution) questions can you ask after seeing this?</p>
+</div>
+</div>
+<div id="introduction-to-brownian-motion" class="section level2 hasAnchor" number="14.3">
+<h2><span class="header-section-number">14.3</span> Introduction to Brownian Motion<a href="introduction-to-macroevolution-modeling.html#introduction-to-brownian-motion" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Probability approaches have proven really useful to recreate evolutionary history across species. Although some of these models can be simplistic, they can be useful to establish some basic scenarios at which traits can evolve.</p>
+<p>One of these simple, yet important models is Brownian motion (sometimes called Wiener process). The movement itself was first described by a botanist(!!!) Robert Brown (1827) who wanted to describe how pollen of Clarkia pulchella moved in water. The mathematical model was actually described by Albert Einstein in 1905.</p>
+<p>Brownian motion is the result of many small forces that are added to create movement. My postdoc advisor Luke Harmon, says that it is hard for him to imagine pollen in fluid so he uses the analogy of a ball being bounced around in a large stadium as a great visual for using Brownian motion model (BM) to model the movement of the ball. It is the many small forces and directions of the people in the stadium which ultimately moves the ball all across the place.</p>
+<p>Mathematically, Brownian motion is a stochastic process. This means that it is a probability model that occurs as time advances. We denote stochastic processes as <span class="math inline">\({X(t): t\geq 0}\)</span>, meaning a random variable over time, when time is greater or equal than zero. Brownian motion has three important properties:</p>
+<ol style="list-style-type: decimal">
+<li>The expected value of the process as time advances is the same value at which the process started. In mathematical terms <span class="math inline">\(E[X(t)]=X(0).\)</span></li>
+<li>In each successive and non-overlapping time interval the process is independent. This iproperty is what we call in probability a Markovian property. In mathematical terms, we have two intervals of time <span class="math inline">\((0,t)\)</span> and <span class="math inline">\((t, t+s)\)</span>, then <span class="math inline">\([X(t)-X(0)]\)</span> is independent from <span class="math inline">\([X(t+s)-X(t))]\)</span>.</li>
+<li>The process at time <span class="math inline">\(t\)</span>, that is <span class="math inline">\(X(t)\)</span> has a Normal probability distribution. This normal probability distribution has as mean value, the value at which the process started and a variance that is a function of time. In mathematical terms <span class="math inline">\(X(t)\sim N(X(0),\sigma^2t).\)</span></li>
+</ol>
+</div>
+<div id="brownian-motion-in-phylogenetic-comparative-methods" class="section level2 hasAnchor" number="14.4">
+<h2><span class="header-section-number">14.4</span> Brownian motion in phylogenetic comparative methods<a href="introduction-to-macroevolution-modeling.html#brownian-motion-in-phylogenetic-comparative-methods" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In phylogenetic comparative methods, we are assuming then that an observation of a phenotype (trait) for species A <span class="math inline">\(x_A\)</span> is then representative of the average of the population after some time. Again, this is an assumption, and as every assumption, we should question this when it comes to real data.</p>
+<p>There are many traits that could be model as BM, think about body mass, brain size, foot length, all those continuous. How appropriate is to model them as BM, totally depends on the scale, and how much we believe that the trait “randomly wanders” through time. There exists other models who put a limit on how much the trait wanders, or change rapidly away from having the same expected value altogether.</p>
+<p>For the purposes of this lecture, we are interested then in understanding the evolution of trait <span class="math inline">\(X(t)\)</span> (notice is a random variable over time) for two species for which we have observed values of the trait <span class="math inline">\((x_A,x_B)\)</span>. These two species are not independent, they have a shared evolutionary history dictated by a phylogenetic tree. This is a key point, in the past, all of your samples have been INDEPENDENT and identically distributed. The independent assumption is gone, so how do we go about acknowledging the shared evolutionary history?</p>
+<p>Using BM model we know that
+<span class="math display">\[x_A\sim N(\mu_0, \sigma^2 (t_1+t_2))\]</span>
+and that
+<span class="math display">\[x_B\sim N(\mu_0,\sigma^2(t_1+t_3))\]</span></p>
+<p>with <span class="math inline">\(\mu_0=x(0)\)</span>. Since <span class="math inline">\((x_A, x_B)\)</span> are not independent from each other and share branch <span class="math inline">\((t_1)\)</span> in the phylogeny we can think of each value in the tips as the result of a the sum of two evolutionary changes
+1. <span class="math inline">\(x_A=\Delta x_1+\Delta x_2\)</span> (the change of trait value during <span class="math inline">\(t_1\)</span> plus the change in trait value during the <span class="math inline">\(t_2\)</span> branch)
+2. <span class="math inline">\(x_B=\Delta x_1+\Delta x_3\)</span> (the change of trait value during <span class="math inline">\(t_1\)</span> plus the change in trait value during the <span class="math inline">\(t_3\)</span> branch)</p>
+<p>Because of the Markovian property of BM (property 2 in the introduction). We know that the change <span class="math inline">\(\delta x_2\)</span> is independent from the change in <span class="math inline">\(\delta x_1\)</span>. Also, the only shared change for the two species is whatever happened during <span class="math inline">\(t_1\)</span>. Therefore, the shared evolutionary history for the trait for species A and B is
+<span class="math display">\[cov(x_A, x_B)= var(\Delta x_1)=\sigma^2 t_1\]</span>
+This covariance equation is the most important and key result used in macroevolution. Extensions of these covariance represent other popular models of continuous variables (e.g. OU, EB, Lévy).</p>
+</div>
+<div id="shared-ancestry-and-continuous-character-evolution" class="section level2 hasAnchor" number="14.5">
+<h2><span class="header-section-number">14.5</span> Shared ancestry and continuous character evolution<a href="introduction-to-macroevolution-modeling.html#shared-ancestry-and-continuous-character-evolution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-macroevolution-modeling.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the C matrix using the vcvPhylo() function</span></span>
+<span id="cb88-2"><a href="introduction-to-macroevolution-modeling.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-3"><a href="introduction-to-macroevolution-modeling.html#cb88-3" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">vcvPhylo</span>(pole_tree, <span class="at">anc.nodes=</span><span class="cn">FALSE</span>) <span class="co">#covaraince matrix of ...? how to interpet variance terms?</span></span>
+<span id="cb88-4"><a href="introduction-to-macroevolution-modeling.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the dimensions. What is this matrix C composed of?</span></span>
+<span id="cb88-5"><a href="introduction-to-macroevolution-modeling.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Why is it called vcvPhylo?</span></span>
+<span id="cb88-6"><a href="introduction-to-macroevolution-modeling.html#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-7"><a href="introduction-to-macroevolution-modeling.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># We are interested in calculating the the amount of evolution using Brownian motion for flower length. We will do this with the function fitContinuous() from package geiger</span></span></code></pre></div>
+<div id="always-visualize-your-data" class="section level3 hasAnchor" number="14.5.1">
+<h3><span class="header-section-number">14.5.1</span> Always visualize your data<a href="introduction-to-macroevolution-modeling.html#always-visualize-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="introduction-to-macroevolution-modeling.html#cb89-1" aria-hidden="true" tabindex="-1"></a>flower.length<span class="ot">&lt;-</span> pole_dataset<span class="sc">$</span>Length</span>
+<span id="cb89-2"><a href="introduction-to-macroevolution-modeling.html#cb89-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(flower.length)<span class="ot">&lt;-</span>pole_tree<span class="sc">$</span>tip.label</span>
+<span id="cb89-3"><a href="introduction-to-macroevolution-modeling.html#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(flower.length) <span class="co"># What do you see here? do you think Brownian motion could be a good model for evolution for flower length?</span></span>
+<span id="cb89-4"><a href="introduction-to-macroevolution-modeling.html#cb89-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a href="introduction-to-macroevolution-modeling.html#cb89-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Sometimes to better model BM in traits that can only be positivy we often log-transform</span></span>
+<span id="cb89-6"><a href="introduction-to-macroevolution-modeling.html#cb89-6" aria-hidden="true" tabindex="-1"></a>log.flowerlength<span class="ot">&lt;-</span><span class="fu">log</span>(flower.length)</span>
+<span id="cb89-7"><a href="introduction-to-macroevolution-modeling.html#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(log.flowerlength)</span>
+<span id="cb89-8"><a href="introduction-to-macroevolution-modeling.html#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="co"># But much harder to interpret in log-scale</span></span></code></pre></div>
+</div>
+<div id="fitting-bm-on-flower-length" class="section level3 hasAnchor" number="14.5.2">
+<h3><span class="header-section-number">14.5.2</span> Fitting BM on flower length<a href="introduction-to-macroevolution-modeling.html#fitting-bm-on-flower-length" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-macroevolution-modeling.html#cb90-1" aria-hidden="true" tabindex="-1"></a>fitted.BM<span class="ot">&lt;-</span> <span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span>
+<span id="cb90-2"><a href="introduction-to-macroevolution-modeling.html#cb90-2" aria-hidden="true" tabindex="-1"></a>fitted.BM</span></code></pre></div>
+<p>Stop and Interpret the output of fitContinuous</p>
+<ol style="list-style-type: decimal">
+<li>Type <code>fitted.BM$opt</code> explore a little bit what this object has</li>
+<li>What is <code>fitted.BM$opt$z0</code> telling us about the Brownian motion process?</li>
+<li>What is <code>fitted.BM$opt$sigsq</code> telling us about the Brownian motion process?</li>
+<li>What is the log-likelihood?</li>
+</ol>
+<p>If you assume no phylogenetic tree and complete independence in the data, what happens with the parameters?</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-to-macroevolution-modeling.html#cb91-1" aria-hidden="true" tabindex="-1"></a>fitted.Normal<span class="ot">&lt;-</span><span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;white&quot;</span>)</span>
+<span id="cb91-2"><a href="introduction-to-macroevolution-modeling.html#cb91-2" aria-hidden="true" tabindex="-1"></a>fitted.Normal</span></code></pre></div>
+<p>Which model is better? (Hint: Think about model selection, but also argue about the importance of considering the phylogeny)</p>
 
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-update-the-posterior-distribution.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="phylogenetic-generalized-linear-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -350,7 +436,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/13-macroBM.Rmd",
 "text": "Edit"
 },
 "history": {

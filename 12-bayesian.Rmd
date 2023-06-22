@@ -1,4 +1,3 @@
-
 # What is Bayesian statistics?
 
 Bayesian statistics is a branch of statistics that focuses in inferring and forecasting the probability of events making sure we account for uncertainty.

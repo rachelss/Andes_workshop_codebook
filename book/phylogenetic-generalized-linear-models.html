@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Andes Phylogenomics Workshop</title>
+  <title>Chapter 15 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 15 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 15 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a project in phylogenomics." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="intro.html"/>
+<link rel="prev" href="introduction-to-macroevolution-modeling.html"/>
+<link rel="next" href="what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -285,41 +285,82 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Andes Phylogenomics Workshop</h1>
-<p class="author"><em>Rachel Schwartz and Rosana Zenil-Ferguson</em></p>
-<p class="date"><em>2023-06-21</em></p>
+<div id="phylogenetic-generalized-linear-models" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Phylogenetic Generalized Linear Models<a href="phylogenetic-generalized-linear-models.html#phylogenetic-generalized-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="packages-used-for-this-section" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> Packages used for this section:<a href="phylogenetic-generalized-linear-models.html#packages-used-for-this-section" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="phylogenetic-generalized-linear-models.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Libraries required</span></span>
+<span id="cb92-2"><a href="phylogenetic-generalized-linear-models.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape) <span class="co">#contains read.nexus. plot.phylo</span></span>
+<span id="cb92-3"><a href="phylogenetic-generalized-linear-models.html#cb92-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geiger)<span class="co">#fitContinuous</span></span>
+<span id="cb92-4"><a href="phylogenetic-generalized-linear-models.html#cb92-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phytools) <span class="co">#vcvPhylo</span></span>
+<span id="cb92-5"><a href="phylogenetic-generalized-linear-models.html#cb92-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb92-6"><a href="phylogenetic-generalized-linear-models.html#cb92-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(phylolm)</span></code></pre></div>
 </div>
-<div id="about-this-workshop" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> About this workshop<a href="index.html#about-this-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>The evolutionary tree of life is fundamental to our understanding of the natural world.
-This workshop will go through all of the steps of research in understanding the evolutionary history of several groups of Andean plants.
-We will participate in field collections of plants and processing of samples for collections.
-In real research projects, the species and collections should be considered carefully
-with an expectation of the potential for phylogenetic results and evolutionary hypotheses.
-Researchers should create voucher specimens to preserve the samples long-term,
-as well as appropriate samples for DNA extraction.
-Samples should be recorded and given a unique identifier, in order to connect the specimen to the sequencing data.</p>
-<p>In this workshop we will not have an opportunity to experience the expected next step of
-sample processing, DNA extraction, or sequencing.
-Contemporary sequencing is often completed by an outside facility, although we will discuss options as part of this workshop.
-We will continue with the analysis of sequence data,
-particularly target-capture data from genome sequencing.
-As part of this we will learn basic computing on the command line
-and some approaches to writing code in the bash shell and R.
-This will allow us to conduct data analysis that can apply to larger scale work than can be conducted on a laptop.
-As part of the analysis of different datasets, we will see how in many cases we draw different conclusions from different datasets and how we examine phylogenies.
-We will then use these phylogenies to conduct comparative analyses to understand how phylogenies inform our understanding of trait evolution.
-Finally, we will ask you to present the results of your analyses.</p>
-
+<div id="reading-dataset-and-phylogenetic-tree-1" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Reading dataset and phylogenetic tree<a href="phylogenetic-generalized-linear-models.html#reading-dataset-and-phylogenetic-tree-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Data is a simplify version of the data and models we published here
+Landis, J.B., Bell, C.D., Hernandez, M., Zenil-Ferguson, R., McCarthy, E.W., Soltis, D.E. and Soltis, P.S., 2018. Evolution of floral traits and impact of reproductive mode on diversification in the phlox family (Polemoniaceae).Molecular phylogenetics and evolution, 127, pp.878-890.
+We have a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California. We are interested in the rate of evolution of flower length</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="phylogenetic-generalized-linear-models.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Read the data</span></span>
+<span id="cb93-2"><a href="phylogenetic-generalized-linear-models.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;~/Dropbox/AndeanWorkshop&quot;</span>)</span>
+<span id="cb93-3"><a href="phylogenetic-generalized-linear-models.html#cb93-3" aria-hidden="true" tabindex="-1"></a>pole_tree<span class="ot">&lt;-</span><span class="fu">read.nexus</span>(<span class="st">&quot;pole_tree.nex&quot;</span>)</span></code></pre></div>
+<p>This is a dataset of traits and pollinators visiting the flowers on the tips of the tree</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="phylogenetic-generalized-linear-models.html#cb94-1" aria-hidden="true" tabindex="-1"></a>pole_dataset<span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;pole_dataset.csv&quot;</span>,<span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb94-2"><a href="phylogenetic-generalized-linear-models.html#cb94-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pole_dataset)</span>
+<span id="cb94-3"><a href="phylogenetic-generalized-linear-models.html#cb94-3" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(pole_dataset) <span class="ot">&lt;-</span> pole_tree<span class="sc">$</span>tip.label </span>
+<span id="cb94-4"><a href="phylogenetic-generalized-linear-models.html#cb94-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pole_dataset)</span>
+<span id="cb94-5"><a href="phylogenetic-generalized-linear-models.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Description</span></span>
+<span id="cb94-6"><a href="phylogenetic-generalized-linear-models.html#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Length- flower length (Response)</span></span>
+<span id="cb94-7"><a href="phylogenetic-generalized-linear-models.html#cb94-7" aria-hidden="true" tabindex="-1"></a><span class="do">## P1- butterflies visit or not (Predictor)</span></span>
+<span id="cb94-8"><a href="phylogenetic-generalized-linear-models.html#cb94-8" aria-hidden="true" tabindex="-1"></a><span class="do">## P2- hawkmoths visit or not (Predictor)</span></span>
+<span id="cb94-9"><a href="phylogenetic-generalized-linear-models.html#cb94-9" aria-hidden="true" tabindex="-1"></a><span class="do">## P3- bee flies visit or not (Predictor)</span></span>
+<span id="cb94-10"><a href="phylogenetic-generalized-linear-models.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="do">## P4- bees visit or not (Predictor)</span></span></code></pre></div>
+<p>##Phylogenetic Linear Models</p>
+<p>Jacob Landis measured the flower width and length and observed which pollinators come visit the flowers. Jacob was interested in understanding if we can predict flower shape based on pollinator type. For example, flowers that hummingbirds visit might be longer and narrower than flowers that are visited by bees.</p>
+<p>I wanted to create a model where the response is the flower shape and the predictor is what type of pollinator visits the flower</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="phylogenetic-generalized-linear-models.html#cb95-1" aria-hidden="true" tabindex="-1"></a>lengthplot<span class="ot">&lt;-</span><span class="fu">setNames</span>(pole_dataset<span class="sc">$</span>Length,<span class="fu">rownames</span>(pole_dataset)) <span class="co">#Stop to see what this line of code is doing</span></span>
+<span id="cb95-2"><a href="phylogenetic-generalized-linear-models.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="phylogenetic-generalized-linear-models.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting by hummingbird pollination</span></span>
+<span id="cb95-4"><a href="phylogenetic-generalized-linear-models.html#cb95-4" aria-hidden="true" tabindex="-1"></a>mycolors<span class="ot">&lt;-</span><span class="fu">rep</span>(<span class="st">&quot;blue&quot;</span>,<span class="fu">length</span>(pole_dataset<span class="sc">$</span>Length))</span>
+<span id="cb95-5"><a href="phylogenetic-generalized-linear-models.html#cb95-5" aria-hidden="true" tabindex="-1"></a>mycolors[<span class="fu">which</span>(pole_dataset<span class="sc">$</span>P1<span class="sc">==</span><span class="dv">1</span>)]<span class="ot">=</span><span class="st">&quot;red&quot;</span></span>
+<span id="cb95-6"><a href="phylogenetic-generalized-linear-models.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="phylogenetic-generalized-linear-models.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree.barplot</span>(<span class="at">tree=</span>pole_tree,<span class="at">x=</span>lengthplot,<span class="at">args.plotTree=</span><span class="fu">list</span>(<span class="at">ftype=</span><span class="st">&quot;off&quot;</span>),</span>
+<span id="cb95-8"><a href="phylogenetic-generalized-linear-models.html#cb95-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">args.barplot=</span><span class="fu">list</span>(<span class="at">col=</span>mycolors,<span class="at">border=</span>mycolors,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>))</span>
+<span id="cb95-9"><a href="phylogenetic-generalized-linear-models.html#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">100</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Hummingbird pollinated&quot;</span>,<span class="st">&quot;Other pollination&quot;</span>),<span class="at">pch=</span><span class="dv">22</span>,<span class="at">cex=</span><span class="fl">0.5</span>,<span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb95-10"><a href="phylogenetic-generalized-linear-models.html#cb95-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.col=</span><span class="st">&quot;transparent&quot;</span>)</span></code></pre></div>
+<p>In our phylogenetic linear model we make create an important macroevolution hypothesis: Flower length is determined by the types of pollinators that visit the flower.</p>
+<p>EXTREMELY IMPORTANT HERE = The main assumption of these models is that the ERRORS (not the response variable) have a normal distribution with a vector of zeros as the mean and variance-covariance matrix sigma^2 *C. Remember C is determined by the structure of the tree as we d calculated it in the continuous trait (Brownian motion) tutorial.</p>
+<div id="testing-the-hypothesis" class="section level3 hasAnchor" number="15.2.1">
+<h3><span class="header-section-number">15.2.1</span> Testing the hypothesis<a href="phylogenetic-generalized-linear-models.html#testing-the-hypothesis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>How would you frame then a biological hypothesis from these observations?</p>
+<p>Before typing a model it would be great to think about what we are trying to achieve.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="phylogenetic-generalized-linear-models.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="co">#not log.flowerlength?</span></span>
+<span id="cb96-2"><a href="phylogenetic-generalized-linear-models.html#cb96-2" aria-hidden="true" tabindex="-1"></a>plm.flowerlength<span class="ot">&lt;-</span><span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span>
+<span id="cb96-3"><a href="phylogenetic-generalized-linear-models.html#cb96-3" aria-hidden="true" tabindex="-1"></a><span class="do">## interpret this model, what is happening? what is significant and how</span></span>
+<span id="cb96-4"><a href="phylogenetic-generalized-linear-models.html#cb96-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm.flowerlength)</span>
+<span id="cb96-5"><a href="phylogenetic-generalized-linear-models.html#cb96-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-6"><a href="phylogenetic-generalized-linear-models.html#cb96-6" aria-hidden="true" tabindex="-1"></a><span class="co"># What is happening with the residuals of this linear model</span></span>
+<span id="cb96-7"><a href="phylogenetic-generalized-linear-models.html#cb96-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(plm.flowerlength<span class="sc">$</span>res)</span>
+<span id="cb96-8"><a href="phylogenetic-generalized-linear-models.html#cb96-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(plm.flowerlength<span class="sc">$</span>res)</span></code></pre></div>
+<p>Now what happens if the predictor is log(Length)?</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="phylogenetic-generalized-linear-models.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Complete the model</span></span>
+<span id="cb97-2"><a href="phylogenetic-generalized-linear-models.html#cb97-2" aria-hidden="true" tabindex="-1"></a>plm.flowerlength2<span class="ot">&lt;-</span><span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span>
+<span id="cb97-3"><a href="phylogenetic-generalized-linear-models.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="phylogenetic-generalized-linear-models.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(plm.flowerlength2)</span>
+<span id="cb97-5"><a href="phylogenetic-generalized-linear-models.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="do">## interpret this model, what is happening? what is significant and how</span></span>
+<span id="cb97-6"><a href="phylogenetic-generalized-linear-models.html#cb97-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-7"><a href="phylogenetic-generalized-linear-models.html#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(plm.flowerlength2<span class="sc">$</span>res)</span>
+<span id="cb97-8"><a href="phylogenetic-generalized-linear-models.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(plm.flowerlength2<span class="sc">$</span>res)</span></code></pre></div>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="intro.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="introduction-to-macroevolution-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -350,7 +391,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/14-pgls.Rmd",
 "text": "Edit"
 },
 "history": {

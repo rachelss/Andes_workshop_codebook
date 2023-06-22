@@ -12,7 +12,7 @@ github-repo: rachelss/Andes_workshop_codebook
 description: "Step-by-step guide to a project in phylogenomics."
 ---
 
-# Getting Started
+# About this workshop
 
 The evolutionary tree of life is fundamental to our understanding of the natural world.
 This workshop will go through all of the steps of research in understanding the evolutionary history of several groups of Andean plants.

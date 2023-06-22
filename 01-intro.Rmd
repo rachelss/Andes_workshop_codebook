@@ -1,6 +1,8 @@
 # Introduction {#intro}
 
+```{bash, echo=FALSE, eval=FALSE}
 Syllabus of Wasta et al. 2020 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7188297/#pbio.3000667.s003 provides the following example:
+```
 
 ##  Introduction  
 

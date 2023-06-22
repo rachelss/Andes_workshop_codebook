@@ -1,4 +1,3 @@
-
 # Phylogenetic Generalized Linear Models
 
 Packages used for this section:
@@ -108,7 +107,7 @@ plm.flowerlength3<-phylolm(Length~ P1+P2+P3+ P4, data=pole_dataset, phy=pole_tre
 plot(plm.flowerlength3)
 hist(plm.flowerlength3$res)
 qqnorm(plm.flowerlength3$res)
-````
+```
 
 Overall which is the best model and why?  Argue statistically but also think about flower length.
 
