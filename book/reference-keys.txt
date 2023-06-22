@@ -77,7 +77,7 @@ shared-ancestry-and-continuous-character-evolution
 always-visualize-your-data
 fitting-bm-on-flower-length
 phylogenetic-generalized-linear-models
-packages-used-for-this-section
 reading-dataset-and-phylogenetic-tree-1
+phylogenetic-linear-models
 testing-the-hypothesis
 what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else
