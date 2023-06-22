@@ -1,7 +1,10 @@
 # Introduction to macroevolution modeling
 
 In this section, we will work on modeling a continuous trait and understanding what Brownian motion is.
-```{r echo=TRUE, eval=FALSE}
+
+Start by loading the libraries `ape`, `geiger`, `phytools`, `nlme`, and `phylolm`.
+
+```{r echo=FALSE, eval=FALSE}
 #Libraries required
 library(ape) #contains read.nexus. plot.phylo
 library(geiger)#fitContinuous
@@ -11,50 +14,55 @@ library(phylolm)
 ```
 
 ## Reading dataset and phylogenetic tree
-This data comes from Landis et al.2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
+This data comes from Landis et al. 2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
 
-```{r echo=TRUE, eval=FALSE}
+Read in the `pole_tree.nex` file from the shared folder using the `read.nexus` function.
+
+```{r echo=FALSE, eval=FALSE}
 ## Read the data
 pole_tree<-read.nexus("pole_tree.nex")
 ```
 
-This is a dataset of traits and pollinators visiting the flowers on the tips of the tree
+* Read the dataset of traits and pollinators visiting the flowers on the tips of the tree. This file is `pole_dataset.csv` in the shared folder. Note that it has a header line.
+* For many phylogenetic models we need to make sure that the row names match the tip labels on the tree. Assign the tip labels of the `pole_tree` dataset to `rownames(pole_dataset)`.
+* View the dataset.
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 pole_dataset<-read.csv("pole_dataset.csv",header=TRUE)
 head(pole_dataset)
 rownames(pole_dataset) <- pole_tree$tip.label 
 head(pole_dataset)
 ```
 
-For many phylogenetic models we need to make sure that the row names match the tip labels on the tree.
 This assumes that the dataset is already in the same order as the tree file
-
 
 ## Plotting a phylogenetic tree with data
 
-Easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion
+* Plot this tree
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 plot(pole_tree,cex=0.2) #other types of plot, type=...
 ```
 
-but when you have a lot of tips, circular phylogenies can be more useful
-```{r echo=TRUE, eval=FALSE}
-plot(pole_tree,cex=0.2,type="fan") #other types of plot, type=...
-```
+An easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion
+as we have done, but when you have a lot of tips, circular phylogenies can be more useful.
+You can use the `type` argument to plot to change the plot style.
 
+```{r echo=TRUE, eval=FALSE}
+plot(pole_tree,cex=0.2,type="fan")
+```
 
 ### Plotting continuous data
 
 ```{r echo=TRUE, eval=FALSE}
-lengthplot<-setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
+lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
 plotTree.barplot(tree=pole_tree, x=lengthplot,args.plotTree=list(fsize=0.2,ftype="i"),args.barplot=list(xlab="Flower length (cm)"))
 ```
 
 Stop and see, what do you notice. Practice your tree-thinking skills
 
 ### Plotting discrete and continuous data
+
 ```{r echo=TRUE, eval=FALSE}
 # Plotting by hummingbird pollination
 mycolors<-rep("blue",length(pole_dataset$Length))
@@ -120,12 +128,12 @@ C <- vcvPhylo(pole_tree, anc.nodes=FALSE) #covaraince matrix of ...? how to inte
 ### Always visualize your data
 
 ```{r echo=TRUE, eval=FALSE}
-flower.length<- pole_dataset$Length
-names(flower.length)<-pole_tree$tip.label
+flower.length <- pole_dataset$Length
+names(flower.length) <- pole_tree$tip.label
 hist(flower.length) # What do you see here? do you think Brownian motion could be a good model for evolution for flower length?
 
 # Sometimes to better model BM in traits that can only be positivy we often log-transform
-log.flowerlength<-log(flower.length)
+log.flowerlength <- log(flower.length)
 hist(log.flowerlength)
 # But much harder to interpret in log-scale
 ```
@@ -134,7 +142,7 @@ hist(log.flowerlength)
 ### Fitting BM on flower length
 
 ```{r echo=TRUE, eval=FALSE}
-fitted.BM<- fitContinuous(pole_tree,flower.length, model="BM")
+fitted.BM <- fitContinuous(pole_tree,flower.length, model="BM")
 fitted.BM
 ```
 
@@ -149,7 +157,7 @@ Stop and Interpret the output of fitContinuous
 
 If you assume no phylogenetic tree and complete independence in the data, what happens with the parameters?
 ```{r echo=TRUE, eval=FALSE}
-fitted.Normal<-fitContinuous(pole_tree,flower.length, model="white")
+fitted.Normal <- fitContinuous(pole_tree,flower.length, model="white")
 fitted.Normal
 ```
 Which model is better? (Hint: Think about model selection, but also argue about the importance of considering the phylogeny)

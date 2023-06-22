@@ -46,10 +46,10 @@ Jacob Landis measured the flower width and length and observed which pollinators
 I wanted to create a model where the response is the flower shape and the predictor is what type of pollinator visits the flower
 
 ```{r echo=TRUE, eval=FALSE}
-lengthplot<-setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
+lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
 
 # Plotting by hummingbird pollination
-mycolors<-rep("blue",length(pole_dataset$Length))
+mycolors <- rep("blue",length(pole_dataset$Length))
 mycolors[which(pole_dataset$P1==1)]="red"
 
 plotTree.barplot(tree=pole_tree,x=lengthplot,args.plotTree=list(ftype="off"),

@@ -30,7 +30,7 @@ $$ P(A|B)=\frac{P(B|A)P(A)}{P(B)}$$
 
 ## Example: Online dating
 
-Dating online can be daunting for introverts. An introvert lets call them Felix (F) asks out a person Pepa (P) out for dinner, and Pepa accepts. F is super nervous and thinking about these two events
+Dating online can be daunting for introverts. An introvert, lets call them Felix (F), asks a person Pepa (P) out for dinner, and Pepa accepts. F is super nervous and thinking about these two events
 
 - A: is the event that P is into F
 - B: is the event that represents a date between F and P going well
@@ -72,38 +72,41 @@ So now instead of using the probability $P(A)$ we can use instead $P(X=1)$ and b
 
 ### The prior distribution
 
-Now suppose that $P(X=1)$ is redefined using a parameter called $\theta$ (\theta) that is between 0 and 1, and this also means that $P(X=0)=1-\theta$. Just like Felix declared his shyness initially $\theta=0.1$. That would be all well if you are completely certain, but as any person in the world, sometimes a person likes you and sometimes they don't. So it would be much better to assume $\theta$ (parameter) is uncertain  and try to model it.
+Now suppose that $P(X=1)$ is redefined using a parameter called $\theta$ (theta) that is between 0 and 1, and this also means that $P(X=0)=1-\theta$. Just like Felix declared his shyness initially $\theta=0.1$. That would be all well if you are completely certain, but as any person in the world, sometimes a person likes you and sometimes they don't. So it would be much better to assume $\theta$ (parameter) is uncertain  and try to model it.
 
 For that we are going to use a probability distribution called **Beta**. A beta distribution is convenient because it goes from (0, 1). You could choose any other distribution you wish as long as it makes $\theta$ go between (0,1).
-
-But let's explore what a Beta distribution does
-
+Beta has two parameters a and b and the mean of the distribution is a/(a+b).
+Assign the value 0.1 to the variable `theta`, 2 to the variable `a`, and 5 to the variable `b`.
 
 ```{r echo=TRUE, eval=FALSE}
 theta <- .1 # the statistician is shy
 # Beta has two parameters a and b  and the mean of the distribution is a/(a+b)
-a     <- 2
-b     <- 5
+a <- 2
+b <- 5
+```
 
+But let's explore what a Beta distribution does.
+Create a function that takes theta, a, and b as arguments.
+The function should return `dbeta(theta, a, b)`.
+
+```{r echo=FALSE, eval=FALSE}
 prior_distribution<-function(theta, a, b){
-beta_val<-dbeta(theta, a, b)
+  beta_val<-dbeta(theta, a, b)
 return(beta_val)}# Why is this larger than 1?- It is not a probability 
 ```
 
-```{r echo=TRUE, eval=FALSE}
-# Tidyverse organizes data and creates "tibbles" tables that are easier to manipulate
-
-# install.packages(tidyverse) #Install these packages if you don't have them 
-
-# ggplot2 allows us to graph complex objects
-
-# install.packages(ggplot2)
+```{r echo=FALSE, eval=FALSE}
 library(tidyverse,warn.conflicts = F, quietly = T)
 library(ggplot2,warn.conflicts = F, quietly = T)
+```
 
+Load the library `tidyverse`.
+
+Create a table of values a and b so we can see the different shapes of Beta distribution
+
+```{r echo=TRUE, eval=FALSE}
 length <- 1e4
 
-#Creating a table of values a and b so we can see the different shapes of Beta distribution
 d <-
   crossing(shape1 = c(.1, 1:4),
            shape2 = c(.1, 1:4)) %>%
@@ -112,11 +115,13 @@ d <-
   mutate(a     = str_c("a =", shape1),
          b     = str_c("b =", shape2),
          group = rep(1:length, each = 25))
+```
 
-head(d) #you can see what is in the table
+Use the `head` function to see what is in the table
 
+Now plot different Beta distributions
 
-# Plotting different Beta distributions
+```{r echo=TRUE, eval=FALSE}
 d %>% 
   ggplot(aes(x = x, group = group)) +
   
@@ -142,15 +147,15 @@ We do this by assuming the parameter $\theta$ has a **prior distribution** $Beta
 In our case, Felix goes out for one dinner (or more) trying to figure out if Pepa is interested. Let's assume a crazy Netflix show scenario (like "Love is Blind"- don't judge me!). Felix and Pepa decide to date for exactly three dates $N=3$. How can we model this?
 
 $$Y \textrm{ is the random variable of the number of dates that went well so the values } Y=0,1,2,...,N \textrm{ are our only possibilities}$$
-The probability of the number of dates that wentwell is going to be dependent on the likeability of the statistician $\theta$. We can model this using a Binomial distribution
+The probability of the number of dates that went well is going to be dependent on the likability of the statistician $\theta$. We can model this using a Binomial distribution
 $$P(Y=k|\theta)= {N\choose k} \theta^k (1-\theta)^{N-k}$$
 Let's see what this Binomial distribution looks like
 ```{r echo=TRUE, eval=FALSE}
 # install.packages(grid)
 library(grid)
 
-date_number  <- 0:3
-theta<-0.1
+date_number <- 0:3
+theta <- 0.1
 df <- data.frame(x = date_number, y = dbinom(date_number, 3, 0.1))
 
 p1 <- ggplot(df, aes(x = x, y = y)) + geom_bar(stat = "identity", col = "hotpink", fill = "hotpink") + 
