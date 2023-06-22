@@ -20,18 +20,16 @@ Read in the `pole_tree.nex` file from the shared folder using the `read.nexus` f
 
 ```{r echo=FALSE, eval=FALSE}
 ## Read the data
-pole_tree<-read.nexus("pole_tree.nex")
+pole_tree <- read.nexus("../../shared/AndesWorkshop2023/pole_tree.nex")
 ```
 
-* Read the dataset of traits and pollinators visiting the flowers on the tips of the tree. This file is `pole_dataset.csv` in the shared folder. Note that it has a header line.
+* Read the dataset of traits and pollinators visiting the flowers on the tips of the tree. This file is `pole_dataset.csv` in the shared folder.
 * For many phylogenetic models we need to make sure that the row names match the tip labels on the tree. Assign the tip labels of the `pole_tree` dataset to `rownames(pole_dataset)`.
 * View the dataset.
 
 ```{r echo=FALSE, eval=FALSE}
-pole_dataset<-read.csv("pole_dataset.csv",header=TRUE)
-head(pole_dataset)
+pole_dataset <- read_csv("../../shared/AndesWorkshop2023/pole_dataset.csv")
 rownames(pole_dataset) <- pole_tree$tip.label 
-head(pole_dataset)
 ```
 
 This assumes that the dataset is already in the same order as the tree file
@@ -41,7 +39,7 @@ This assumes that the dataset is already in the same order as the tree file
 * Plot this tree
 
 ```{r echo=FALSE, eval=FALSE}
-plot(pole_tree,cex=0.2) #other types of plot, type=...
+plot(pole_tree,cex=0.2) 
 ```
 
 An easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion
@@ -56,22 +54,32 @@ plot(pole_tree,cex=0.2,type="fan")
 
 ```{r echo=TRUE, eval=FALSE}
 lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
-plotTree.barplot(tree=pole_tree, x=lengthplot,args.plotTree=list(fsize=0.2,ftype="i"),args.barplot=list(xlab="Flower length (cm)"))
+plotTree.barplot(tree=pole_tree,
+                 x=lengthplot,
+                 args.plotTree=list(fsize=0.2,ftype="i"),
+                 args.barplot=list(xlab="Flower length (cm)"))
 ```
 
 Stop and see, what do you notice. Practice your tree-thinking skills
 
 ### Plotting discrete and continuous data
 
-```{r echo=TRUE, eval=FALSE}
-# Plotting by hummingbird pollination
-mycolors<-rep("blue",length(pole_dataset$Length))
-mycolors[which(pole_dataset$P1==1)]="red"
+We would like to show on this plot which flowers are hummingbird pollinated.
+We can do this by creating a new column in the data and we'll put a color in it based on the information in column `P1`.
 
-plotTree.barplot(tree=pole_tree,x=lengthplot,args.plotTree=list(ftype="off"),
-    args.barplot=list(col=mycolors,border=mycolors,xlab=""))
-legend(x=3, y=100,legend=c("Hummingbird pollinated","Other pollination"),pch=22,cex=0.5,pt.bg=c("red","blue"),
-    box.col="transparent")
+```{r echo=TRUE, eval=FALSE}
+pole_dataset$mycolors <- ifelse(pole_dataset$P1==1, "red", "blue")
+```
+
+Now plot the tree
+
+```{r echo=TRUE, eval=FALSE}
+plotTree.barplot(tree=pole_tree,
+                 x=lengthplot,
+                 args.plotTree=list(ftype="off"),
+                 args.barplot=list(col=pole_dataset$mycolors,border=pole_dataset$mycolors,xlab=""))
+legend(x=3, y=100,legend=c("Hummingbird pollinated","Other pollination"), pch=22, cex=0.5, pt.bg=c("red","blue"),
+       box.col="transparent")
 
 ```
 
@@ -115,47 +123,53 @@ This covariance equation is the most important and key result used in macroevolu
 
 ## Shared ancestry and continuous character evolution
 
+Calculate the C matrix using the vcvPhylo() function
+
 ```{r echo=TRUE, eval=FALSE}
-## Calculate the C matrix using the vcvPhylo() function
-
-C <- vcvPhylo(pole_tree, anc.nodes=FALSE) #covaraince matrix of ...? how to interpet variance terms?
-# Check the dimensions. What is this matrix C composed of?
-# Why is it called vcvPhylo?
-
-# We are interested in calculating the the amount of evolution using Brownian motion for flower length. We will do this with the function fitContinuous() from package geiger
+C <- vcvPhylo(pole_tree, anc.nodes=FALSE) 
 ```
+
+* What is this the covaraince matrix of? How to interpret variance terms?
+* Check the dimensions. What is this matrix C composed of?
+* Why is it called vcvPhylo?
 
 ### Always visualize your data
 
 ```{r echo=TRUE, eval=FALSE}
 flower.length <- pole_dataset$Length
 names(flower.length) <- pole_tree$tip.label
-hist(flower.length) # What do you see here? do you think Brownian motion could be a good model for evolution for flower length?
-
-# Sometimes to better model BM in traits that can only be positivy we often log-transform
-log.flowerlength <- log(flower.length)
-hist(log.flowerlength)
-# But much harder to interpret in log-scale
+hist(flower.length)
 ```
 
+What do you see here? do you think Brownian motion could be a good model for evolution for flower length?
+
+Sometimes to better model BM in traits that can only be positive we often log-transform.
+
+```
+log.flowerlength <- log(flower.length)
+hist(log.flowerlength)
+```
+
+However, it is much harder to interpret log-scale.
 
 ### Fitting BM on flower length
+
+We are interested in calculating the the amount of evolution using Brownian motion for flower length. We will do this with the function `fitContinuous()` from package `geiger`.
 
 ```{r echo=TRUE, eval=FALSE}
 fitted.BM <- fitContinuous(pole_tree,flower.length, model="BM")
 fitted.BM
 ```
 
+Stop and Interpret the output of `fitContinuous`
 
-Stop and Interpret the output of fitContinuous
-
-1. Type ```fitted.BM$opt``` explore a little bit what this object has
+1. Type ```fitted.BM$opt``` - explore a little bit what this object has
 2. What is ```fitted.BM$opt$z0``` telling us about the Brownian motion process?
 3. What is ```fitted.BM$opt$sigsq``` telling us about the Brownian motion process?
 4. What is the log-likelihood?
 
-
 If you assume no phylogenetic tree and complete independence in the data, what happens with the parameters?
+
 ```{r echo=TRUE, eval=FALSE}
 fitted.Normal <- fitContinuous(pole_tree,flower.length, model="white")
 fitted.Normal
