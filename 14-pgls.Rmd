@@ -1,6 +1,6 @@
 # Phylogenetic Generalized Linear Models
 
-Load the same libraries as in the prior chapter.
+Load the same libraries and datasets as in the prior chapter.
 
 ```{r echo=FALSE, eval=FALSE}
 #Libraries required
@@ -11,57 +11,9 @@ library(nlme)
 library(phylolm)
 ```
 
-## Reading dataset and phylogenetic tree
-
-Data is a simplify version of the data and models we published here
-Landis, J.B., Bell, C.D., Hernandez, M., Zenil-Ferguson, R., McCarthy, E.W., Soltis, D.E. and Soltis, P.S., 2018. Evolution of floral traits and impact of reproductive mode on diversification in the phlox family (Polemoniaceae).Molecular phylogenetics and evolution, 127, pp.878-890.
-We have a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
-
-Read in `pole_tree.nex` and `pole_dataset.csv` if necessary as in the prior chapter.
-
-```{r echo=FALSE, eval=FALSE}
-## Read the data
-pole_tree<-read.nexus("pole_tree.nex")
-```
-
-This is a dataset of traits and pollinators visiting the flowers on the tips of the tree
-
-```{r echo=FALSE, eval=FALSE}
-pole_dataset<-read.csv("pole_dataset.csv",header=TRUE)
-head(pole_dataset)
-rownames(pole_dataset) <- pole_tree$tip.label 
-head(pole_dataset)
-```
-
-You should see columns for
-
-* Length- flower length (Response)
-* P1- butterflies visit or not (Predictor)
-* P2- hawkmoths visit or not (Predictor)
-* P3- bee flies visit or not (Predictor)
-* P4- bees visit or not (Predictor)
-
 ## Phylogenetic Linear Models
 
-Jacob Landis measured the flower width and length and observed which pollinators come visit the flowers. Jacob was interested in understanding if we can predict flower shape based on pollinator type. For example, flowers that hummingbirds visit might be longer and narrower than flowers that are visited by bees.
-
-I wanted to create a model where the response is the flower shape and the predictor is what type of pollinator visits the flower.
-
-```{r echo=TRUE, eval=FALSE}
-lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
-
-# Plotting by hummingbird pollination
-mycolors <- rep("blue",length(pole_dataset$Length))
-mycolors[which(pole_dataset$P1==1)]="red"
-
-plotTree.barplot(tree=pole_tree,x=lengthplot,args.plotTree=list(ftype="off"),
-    args.barplot=list(col=mycolors,border=mycolors,xlab=""))
-legend(x=3, y=100,legend=c("Hummingbird pollinated","Other pollination"),pch=22,cex=0.5,pt.bg=c("red","blue"),
-    box.col="transparent")
-
-```
-
-In our  phylogenetic linear model we make create an important macroevolution hypothesis: Flower length is determined by the types of pollinators that visit the flower. 
+In our phylogenetic linear model we create an important macroevolution hypothesis: Flower length is determined by the types of pollinators that visit the flower. 
 
 EXTREMELY IMPORTANT HERE = The main assumption of these models is that the ERRORS (not the response variable) have a normal distribution with a vector of zeros as the mean and variance-covariance matrix sigma^2 *C. Remember C is determined by the structure of the tree as we d calculated it in the continuous trait (Brownian motion) tutorial.
 

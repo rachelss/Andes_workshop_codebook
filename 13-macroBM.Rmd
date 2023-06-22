@@ -14,7 +14,10 @@ library(phylolm)
 ```
 
 ## Reading dataset and phylogenetic tree
-This data comes from Landis et al. 2018. This is a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length
+
+Data is a simplify version of the data and models we published in
+Landis, J.B., Bell, C.D., Hernandez, M., Zenil-Ferguson, R., McCarthy, E.W., Soltis, D.E. and Soltis, P.S., 2018. Evolution of floral traits and impact of reproductive mode on diversification in the phlox family (Polemoniaceae).Molecular phylogenetics and evolution, 127, pp.878-890.
+We have a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in California.  We are interested in the rate of evolution of flower length.
 
 Read in the `pole_tree.nex` file from the shared folder using the `read.nexus` function.
 
@@ -32,7 +35,15 @@ pole_dataset <- read_csv("../../shared/AndesWorkshop2023/pole_dataset.csv")
 rownames(pole_dataset) <- pole_tree$tip.label 
 ```
 
-This assumes that the dataset is already in the same order as the tree file
+This assumes that the dataset is already in the same order as the tree file.
+
+You should see columns for
+
+* Length- flower length (Response)
+* P1- butterflies visit or not (Predictor)
+* P2- hawkmoths visit or not (Predictor)
+* P3- bee flies visit or not (Predictor)
+* P4- bees visit or not (Predictor)
 
 ## Plotting a phylogenetic tree with data
 
@@ -52,15 +63,24 @@ plot(pole_tree,cex=0.2,type="fan")
 
 ### Plotting continuous data
 
+Jacob Landis measured the flower width and length and observed which pollinators come visit the flowers. Jacob was interested in understanding if we can predict flower shape based on pollinator type. For example, flowers that hummingbirds visit might be longer and narrower than flowers that are visited by bees.
+
+I wanted to create a model where the response is the flower shape and the predictor is what type of pollinator visits the flower.
+
 ```{r echo=TRUE, eval=FALSE}
-lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset)) #Stop to see what this line of code is doing
+lengthplot <- setNames(pole_dataset$Length,rownames(pole_dataset))
+```
+
+Stop to see what this line of code is doing.
+
+```
 plotTree.barplot(tree=pole_tree,
                  x=lengthplot,
                  args.plotTree=list(fsize=0.2,ftype="i"),
                  args.barplot=list(xlab="Flower length (cm)"))
 ```
 
-Stop and see, what do you notice. Practice your tree-thinking skills
+Stop and see - what do you notice? Practice your tree-thinking skills.
 
 ### Plotting discrete and continuous data
 
