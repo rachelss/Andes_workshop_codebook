@@ -1,3 +1,6 @@
 # Tree thinking quiz
 
 Before we delve into trees it's good to see what you are thinking so you can understand (at least partly) what you learn later.
+
+<a href="../baum_treethinking_student.pdf" target="_blank">Click here</a> for our first tree thinking quiz.
+
