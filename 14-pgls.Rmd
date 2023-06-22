@@ -23,13 +23,21 @@ How would you frame then a biological hypothesis from these observations?
 
 Before typing a model it would be great to think about what we are trying to achieve.
 
+Now use the following code and fill in the necessary arguments.
+
 ```{r eval=FALSE}
 #not log.flowerlength?
 plm.flowerlength <- phylolm(formula, data=, phy=, model="BM")
-## interpret this model, what is happening? what is significant and how
-summary(plm.flowerlength)
+```
 
-# What is happening with the residuals of this linear model
+Interpret this model, what is happening? what is significant and how
+```
+summary(plm.flowerlength)
+```
+
+What is happening with the residuals of this linear model
+
+```
 hist(plm.flowerlength$res)
 qqnorm(plm.flowerlength$res)
 ```
@@ -37,24 +45,26 @@ qqnorm(plm.flowerlength$res)
 Now what happens if the predictor is log(Length)?
 
 ```{r eval=FALSE}
-#Complete the model
 plm.flowerlength2 <- phylolm(formula, data=, phy=, model="BM")
-
-summary(plm.flowerlength2)
-## interpret this model, what is happening? what is significant and how
-
-hist(plm.flowerlength2$res)
-qqnorm(plm.flowerlength2$res)
 ```
+
+Using the same commands as above,
+interpret this model, what is happening? what is significant and how
 
 ## What happens if the model of evolution is not Brownian motion but something else?
 
 ```{r echo=TRUE, eval=FALSE}
 plm.flowerlength3<-phylolm(Length~ P1+P2+P3+ P4, data=pole_dataset, phy=pole_tree, model="OUrandomRoot")
-#What is this model?
- summary(plm.flowerlength3)
-## interpret this model, what is happening? what is significant and how
+```
+What is this model?
 
+```
+summary(plm.flowerlength3)
+```
+
+interpret this model, what is happening? what is significant and how
+
+```
 plot(plm.flowerlength3)
 hist(plm.flowerlength3$res)
 qqnorm(plm.flowerlength3$res)
