@@ -203,7 +203,7 @@ binomial_likelihood(theta=c(0.1,0.3), data=observed_dates,n=3)
 ```
 
 
-# The update! The posterior distribution
+## The update! The posterior distribution
 
 The posterior distribution then is the updated probability of likability of Felix. After going for some dates, they should have a better way to say "I'm a nice person to go out with". That's why Bayesians refer to posterior distributions as updated probabilities.
 
