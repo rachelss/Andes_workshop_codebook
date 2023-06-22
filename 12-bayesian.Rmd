@@ -78,7 +78,7 @@ For that we are going to use a probability distribution called **Beta**. A beta 
 Beta has two parameters a and b and the mean of the distribution is a/(a+b).
 Assign the value 0.1 to the variable `theta`, 2 to the variable `a`, and 5 to the variable `b`.
 
-```{r echo=TRUE, eval=FALSE}
+```{r echo=FALSE, eval=FALSE}
 theta <- .1 # the statistician is shy
 # Beta has two parameters a and b  and the mean of the distribution is a/(a+b)
 a <- 2
@@ -90,14 +90,14 @@ Create a function that takes theta, a, and b as arguments.
 The function should return `dbeta(theta, a, b)`.
 
 ```{r echo=FALSE, eval=FALSE}
-prior_distribution<-function(theta, a, b){
-  beta_val<-dbeta(theta, a, b)
-return(beta_val)}# Why is this larger than 1?- It is not a probability 
+prior_distribution <- function(theta, a, b){
+  beta_val <- dbeta(theta, a, b)
+  return(beta_val)
+}# Why is this larger than 1?- It is not a probability 
 ```
 
 ```{r echo=FALSE, eval=FALSE}
 library(tidyverse,warn.conflicts = F, quietly = T)
-library(ggplot2,warn.conflicts = F, quietly = T)
 ```
 
 Load the library `tidyverse`.
@@ -189,16 +189,16 @@ binomial_likelihood <- function(theta, data,n) {
   
   # `theta` = success probability parameter ranging from 0 to 1
   # `data`  = the vector of data (i.e., a series of 0s and 1s)
-  long<-length(theta)
-  z<-rep(0,long)
+  long <- length(theta)
+  z <- rep(0,long)
   for(i in 1:long){
-  prob.vect<-sapply(data,FUN=dbinom, size=n, prob=theta[i])
-  z[i]<- prod(prob.vect)
+  prob.vect <- sapply(data,FUN=dbinom, size=n, prob=theta[i])
+  z[i] <- prod(prob.vect)
   }
   return(z)
 }
 
-observed_dates<- c(2,1)
+observed_dates <- c(2,1)
 binomial_likelihood(theta=c(0.1,0.3), data=observed_dates,n=3)
 ```
 
@@ -220,9 +220,9 @@ This is a horrible object, how do we deal with this? how do we know how the post
 ```{r echo=TRUE, eval=FALSE}
 
 trial_data <- c(1,2)
-number_dates<-3
-a<-2
-b<-5
+number_dates <- 3
+a <- 2
+b <- 5
 
 d <-
   tibble(theta0 = seq(from = 0, to = 1, length.out = 100)) %>% 
@@ -267,8 +267,9 @@ We are going to propose a $\theta_{new}$
 
 ```{r echo=TRUE, eval=FALSE}
 proposalfunction <- function(nvals=1){
-  unif_val<-runif(nvals,min=0, max=1)
-  return(unif_val)}
+  unif_val <- runif(nvals,min=0, max=1)
+  return(unif_val)
+}
 #Select randomly a value for theta from a uniform distribution
 ```
 
@@ -278,8 +279,8 @@ proposalfunction <- function(nvals=1){
 This is the rejection algorithm that we want. We are going to select a starting value  for theta our search ``startvalue`` and a number of times we want to keep searching for new values ``iterations`` the number of times we search will depend completely on whether we achieve convergence (more about convergence to follow).
 
 ```{r echo=TRUE, eval=FALSE}
-a<-2
-b<-5
+a <- 2
+b <- 5
 
 run_metropolis_MCMC <- function(startvalue, iterations){
     chain = rep (0,iterations+1)
@@ -332,10 +333,11 @@ acceptance
 
 ```{r echo=TRUE, eval=FALSE}
 proposalfunction2 <- function(nvals=1){
-  beta_val<-rbeta(nvals,shape1=0.1 ,shape2=0.1) # Beta that looks like a U
-  return(beta_val)}
+  beta_val<-rbeta(nvals, shape1=0.1, shape2=0.1) # Beta that looks like a U
+  return(beta_val)
+}
   
-a<-2
+a <- 2
 b<-5
 
 run_metropolis_MCMC2 <- function(startvalue, iterations){
