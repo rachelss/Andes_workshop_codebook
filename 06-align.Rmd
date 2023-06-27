@@ -1,5 +1,7 @@
 # Plastome variation
 
+Good background on why the chloroplast genome: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-020-02153-6
+
 We will use the program GetOrganelle to assemble and plastome for each species
 from the genome skimming data we have looked at previously.
 Note that to improve analytical speed we have pre-examined and filtered data for you.

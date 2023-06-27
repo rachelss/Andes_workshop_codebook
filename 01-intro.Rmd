@@ -13,15 +13,13 @@ This program is set in Colombia, where students will learn how field research is
 This program will provide an introduction to next-generation sequencing technology to biologists, who will gain not only the skills requisite for field research but the technical know-how to employ genetic research tools.
 
 ## Case Studies
-In this course, we will focus on three specific cases
-
-We will use data from species in the family Campanulaceae.
+In this course, we will focus on five overlapping groups of species in the family Campanulaceae.
 We will break into groups and each examine a subset of these data.
 We will examine different datasets using different approaches to understand how individual datasets contribute to phylogeny estimation.
 
 This tutorial steps through the basic process of analyses in evolutionary biology.
 We use genome sequence data to build phylogenetic trees.
-We then use these phylogenies and trait data to understand...
+We then use these phylogenies and trait data to understand evolutionary processes.
 
 ## Course Objectives
 
