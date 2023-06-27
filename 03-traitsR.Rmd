@@ -32,7 +32,7 @@ By creating a new project you have created a folder for your work.
 When using projects whenever you come back to this project you will return to the same setup.
 This allows you to switch projects with different folders and open files.
 
-## Analyses
+## Beginning an analysis
 
 Begin your work by making a script.
 This is where you will keep track of all of your analytical commands.
@@ -74,20 +74,37 @@ Some of our data is actually numeric and we must convert it in order to analyze 
 
 To view the column names we use the `colnames` command and provide the dataset as the argument.
 
-We access a single column by specifying the dataset name, followed by a `$` followed by the column name. For example:
+```{r echo=FALSE, eval=FALSE}
+colnames(onstein)
+```
+
+The same column names you see at the top of your dataset when you view it should now appear below on the Console.
+
+We access and work with a single column by specifying the dataset name, followed by a `$` followed by the column name. For example:
 
 ```
 onstein$Log_Fruit_length_avg
 ```
 
-We assign a "corrected" version of the data to this variable.
-For example:
+We assign a "corrected" version of the data (i.e. one that the computer will interpret as numeric) to this variable. We use the function `as.numeric` and provide the column of data as the argument. We then assign the output of this command to this same column in this same dataset and it will overwrite the existing information.
 
 ```
 onstein$Log_Fruit_length_avg <- as.numeric(onstein$Log_Fruit_length_avg)
 ```
 
 Repeat this analysis to ensure that all columns match your expectations.
+
+```{r echo=FALSE, eval=FALSE}
+onstein$Log_Fruit_width_avg <- as.numeric(onstein$Log_Fruit_width_avg)
+onstein$Log_Fruit_number_avg <- as.numeric(onstein$Log_Fruit_number_avg)
+onstein$Log_Stipe_length_avg <- as.numeric(onstein$Log_Stipe_length_avg)
+onstein$Log_Seed_length_avg <- as.numeric(onstein$Log_Seed_length_avg)
+onstein$Log_Seed_width_avg <- as.numeric(onstein$Log_Seed_width_avg)
+onstein$Log_Seed_number_avg <- as.numeric(onstein$Log_Seed_number_avg)
+onstein$Log_Height_max <- as.numeric(onstein$Log_Height_max)
+```
+
+## Data Visualization
 
 Now we can visualize the data.
 We use the command `ggplot` and provide the data and the independent and dependent variables we expect on the graph.
@@ -112,6 +129,8 @@ We can view this more clearly by *adding* a regression line to our plot.
 geom_smooth(method = "lm", se = FALSE)
 ```
 
+For improved viewing we have provided the method argument that specifies a linear model and we opt not to plot the error around the regression line.
+
 The paper from which these data are drawn found "syndromes" in frugivory-related traits
 such that fruits and seeds with dispersal by particular mechanisms (e.g. mammals, birds, and bats) have common trait values.
 Thus, we can see relationships among traits as above.
@@ -128,6 +147,10 @@ If you tried plotting with a character variable on the x axis you might find the
 You can try using a boxplot with `geom_boxplot()` or other plot type instead.
 Check out the ggplot cheatsheet for ideas: https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&_page=2/
 
+**Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.**
+
+## Statistical tests of relationships
+
 When you have several interesting relationships it's advisable to confirm that the relationship is statistically significant.
 We can examine relationships with a linear model using the `lm` function.
 For example:
@@ -137,13 +160,24 @@ lm(Log_Seed_length_avg ~ Log_Seed_width_avg, data = onstein)
 ```
 
 Note that the format of the arguments is slightly different than in a `ggplot`.
+The `lm` function asks you to think in the format "y as a function of x".
 
 The output of this function does not provide information without additional work.
-Assign the output to a new variable. 
+Assign the output to a new variable. Make sure that your new variable names are informative so that you can keep track of multiple model outputs.
+
+```{r echo=FALSE, eval=FALSE}
+lm_seed_length_width <- lm(Log_Seed_length_avg ~ Log_Seed_width_avg, data = onstein)
+```
+
 Then provide this variable as the argument to the `summary` command.
-Examine the p and r-squared value.
-Do these match your observation from the graph?
 
-Note: make sure your variable names are informative.
+```{r echo=FALSE, eval=FALSE}
+summary(lm_seed_length_width)
+```
 
-Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.
+* Examine the p and r-squared value.
+* Do these match your observation from the graph?
+* What conclusions do you draw?
+* Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.
+
+**Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.**

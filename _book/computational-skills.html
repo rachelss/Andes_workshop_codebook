@@ -157,7 +157,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="4.1" data-path="computational-skills.html"><a href="computational-skills.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
 <li class="chapter" data-level="4.2" data-path="computational-skills.html"><a href="computational-skills.html#load-and-set-up-data"><i class="fa fa-check"></i><b>4.2</b> Load and set up data</a></li>
-<li class="chapter" data-level="4.3" data-path="computational-skills.html"><a href="computational-skills.html#analyses"><i class="fa fa-check"></i><b>4.3</b> Analyses</a></li>
+<li class="chapter" data-level="4.3" data-path="computational-skills.html"><a href="computational-skills.html#beginning-an-analysis"><i class="fa fa-check"></i><b>4.3</b> Beginning an analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="computational-skills.html"><a href="computational-skills.html#data-visualization"><i class="fa fa-check"></i><b>4.4</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.5" data-path="computational-skills.html"><a href="computational-skills.html#statistical-tests-of-relationships"><i class="fa fa-check"></i><b>4.5</b> Statistical tests of relationships</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="computational-skills-1.html"><a href="computational-skills-1.html"><i class="fa fa-check"></i><b>5</b> Computational skills</a>
 <ul>
@@ -327,8 +329,8 @@ In the RStudio File menu select New Project - New Directory - New Project.</p>
 When using projects whenever you come back to this project you will return to the same setup.
 This allows you to switch projects with different folders and open files.</p>
 </div>
-<div id="analyses" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Analyses<a href="computational-skills.html#analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="beginning-an-analysis" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Beginning an analysis<a href="computational-skills.html#beginning-an-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Begin your work by making a script.
 This is where you will keep track of all of your analytical commands.
 From the File menu select New File - R script.</p>
@@ -356,12 +358,15 @@ Note that all of the columns of data are listed as “chr”.
 This means that the information is viewed as characters.
 Some of our data is actually numeric and we must convert it in order to analyze it correctly.</p>
 <p>To view the column names we use the <code>colnames</code> command and provide the dataset as the argument.</p>
-<p>We access a single column by specifying the dataset name, followed by a <code>$</code> followed by the column name. For example:</p>
+<p>The same column names you see at the top of your dataset when you view it should now appear below on the Console.</p>
+<p>We access and work with a single column by specifying the dataset name, followed by a <code>$</code> followed by the column name. For example:</p>
 <pre><code>onstein$Log_Fruit_length_avg</code></pre>
-<p>We assign a “corrected” version of the data to this variable.
-For example:</p>
+<p>We assign a “corrected” version of the data (i.e. one that the computer will interpret as numeric) to this variable. We use the function <code>as.numeric</code> and provide the column of data as the argument. We then assign the output of this command to this same column in this same dataset and it will overwrite the existing information.</p>
 <pre><code>onstein$Log_Fruit_length_avg &lt;- as.numeric(onstein$Log_Fruit_length_avg)</code></pre>
 <p>Repeat this analysis to ensure that all columns match your expectations.</p>
+</div>
+<div id="data-visualization" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Data Visualization<a href="computational-skills.html#data-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Now we can visualize the data.
 We use the command <code>ggplot</code> and provide the data and the independent and dependent variables we expect on the graph.
 For example, we can examine the relationship between seed length and width.</p>
@@ -372,6 +377,7 @@ For example, we can examine the relationship between seed length and width.</p>
 <p>Do you notice an apparent relationship between these variables?
 We can view this more clearly by <em>adding</em> a regression line to our plot.</p>
 <pre><code>geom_smooth(method = &quot;lm&quot;, se = FALSE)</code></pre>
+<p>For improved viewing we have provided the method argument that specifies a linear model and we opt not to plot the error around the regression line.</p>
 <p>The paper from which these data are drawn found “syndromes” in frugivory-related traits
 such that fruits and seeds with dispersal by particular mechanisms (e.g. mammals, birds, and bats) have common trait values.
 Thus, we can see relationships among traits as above.
@@ -386,18 +392,26 @@ The paper describes:</p>
 <p>If you tried plotting with a character variable on the x axis you might find the results difficult to look at.
 You can try using a boxplot with <code>geom_boxplot()</code> or other plot type instead.
 Check out the ggplot cheatsheet for ideas: <a href="https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&amp;_page=2/" class="uri">https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&amp;_page=2/</a></p>
+<p><strong>Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.</strong></p>
+</div>
+<div id="statistical-tests-of-relationships" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Statistical tests of relationships<a href="computational-skills.html#statistical-tests-of-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>When you have several interesting relationships it’s advisable to confirm that the relationship is statistically significant.
 We can examine relationships with a linear model using the <code>lm</code> function.
 For example:</p>
 <pre><code>lm(Log_Seed_length_avg ~ Log_Seed_width_avg, data = onstein)</code></pre>
-<p>Note that the format of the arguments is slightly different than in a <code>ggplot</code>.</p>
+<p>Note that the format of the arguments is slightly different than in a <code>ggplot</code>.
+The <code>lm</code> function asks you to think in the format “y as a function of x”.</p>
 <p>The output of this function does not provide information without additional work.
-Assign the output to a new variable.
-Then provide this variable as the argument to the <code>summary</code> command.
-Examine the p and r-squared value.
-Do these match your observation from the graph?</p>
-<p>Note: make sure your variable names are informative.</p>
-<p>Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.</p>
+Assign the output to a new variable. Make sure that your new variable names are informative so that you can keep track of multiple model outputs.</p>
+<p>Then provide this variable as the argument to the <code>summary</code> command.</p>
+<ul>
+<li>Examine the p and r-squared value.</li>
+<li>Do these match your observation from the graph?</li>
+<li>What conclusions do you draw?</li>
+<li>Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.</li>
+</ul>
+<p><strong>Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.</strong></p>
 
 </div>
 </div>

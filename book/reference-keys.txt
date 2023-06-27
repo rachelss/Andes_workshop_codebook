@@ -10,7 +10,9 @@ comparative-analyses
 computational-skills
 log-in-to-the-server
 load-and-set-up-data
-analyses
+beginning-an-analysis
+data-visualization
+statistical-tests-of-relationships
 computational-skills-1
 basic-navigation
 getting-your-data
