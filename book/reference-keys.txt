@@ -7,7 +7,7 @@ data-and-analysis
 genomic-data
 phylogenies
 comparative-analyses
-trait-data-computational-skills
+trait-data
 log-in-to-the-server
 load-and-set-up-data
 beginning-an-analysis

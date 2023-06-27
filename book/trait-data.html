@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 14 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop</title>
+  <title>Chapter 4 Trait Data | Andes Phylogenomics Workshop</title>
   <meta name="description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 14 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop" />
+  <meta property="og:title" content="Chapter 4 Trait Data | Andes Phylogenomics Workshop" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="Step-by-step guide to a project in phylogenomics." />
   <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 14 Phylogenetic Generalized Linear Models | Andes Phylogenomics Workshop" />
+  <meta name="twitter:title" content="Chapter 4 Trait Data | Andes Phylogenomics Workshop" />
   
   <meta name="twitter:description" content="Step-by-step guide to a project in phylogenomics." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="introduction-to-macroevolution-modeling.html"/>
-<link rel="next" href="discrete-variable-modeling.html"/>
+<link rel="prev" href="data-and-analysis.html"/>
+<link rel="next" href="computational-skills.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -298,41 +298,120 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="phylogenetic-generalized-linear-models" class="section level1 hasAnchor" number="14">
-<h1><span class="header-section-number">Chapter 14</span> Phylogenetic Generalized Linear Models<a href="phylogenetic-generalized-linear-models.html#phylogenetic-generalized-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Load the same libraries and datasets as in the prior chapter.</p>
-<div id="phylogenetic-linear-models" class="section level2 hasAnchor" number="14.1">
-<h2><span class="header-section-number">14.1</span> Phylogenetic Linear Models<a href="phylogenetic-generalized-linear-models.html#phylogenetic-linear-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In our phylogenetic linear model we create an important macroevolution hypothesis: Flower length is determined by the types of pollinators that visit the flower.</p>
-<p>EXTREMELY IMPORTANT HERE = The main assumption of these models is that the ERRORS (not the response variable) have a normal distribution with a vector of zeros as the mean and variance-covariance matrix sigma^2 *C. Remember C is determined by the structure of the tree as we d calculated it in the continuous trait (Brownian motion) tutorial.</p>
-<div id="testing-the-hypothesis" class="section level3 hasAnchor" number="14.1.1">
-<h3><span class="header-section-number">14.1.1</span> Testing the hypothesis<a href="phylogenetic-generalized-linear-models.html#testing-the-hypothesis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>How would you frame then a biological hypothesis from these observations?</p>
-<p>Before typing a model it would be great to think about what we are trying to achieve.</p>
-<p>Now use the following code and fill in the necessary arguments.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="phylogenetic-generalized-linear-models.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">#not log.flowerlength?</span></span>
-<span id="cb91-2"><a href="phylogenetic-generalized-linear-models.html#cb91-2" aria-hidden="true" tabindex="-1"></a>plm.flowerlength <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
-<p>Interpret this model, what is happening? what is significant and how</p>
-<pre><code>summary(plm.flowerlength)</code></pre>
-<p>What is happening with the residuals of this linear model</p>
-<pre><code>hist(plm.flowerlength$res)
-qqnorm(plm.flowerlength$res)</code></pre>
-<p>Now what happens if the predictor is log(Length)?</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="phylogenetic-generalized-linear-models.html#cb94-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength2 <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
-<p>Using the same commands as above,
-interpret this model, what is happening? what is significant and how</p>
+<div id="trait-data" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Trait Data<a href="trait-data.html#trait-data" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>The high-performance computer we’ll use for our data doesn’t have the graphical interface
+you usually use (like a PC or Mac).
+That means you have to type in your commands - you can’t point and click.
+This actually has a hidden benefit because it’s easy to write down what you did in
+a line of text rather than having to try to explain where to click on each step.</p>
+<p>Let’s start by learning how to access our server and run commands without clicking.</p>
+<div id="log-in-to-the-server" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Log in to the server<a href="trait-data.html#log-in-to-the-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to <code>rstudio.uri.edu</code> and log in with the first part of your email address as both the username and password.</p>
 </div>
+<div id="load-and-set-up-data" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Load and set up data<a href="trait-data.html#load-and-set-up-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We will be using a dataset to practice that will look a lot like the data you plan to collect.
+By the end of this workshop you should be able to examine your own data in a similar way.
+Our practice dataset comes from Onstein et al. 2019, which you can find at <a href="https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552" class="uri">https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552</a>.
+We have uploaded this paper to the server you are working on and we will show you how to access it there shortly.</p>
+<p>Let’s start by getting organized.
+We will use both R code and bash/shell scripts in this workshop.
+Because RStudio provides a mechanism for setting up projects we will use this to stay organized.
+In the RStudio File menu select New Project - New Directory - New Project.</p>
+<ul>
+<li>Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.</li>
+<li>Select R 4.1.2</li>
+<li>Create Project</li>
+</ul>
+<p>By creating a new project you have created a folder for your work.
+When using projects whenever you come back to this project you will return to the same setup.
+This allows you to switch projects with different folders and open files.</p>
 </div>
-<div id="what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else" class="section level2 hasAnchor" number="14.2">
-<h2><span class="header-section-number">14.2</span> What happens if the model of evolution is not Brownian motion but something else?<a href="phylogenetic-generalized-linear-models.html#what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="phylogenetic-generalized-linear-models.html#cb95-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength3<span class="ot">&lt;-</span><span class="fu">phylolm</span>(Length<span class="sc">~</span> P1<span class="sc">+</span>P2<span class="sc">+</span>P3<span class="sc">+</span> P4, <span class="at">data=</span>pole_dataset, <span class="at">phy=</span>pole_tree, <span class="at">model=</span><span class="st">&quot;OUrandomRoot&quot;</span>)</span></code></pre></div>
-<p>What is this model?</p>
-<pre><code>summary(plm.flowerlength3)</code></pre>
-<p>interpret this model, what is happening? what is significant and how</p>
-<pre><code>plot(plm.flowerlength3)
-hist(plm.flowerlength3$res)
-qqnorm(plm.flowerlength3$res)</code></pre>
-<p>Overall which is the best model and why? Argue statistically but also think about flower length.</p>
+<div id="beginning-an-analysis" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Beginning an analysis<a href="trait-data.html#beginning-an-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Begin your work by making a script.
+This is where you will keep track of all of your analytical commands.
+From the File menu select New File - R script.</p>
+<p>To analyze data in <code>R</code> we need to load some helper “libraries”. A common library for analysis is the <code>tidyverse</code>, which wraps multiple libraries made by RStudio. For details and cheatsheets see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> . We will also use a library that allows us to read Excel files.</p>
+<p>Put the following in your script then click the Run icon.</p>
+<pre><code>library(readxl)
+library(tidyverse)</code></pre>
+<p>Now we will write a command to read the Excel file with the data from the paper.
+The command we use is <code>read_xlsx</code>.
+This command takes two arguments in parentheses.
+The first is the “path” to the data.
+We will discuss paths more extensively later.
+For now use the provided argument.
+The second argument is the Excel sheet or tab we want to read.
+Additionally, when we read the file into memory we assign the information to a “variable”.
+You can think of the variable as a box to contain the information.</p>
+<pre><code>onstein &lt;- read_xlsx(&#39;../../shared/AndesWorkshop2023/Onstein_data.xlsx&#39;,
+                     sheet = &#39;Matrix for analysis&#39;)</code></pre>
+<p>When you run this command you will see the data saved in the environment.
+When you click on the variable in the environment you will be able to view the data in tabular format.</p>
+<p>Before we can do anything with the data, we need to make sure that the computer understands
+the data the way we expect.
+Click on the arrow next to the variable name in the environment.
+Note that all of the columns of data are listed as “chr”.
+This means that the information is viewed as characters.
+Some of our data is actually numeric and we must convert it in order to analyze it correctly.</p>
+<p>To view the column names we use the <code>colnames</code> command and provide the dataset as the argument.</p>
+<p>The same column names you see at the top of your dataset when you view it should now appear below on the Console.</p>
+<p>We access and work with a single column by specifying the dataset name, followed by a <code>$</code> followed by the column name. For example:</p>
+<pre><code>onstein$Log_Fruit_length_avg</code></pre>
+<p>We assign a “corrected” version of the data (i.e. one that the computer will interpret as numeric) to this variable. We use the function <code>as.numeric</code> and provide the column of data as the argument. We then assign the output of this command to this same column in this same dataset and it will overwrite the existing information.</p>
+<pre><code>onstein$Log_Fruit_length_avg &lt;- as.numeric(onstein$Log_Fruit_length_avg)</code></pre>
+<p>Repeat this analysis to ensure that all columns match your expectations.</p>
+</div>
+<div id="data-visualization" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Data Visualization<a href="trait-data.html#data-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we can visualize the data.
+We use the command <code>ggplot</code> and provide the data and the independent and dependent variables we expect on the graph.
+For example, we can examine the relationship between seed length and width.</p>
+<pre><code>ggplot(onstein, aes(Log_Seed_width_avg, Log_Seed_length_avg))</code></pre>
+<p>Note that the variables are provided in an extra function <code>aes</code>.</p>
+<p>If you run this command it will generate an empty plot. To plot the points you have to “add” a “layer” on this base of the plot style. In this case we use the <code>geom_point</code> function to add the data as a scatter plot.</p>
+<pre><code>ggplot(onstein, aes(Log_Seed_width_avg, Log_Seed_length_avg)) + geom_point()</code></pre>
+<p>Do you notice an apparent relationship between these variables?
+We can view this more clearly by <em>adding</em> a regression line to our plot.</p>
+<pre><code>geom_smooth(method = &quot;lm&quot;, se = FALSE)</code></pre>
+<p>For improved viewing we have provided the method argument that specifies a linear model and we opt not to plot the error around the regression line.</p>
+<p>The paper from which these data are drawn found “syndromes” in frugivory-related traits
+such that fruits and seeds with dispersal by particular mechanisms (e.g. mammals, birds, and bats) have common trait values.
+Thus, we can see relationships among traits as above.
+The paper describes:</p>
+<ul>
+<li>“mammal syndromes of few, syncarpous fruits with many seeds, large fruits, and large seeds”</li>
+<li>“bird syndromes of many, bright-coloured, small fruits with few, small seeds and long stipes”</li>
+<li>“bird syndromes of dehiscent fruits with small seeds”</li>
+<li>“bat syndromes of dull-coloured, cauliflorous fruits”</li>
+</ul>
+<p>Try plotting some relationship on your own. To get you started, you can plot <code>Log_Fruit_length_avg</code> v <code>Log_Seed_number_avg</code> and <code>Log_Fruit_length_avg</code> v. <code>Log_Seed_length_avg</code>. Try others as well.</p>
+<p>If you tried plotting with a character variable on the x axis you might find the results difficult to look at.
+You can try using a boxplot with <code>geom_boxplot()</code> or other plot type instead.
+Check out the ggplot cheatsheet for ideas: <a href="https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&amp;_page=2/" class="uri">https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&amp;_page=2/</a></p>
+<p><strong>Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.</strong></p>
+</div>
+<div id="statistical-tests-of-relationships" class="section level2 hasAnchor" number="4.5">
+<h2><span class="header-section-number">4.5</span> Statistical tests of relationships<a href="trait-data.html#statistical-tests-of-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When you have several interesting relationships it’s advisable to confirm that the relationship is statistically significant.
+We can examine relationships with a linear model using the <code>lm</code> function.
+For example:</p>
+<pre><code>lm(Log_Seed_length_avg ~ Log_Seed_width_avg, data = onstein)</code></pre>
+<p>Note that the format of the arguments is slightly different than in a <code>ggplot</code>.
+The <code>lm</code> function asks you to think in the format “y as a function of x”.</p>
+<p>The output of this function does not provide information without additional work.
+Assign the output to a new variable. Make sure that your new variable names are informative so that you can keep track of multiple model outputs.</p>
+<p>Then provide this variable as the argument to the <code>summary</code> command.</p>
+<ul>
+<li>Examine the p and r-squared value.</li>
+<li>Do these match your observation from the graph?</li>
+<li>What conclusions do you draw?</li>
+<li>Repeat this process for your other graphs. Make sure you understand the biological interpretation of your results. Discuss with you instructor as needed.</li>
+</ul>
+<p><strong>Stop here and consult with members of your group and other groups. If possible share observed relationships using slides with the entire class.</strong></p>
 
 </div>
 </div>
@@ -341,8 +420,8 @@ qqnorm(plm.flowerlength3$res)</code></pre>
           </div>
         </div>
       </div>
-<a href="introduction-to-macroevolution-modeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="discrete-variable-modeling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="data-and-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="computational-skills.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -373,7 +452,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/14-pgls.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-traitsR.Rmd",
 "text": "Edit"
 },
 "history": {
