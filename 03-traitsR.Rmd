@@ -143,6 +143,26 @@ The paper describes:
 
 Try plotting some relationship on your own. To get you started, you can plot `Log_Fruit_length_avg` v `Log_Seed_number_avg` and `Log_Fruit_length_avg` v. `Log_Seed_length_avg`. Try others as well.
 
+```{r echo=FALSE, eval=FALSE}
+For instructors: 
+  
+more significant relationships:
+Fruit_type - Log_Seed_number_avg #association due to long-distance dispersal
+Fruit_type - Log_Fruit_length_avg #association due to long-distance dispersal
+Dehiscence - Log_Seed_length_avg # bird syndromes of dehiscent fruits with small seeds
+  #note this has an NA which doesn't affect results but makes a good teaching opportunity
+  #filter(onstein, Dehiscence !="NA")
+Bright - Log_Seed_length_avg 
+  # bird syndrome of many, bright-coloured, small fruits with few, small seeds and long stipes
+  # note also filter this for NA
+
+teaching opportunity:
+See if you can get someone to plot Log_Seed_length_avg ~ Cauliflory
+This will produce an error due to the way the coding is provided with NAs
+In order to remove the NAs students need to filter(onstein, Cauliflory != "NA")
+Note this is not a significant relationships, but a teaching opportunity
+```
+
 If you tried plotting with a character variable on the x axis you might find the results difficult to look at.
 You can try using a boxplot with `geom_boxplot()` or other plot type instead.
 Check out the ggplot cheatsheet for ideas: https://posit.co/resources/cheatsheets/?type=posit-cheatsheets&_page=2/
