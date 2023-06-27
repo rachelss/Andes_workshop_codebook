@@ -1,4 +1,4 @@
-# Computational skills
+# Trait Data {Computational skills}
 
 The high-performance computer we'll use for our data doesn't have the graphical interface
 you usually use (like a PC or Mac).

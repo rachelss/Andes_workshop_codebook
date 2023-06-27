@@ -7,13 +7,13 @@ data-and-analysis
 genomic-data
 phylogenies
 comparative-analyses
-computational-skills
+trait-data-computational-skills
 log-in-to-the-server
 load-and-set-up-data
 beginning-an-analysis
 data-visualization
 statistical-tests-of-relationships
-computational-skills-1
+computational-skills
 basic-navigation
 getting-your-data
 repeating-analyses
