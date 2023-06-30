@@ -17,7 +17,7 @@ First make a folder in your home directory to hold your outputs for this compone
 sudo conda create -p /mnt/homes4celsrs/shared/envs/hybpiper -c chrisjackson-pellicle hybpiper
 ```
 
-We have pre-installed the program HybPiper, which assembles target sequences from short high-throughput DNA sequencing reads. 
+We have pre-installed the program HybPiper on the server, which assembles target sequences from short high-throughput DNA sequencing reads. 
 By assembling each target sequence for each species we will be able to produce a dataset that allows us to understand the evolutionary history of the species.
 
 To access HybPiper run.
@@ -27,7 +27,14 @@ This activates a conda environment (don't worry about this!).
 conda activate /mnt/homes4celsrs/shared/envs/hybpiper
 ```
 
-In this case, our target sequences are the Angiosperm 353 standard targets. 
+If you need to obtain Hybpiper on your personal computer:
+
+* Download Miniconda for [Windows](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html) or [Mac](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html) and install following the instructions
+* Follow the instructions for bioconda and hybpiper installation: https://github.com/mossmatters/HybPiper/wiki/Installation
+
+In this case, our target sequences are either the Angiosperm 353 standard targets
+or a set of target data designed specifically for these taxa.
+One goal of this workshop is to compare the results from different target sets.
 Target capture is a standard technique for sequencing many known loci simultaneously using a library of sequences. 
 We have provided you with low-coverage sequence data from using these target sequences as probes (your fastq files).
 HybPiper first assigns each read to a particular target using alignment software (BWA).
@@ -107,7 +114,9 @@ To obtain some information about the results of this process use the `hybpiper s
 hybpiper stats -t_dna [target file] gene [path to]/namelist.txt
 ```
 
+```{bash, echo=FALSE, eval=FALSE}
 From https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats
+```
 
 Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
 The first line of seq_lengths.tsv has the names of each gene. 

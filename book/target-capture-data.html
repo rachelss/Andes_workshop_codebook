@@ -308,12 +308,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">8.1</span> Background<a href="target-capture-data.html#background" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Much of the information in this chapter is drawn from the HybPiper tutorial, which can be found at <a href="https://github.com/mossmatters/HybPiper/wiki/Tutorial" class="uri">https://github.com/mossmatters/HybPiper/wiki/Tutorial</a></p>
 <p>First make a folder in your home directory to hold your outputs for this component of the project.</p>
-<p>We have pre-installed the program HybPiper, which assembles target sequences from short high-throughput DNA sequencing reads.
+<p>We have pre-installed the program HybPiper on the server, which assembles target sequences from short high-throughput DNA sequencing reads.
 By assembling each target sequence for each species we will be able to produce a dataset that allows us to understand the evolutionary history of the species.</p>
 <p>To access HybPiper run.
 This activates a conda environment (don’t worry about this!).</p>
 <pre><code>conda activate /mnt/homes4celsrs/shared/envs/hybpiper</code></pre>
-<p>In this case, our target sequences are the Angiosperm 353 standard targets.
+<p>If you need to obtain Hybpiper on your personal computer:</p>
+<ul>
+<li>Download Miniconda for <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html">Windows</a> or <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html">Mac</a> and install following the instructions</li>
+<li>Follow the instructions for bioconda and hybpiper installation: <a href="https://github.com/mossmatters/HybPiper/wiki/Installation" class="uri">https://github.com/mossmatters/HybPiper/wiki/Installation</a></li>
+</ul>
+<p>In this case, our target sequences are either the Angiosperm 353 standard targets
+or a set of target data designed specifically for these taxa.
+One goal of this workshop is to compare the results from different target sets.
 Target capture is a standard technique for sequencing many known loci simultaneously using a library of sequences.
 We have provided you with low-coverage sequence data from using these target sequences as probes (your fastq files).
 HybPiper first assigns each read to a particular target using alignment software (BWA).
@@ -371,7 +378,6 @@ You can view this file to watch the progress of your command.</p>
 <h2><span class="header-section-number">8.3</span> Process outputs<a href="target-capture-data.html#process-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>To obtain some information about the results of this process use the <code>hybpiper stats</code> command as follows.</p>
 <pre><code>hybpiper stats -t_dna [target file] gene [path to]/namelist.txt</code></pre>
-<p>From <a href="https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats" class="uri">https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats</a></p>
 <p>Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
 The first line of seq_lengths.tsv has the names of each gene.
 The second line has the length of the target gene, averaged over each “source” for that gene.
