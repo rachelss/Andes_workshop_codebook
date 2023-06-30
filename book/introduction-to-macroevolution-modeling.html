@@ -189,17 +189,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
 <li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#view-in-r"><i class="fa fa-check"></i><b>9.2</b> View in R</a></li>
-<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#trimal"><i class="fa fa-check"></i><b>9.3</b> Trimal</a></li>
-<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.4</b> Concatenated data analysis</a>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.3</b> Concatenated data analysis</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.4.1</b> Building trees with IQTree</a></li>
-<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.4.2</b> Viewing trees</a></li>
-<li class="chapter" data-level="9.4.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>9.4.3</b> Tree for all data using output of individual hybpiper runs</a></li>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.3.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.3.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.3.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.3.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>9.3.3</b> Tree for all data using output of individual hybpiper runs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.5</b> Species tree analyses</a></li>
-<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.6</b> Support for relationships</a></li>
-<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.7</b> MrBayes</a></li>
-<li class="chapter" data-level="9.8" data-path="results.html"><a href="results.html#what-do-your-trees-tell-you"><i class="fa fa-check"></i><b>9.8</b> What do your trees tell you?</a></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.4</b> Species tree analyses</a></li>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.5</b> Support for relationships</a></li>
+<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.6</b> MrBayes</a></li>
+<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#what-do-your-trees-tell-you"><i class="fa fa-check"></i><b>9.7</b> What do your trees tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="dates-and-evolution.html"><a href="dates-and-evolution.html"><i class="fa fa-check"></i><b>10</b> Dates and Evolution</a>
 <ul>
@@ -335,12 +334,12 @@ We have a tree with 165 tips from the Polimoniaceae family (Phlox). They grow in
 <p>An easy way to visualize phylogenies that are small is by plotting them in a rectangular fashion
 as we have done, but when you have a lot of tips, circular phylogenies can be more useful.
 You can use the <code>type</code> argument to plot to change the plot style.</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="introduction-to-macroevolution-modeling.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pole_tree,<span class="at">cex=</span><span class="fl">0.2</span>,<span class="at">type=</span><span class="st">&quot;fan&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-macroevolution-modeling.html#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pole_tree,<span class="at">cex=</span><span class="fl">0.2</span>,<span class="at">type=</span><span class="st">&quot;fan&quot;</span>)</span></code></pre></div>
 <div id="plotting-continuous-data" class="section level3 hasAnchor" number="13.2.1">
 <h3><span class="header-section-number">13.2.1</span> Plotting continuous data<a href="introduction-to-macroevolution-modeling.html#plotting-continuous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Jacob Landis measured the flower width and length and observed which pollinators come visit the flowers. Jacob was interested in understanding if we can predict flower shape based on pollinator type. For example, flowers that hummingbirds visit might be longer and narrower than flowers that are visited by bees.</p>
 <p>I wanted to create a model where the response is the flower shape and the predictor is what type of pollinator visits the flower.</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="introduction-to-macroevolution-modeling.html#cb85-1" aria-hidden="true" tabindex="-1"></a>lengthplot <span class="ot">&lt;-</span> <span class="fu">setNames</span>(pole_dataset<span class="sc">$</span>Length,<span class="fu">rownames</span>(pole_dataset))</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-macroevolution-modeling.html#cb88-1" aria-hidden="true" tabindex="-1"></a>lengthplot <span class="ot">&lt;-</span> <span class="fu">setNames</span>(pole_dataset<span class="sc">$</span>Length,<span class="fu">rownames</span>(pole_dataset))</span></code></pre></div>
 <p>Stop to see what this line of code is doing.</p>
 <pre><code>plotTree.barplot(tree=pole_tree,
                  x=lengthplot,
@@ -352,14 +351,14 @@ You can use the <code>type</code> argument to plot to change the plot style.</p>
 <h3><span class="header-section-number">13.2.2</span> Plotting discrete and continuous data<a href="introduction-to-macroevolution-modeling.html#plotting-discrete-and-continuous-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We would like to show on this plot which flowers are hummingbird pollinated.
 We can do this by creating a new column in the data and we’ll put a color in it based on the information in column <code>P1</code>.</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-macroevolution-modeling.html#cb87-1" aria-hidden="true" tabindex="-1"></a>pole_dataset<span class="sc">$</span>mycolors <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pole_dataset<span class="sc">$</span>P1<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-macroevolution-modeling.html#cb90-1" aria-hidden="true" tabindex="-1"></a>pole_dataset<span class="sc">$</span>mycolors <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pole_dataset<span class="sc">$</span>P1<span class="sc">==</span><span class="dv">1</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <p>Now plot the tree</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-macroevolution-modeling.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree.barplot</span>(<span class="at">tree=</span>pole_tree,</span>
-<span id="cb88-2"><a href="introduction-to-macroevolution-modeling.html#cb88-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x=</span>lengthplot,</span>
-<span id="cb88-3"><a href="introduction-to-macroevolution-modeling.html#cb88-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">args.plotTree=</span><span class="fu">list</span>(<span class="at">ftype=</span><span class="st">&quot;off&quot;</span>),</span>
-<span id="cb88-4"><a href="introduction-to-macroevolution-modeling.html#cb88-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">args.barplot=</span><span class="fu">list</span>(<span class="at">col=</span>pole_dataset<span class="sc">$</span>mycolors,<span class="at">border=</span>pole_dataset<span class="sc">$</span>mycolors,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>))</span>
-<span id="cb88-5"><a href="introduction-to-macroevolution-modeling.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">100</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Hummingbird pollinated&quot;</span>,<span class="st">&quot;Other pollination&quot;</span>), <span class="at">pch=</span><span class="dv">22</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb88-6"><a href="introduction-to-macroevolution-modeling.html#cb88-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">box.col=</span><span class="st">&quot;transparent&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-to-macroevolution-modeling.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree.barplot</span>(<span class="at">tree=</span>pole_tree,</span>
+<span id="cb91-2"><a href="introduction-to-macroevolution-modeling.html#cb91-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">x=</span>lengthplot,</span>
+<span id="cb91-3"><a href="introduction-to-macroevolution-modeling.html#cb91-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">args.plotTree=</span><span class="fu">list</span>(<span class="at">ftype=</span><span class="st">&quot;off&quot;</span>),</span>
+<span id="cb91-4"><a href="introduction-to-macroevolution-modeling.html#cb91-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">args.barplot=</span><span class="fu">list</span>(<span class="at">col=</span>pole_dataset<span class="sc">$</span>mycolors,<span class="at">border=</span>pole_dataset<span class="sc">$</span>mycolors,<span class="at">xlab=</span><span class="st">&quot;&quot;</span>))</span>
+<span id="cb91-5"><a href="introduction-to-macroevolution-modeling.html#cb91-5" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="dv">3</span>, <span class="at">y=</span><span class="dv">100</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Hummingbird pollinated&quot;</span>,<span class="st">&quot;Other pollination&quot;</span>), <span class="at">pch=</span><span class="dv">22</span>, <span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">pt.bg=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>,<span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb91-6"><a href="introduction-to-macroevolution-modeling.html#cb91-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">box.col=</span><span class="st">&quot;transparent&quot;</span>)</span></code></pre></div>
 <p>Stop and see, what kind of (macroevolution) questions can you ask after seeing this?</p>
 </div>
 </div>
@@ -394,7 +393,7 @@ This covariance equation is the most important and key result used in macroevolu
 <div id="shared-ancestry-and-continuous-character-evolution" class="section level2 hasAnchor" number="13.5">
 <h2><span class="header-section-number">13.5</span> Shared ancestry and continuous character evolution<a href="introduction-to-macroevolution-modeling.html#shared-ancestry-and-continuous-character-evolution" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Calculate the C matrix using the vcvPhylo() function</p>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="introduction-to-macroevolution-modeling.html#cb89-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">vcvPhylo</span>(pole_tree, <span class="at">anc.nodes=</span><span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="introduction-to-macroevolution-modeling.html#cb92-1" aria-hidden="true" tabindex="-1"></a>C <span class="ot">&lt;-</span> <span class="fu">vcvPhylo</span>(pole_tree, <span class="at">anc.nodes=</span><span class="cn">FALSE</span>) </span></code></pre></div>
 <ul>
 <li>What is this the covaraince matrix of? How to interpret variance terms?</li>
 <li>Check the dimensions. What is this matrix C composed of?</li>
@@ -402,9 +401,9 @@ This covariance equation is the most important and key result used in macroevolu
 </ul>
 <div id="always-visualize-your-data" class="section level3 hasAnchor" number="13.5.1">
 <h3><span class="header-section-number">13.5.1</span> Always visualize your data<a href="introduction-to-macroevolution-modeling.html#always-visualize-your-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-macroevolution-modeling.html#cb90-1" aria-hidden="true" tabindex="-1"></a>flower.length <span class="ot">&lt;-</span> pole_dataset<span class="sc">$</span>Length</span>
-<span id="cb90-2"><a href="introduction-to-macroevolution-modeling.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(flower.length) <span class="ot">&lt;-</span> pole_tree<span class="sc">$</span>tip.label</span>
-<span id="cb90-3"><a href="introduction-to-macroevolution-modeling.html#cb90-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(flower.length)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-to-macroevolution-modeling.html#cb93-1" aria-hidden="true" tabindex="-1"></a>flower.length <span class="ot">&lt;-</span> pole_dataset<span class="sc">$</span>Length</span>
+<span id="cb93-2"><a href="introduction-to-macroevolution-modeling.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(flower.length) <span class="ot">&lt;-</span> pole_tree<span class="sc">$</span>tip.label</span>
+<span id="cb93-3"><a href="introduction-to-macroevolution-modeling.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(flower.length)</span></code></pre></div>
 <p>What do you see here? do you think Brownian motion could be a good model for evolution for flower length?</p>
 <p>Sometimes to better model BM in traits that can only be positive we often log-transform.</p>
 <pre><code>log.flowerlength &lt;- log(flower.length)
@@ -414,8 +413,8 @@ hist(log.flowerlength)</code></pre>
 <div id="fitting-bm-on-flower-length" class="section level3 hasAnchor" number="13.5.2">
 <h3><span class="header-section-number">13.5.2</span> Fitting BM on flower length<a href="introduction-to-macroevolution-modeling.html#fitting-bm-on-flower-length" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We are interested in calculating the the amount of evolution using Brownian motion for flower length. We will do this with the function <code>fitContinuous()</code> from package <code>geiger</code>.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="introduction-to-macroevolution-modeling.html#cb92-1" aria-hidden="true" tabindex="-1"></a>fitted.BM <span class="ot">&lt;-</span> <span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span>
-<span id="cb92-2"><a href="introduction-to-macroevolution-modeling.html#cb92-2" aria-hidden="true" tabindex="-1"></a>fitted.BM</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="introduction-to-macroevolution-modeling.html#cb95-1" aria-hidden="true" tabindex="-1"></a>fitted.BM <span class="ot">&lt;-</span> <span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span>
+<span id="cb95-2"><a href="introduction-to-macroevolution-modeling.html#cb95-2" aria-hidden="true" tabindex="-1"></a>fitted.BM</span></code></pre></div>
 <p>Stop and Interpret the output of <code>fitContinuous</code></p>
 <ol style="list-style-type: decimal">
 <li>Type <code>fitted.BM$opt</code> - explore a little bit what this object has</li>
@@ -424,8 +423,8 @@ hist(log.flowerlength)</code></pre>
 <li>What is the log-likelihood?</li>
 </ol>
 <p>If you assume no phylogenetic tree and complete independence in the data, what happens with the parameters?</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-to-macroevolution-modeling.html#cb93-1" aria-hidden="true" tabindex="-1"></a>fitted.Normal <span class="ot">&lt;-</span> <span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;white&quot;</span>)</span>
-<span id="cb93-2"><a href="introduction-to-macroevolution-modeling.html#cb93-2" aria-hidden="true" tabindex="-1"></a>fitted.Normal</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="introduction-to-macroevolution-modeling.html#cb96-1" aria-hidden="true" tabindex="-1"></a>fitted.Normal <span class="ot">&lt;-</span> <span class="fu">fitContinuous</span>(pole_tree,flower.length, <span class="at">model=</span><span class="st">&quot;white&quot;</span>)</span>
+<span id="cb96-2"><a href="introduction-to-macroevolution-modeling.html#cb96-2" aria-hidden="true" tabindex="-1"></a>fitted.Normal</span></code></pre></div>
 <p>Which model is better? (Hint: Think about model selection, but also argue about the importance of considering the phylogeny)</p>
 
 </div>

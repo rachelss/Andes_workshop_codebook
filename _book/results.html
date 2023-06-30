@@ -189,17 +189,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
 <li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#view-in-r"><i class="fa fa-check"></i><b>9.2</b> View in R</a></li>
-<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#trimal"><i class="fa fa-check"></i><b>9.3</b> Trimal</a></li>
-<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.4</b> Concatenated data analysis</a>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.3</b> Concatenated data analysis</a>
 <ul>
-<li class="chapter" data-level="9.4.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.4.1</b> Building trees with IQTree</a></li>
-<li class="chapter" data-level="9.4.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.4.2</b> Viewing trees</a></li>
-<li class="chapter" data-level="9.4.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>9.4.3</b> Tree for all data using output of individual hybpiper runs</a></li>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.3.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.3.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.3.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.3.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>9.3.3</b> Tree for all data using output of individual hybpiper runs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.5</b> Species tree analyses</a></li>
-<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.6</b> Support for relationships</a></li>
-<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.7</b> MrBayes</a></li>
-<li class="chapter" data-level="9.8" data-path="results.html"><a href="results.html#what-do-your-trees-tell-you"><i class="fa fa-check"></i><b>9.8</b> What do your trees tell you?</a></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.4</b> Species tree analyses</a></li>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.5</b> Support for relationships</a></li>
+<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.6</b> MrBayes</a></li>
+<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#what-do-your-trees-tell-you"><i class="fa fa-check"></i><b>9.7</b> What do your trees tell you?</a></li>
 </ul></li>
 <li class="chapter" data-level="10" data-path="dates-and-evolution.html"><a href="dates-and-evolution.html"><i class="fa fa-check"></i><b>10</b> Dates and Evolution</a>
 <ul>
@@ -310,12 +309,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 This allows our tree-building software to compare species using nucleotides that we believe share ancestry.
 We will use the software MAFFT.
 Due to the nature of this server different programs are in different “environments” so you’ll need to deactivate the hybpiper environment and activate one for mafft.</p>
+<p>If you are on your local computer skip this step - mafft should be included with the hybpiper installation and therefore in your current environment.</p>
 <pre><code>conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/mafft</code></pre>
 <p>Now MAFFT is available to run.
 However, before we align our data let’s take a look at the output.
 Do you remember how to print out particular lines of a file?
-Try printing all of the lines that start with <code>'&gt;'</code> in a particular FNA file. <strong>Make sure to use <code>'&gt;'</code> including the single quotes when searching.</strong>
+Try printing all of the lines that start with <code>'&gt;'</code> in a particular FNA file. <strong>Make sure to use <code>'&gt;'</code> including the single quotes when searching.</strong> Otherwise, the shell interprets <code>&gt;</code> as writing to a new file as we have seen previously.
 You should notice that HybPiper has added some information to these lines so they include more than just the name of the sample. Because these additions differ across genes subsequent analyses may treat them as separate samples.</p>
 <p>Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first “word” in each line (think of a word as a set of characters not separated by spaces).
@@ -325,17 +325,20 @@ We use the <code>-f</code> flag to indicate the field (column) we want to keep, 
 <pre><code>cut -f 1 -d &#39; &#39; 7577.FNA &gt; 7577.FNA.fa</code></pre>
 <p>Now use a loop as before to repeat this command for all FNA files.</p>
 <p>Now we can loop through each of these files and output an alignment.
-The basic mafft command looks like the following, assuming you replace FILE with a particular file.</p>
+The basic mafft command looks like the following.</p>
 <pre><code>mafft --auto --thread 1 7577.FNA.fa &gt; 7577.FNA.fa.fasta</code></pre>
 <p>Remember you have 350 genes (i.e. 350 fasta files) so you want to run these alignments in a loop.
-As before, write a loop to go through each FNA.fa file and output an alignment.</p>
+As before, write a loop to go through each FNA.fa file and output an alignment - you can use the input name and add <code>.fasta</code> to the end to create the output name as in the above example.</p>
 </div>
 <div id="view-in-r" class="section level2 hasAnchor" number="9.2">
 <h2><span class="header-section-number">9.2</span> View in R<a href="results.html#view-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The best way to view an alignment is in a specialized program, but because we have R
 easily available we’ll view an example here.</p>
 <p>Make a new script to run this alignment view.
-You should first load the <code>ape</code> and <code>ggmsa</code> library. (This uses the gg as in ggplot and msa, which stands for multiple sequence alignment.)</p>
+You should first load the <code>ape</code> and <code>ggmsa</code> library. (This uses the gg as in ggplot and msa, which stands for multiple sequence alignment.)
+<strong>If you are working on your personal computer</strong> you need to do the following:</p>
+<pre><code>install.packages(&quot;BiocManager&quot;)
+BiocManager::install(&quot;ggmsa&quot;)</code></pre>
 <ul>
 <li>Read in your fasta file with ape’s <code>read.FASTA</code>.</li>
 <li>Use the ggmsa command as follows, substituting the particular variable that contains your fasta file. Allow a little while for this to run. You may need to click the Zoom button above the plot to see it more clearly.</li>
@@ -344,12 +347,8 @@ You should first load the <code>ape</code> and <code>ggmsa</code> library. (This
   geom_msaBar()</code></pre>
 <p>Now repeat this process for the same gene with the unaligned data. Can you see the difference?</p>
 </div>
-<div id="trimal" class="section level2 hasAnchor" number="9.3">
-<h2><span class="header-section-number">9.3</span> Trimal<a href="results.html#trimal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>TBD</p>
-</div>
-<div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.4">
-<h2><span class="header-section-number">9.4</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are multiple ways to analyze data.
 The first is to concatenate everything.
 Make sure you are in your Terminal.</p>
@@ -361,36 +360,39 @@ python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -t concatenated.fasta -p partitions.txt
 </code></pre>
 <p>Note that if some data was not found for some genes you may need to delete files (use the <code>rm</code> command) to get AMAS to concatenate your data.</p>
-<div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.4.1">
-<h3><span class="header-section-number">9.4.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will build our first tree using our complete concatenated dataset.
 The program IQtree infers phylogenetic trees by maximum likelihood.
-This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
-We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities.
-We also allow a Gamma (G) distribution of rates of substitution across sites.
-We allow partitioning of the data by gene so that different genes can evolve according to different models.
-Additionally we have included bootstrapping in our analysis to get a measure of support for relationships.</p>
+This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).</p>
+<p>If you are on the server switch environments:</p>
 <pre><code>conda deactivate
-conda activate /mnt/homes4celsrs/shared/envs/iqtree
-
-iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G</code></pre>
+conda activate /mnt/homes4celsrs/shared/envs/iqtree</code></pre>
+<p>If you need to install IQTree go <a href="http://www.iqtree.org/">here</a>.</p>
+<p>The following is an example command for iqtree</p>
+<pre><code>iqtree2 -nt 2 -s concatenated.fasta -spp partitions.txt -pre iqtree_tree -B 1000 -m GTR+G</code></pre>
+<ul>
+<li>We use the General Time Reversible (GTR) model to allow sites to change back and forth among different bases with particular probabilities. We also allow a Gamma (G) distribution of rates of substitution across sites. (-m)</li>
+<li>We allow partitioning of the data by gene so that different genes can evolve according to different models. (-spp)</li>
+<li>Additionally we have included bootstrapping in our analysis to get a measure of support for relationships. (-B)</li>
+</ul>
 </div>
-<div id="viewing-trees" class="section level3 hasAnchor" number="9.4.2">
-<h3><span class="header-section-number">9.4.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="viewing-trees" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">9.3.2</span> Viewing trees<a href="results.html#viewing-trees" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li>Make a new RScript to view your tree in R.</li>
 <li>Load the libraries tidyverse and ape.</li>
 <li>Use the <code>read.tree</code> command and provide the path to the tree as the argument</li>
-<li>Use the plot command providing the tree variable as the argument, then add <code>, show.node.label = TRUE</code></li>
+<li>Use the <code>plot</code> command providing the tree variable as the argument, then add <code>, show.node.label = TRUE</code></li>
 </ul>
-<div id="rooting-your-tree" class="section level4 hasAnchor" number="9.4.2.1">
-<h4><span class="header-section-number">9.4.2.1</span> Rooting your tree<a href="results.html#rooting-your-tree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="rooting-your-tree" class="section level4 hasAnchor" number="9.3.2.1">
+<h4><span class="header-section-number">9.3.2.1</span> Rooting your tree<a href="results.html#rooting-your-tree" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Our tree-building programs create trees that are unrooted because we do not know the direction of changes among species (e.g. for a single difference we are unable to say if an A mutated to a T or vice versa).
 Thus, we should properly view out trees as unrooted.</p>
 <pre><code>plot(tax1, &quot;u&quot;, show.node.label = TRUE, cex = .5)</code></pre>
 <p>Note that I have added an argument to make the font size bit smaller so we can read all of the labels.
 You should adjust this value as needed and use the Zoom feature to better view your tree.</p>
-<p>However, we have created taxon sets where one of the included species is known to be more distantly related.
+<p>We have created taxon sets where one of the included species is known to be more distantly related.
 We can use this to set the root for the tree.
 You should view the list of taxa for your group in the file in the shared folder for this workshop.
 The last taxon in your list is the outgroup.
@@ -398,12 +400,13 @@ You can root your tree as in the following example using the <code>root</code> c
 Note that your outgroup will be different if you are using a different taxon set.
 Additionally you must use the tip label that you can see on your tree not the labels in this spreadsheet.
 If you want to view the tip labels as a list use</p>
-<pre><code>tax1$tip.label
-tax1_root &lt;- root(tax1, outgroup = &quot;A217_CKDN220062756-1A&quot;)</code></pre>
+<pre><code>tax1$tip.label</code></pre>
+<p>Now root your tree using the root relevant to your taxon set.</p>
+<pre><code>tax1_root &lt;- root(tax1, outgroup = &quot;A217_CKDN220062756-1A&quot;)</code></pre>
 <p>Now that you have rooted your tree you can plot this new tree as before.</p>
 </div>
-<div id="relabeling-your-tips-with-species-information" class="section level4 hasAnchor" number="9.4.2.2">
-<h4><span class="header-section-number">9.4.2.2</span> Relabeling your tips with species information<a href="results.html#relabeling-your-tips-with-species-information" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="relabeling-your-tips-with-species-information" class="section level4 hasAnchor" number="9.3.2.2">
+<h4><span class="header-section-number">9.3.2.2</span> Relabeling your tips with species information<a href="results.html#relabeling-your-tips-with-species-information" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>There are a couple of ways to relabel the tips of your trees with correct species names.
 We will use a straightforward, manual approach.
 We will look at the list of tips and then manually replace them with a list of species names.
@@ -420,8 +423,8 @@ You should keep in mind that this approach is prone to error and challenging for
 <p>If you relabeled the tips of your unrooted tree you need to root the tree with the appropriate outgroup name. You can then plot this rooted and corrected tree.</p>
 </div>
 </div>
-<div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="9.4.3">
-<h3><span class="header-section-number">9.4.3</span> Tree for all data using output of individual hybpiper runs<a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="tree-for-all-data-using-output-of-individual-hybpiper-runs" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">9.3.3</span> Tree for all data using output of individual hybpiper runs<a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In the prior analysis we examined all of the data combined.
 For the next analysis we will estimate individual gene trees and then combine these into a species tree.</p>
 <pre><code>iqtree -s concatenated.fasta -S partitions.txt -pre iqtree.loci -nt 2</code></pre>
@@ -431,10 +434,11 @@ The output files are the same, except that now your treefile will contain a set 
 <a href="http://www.iqtree.org/workshop/molevol2019" class="uri">http://www.iqtree.org/workshop/molevol2019</a></p>
 </div>
 </div>
-<div id="species-tree-analyses" class="section level2 hasAnchor" number="9.5">
-<h2><span class="header-section-number">9.5</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="species-tree-analyses" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Species tree analyses<a href="results.html#species-tree-analyses" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>An alternative is to use a species tree approach.
-We will use the software ASTRAL.</p>
+We will use the software ASTRAL.
+The following is an example command that takes the output of the iqtree gene trees and estimates a species tree.</p>
 <pre><code>java -jar /mnt/homes4celsrs/shared/ASTRAL/astral.5.7.8.jar -i iqtree.loci.treefile -o astral_output.tre 2&gt;astral.log</code></pre>
 <ul>
 <li>-i is the flag for the input file</li>
@@ -451,8 +455,8 @@ We will use the software ASTRAL.</p>
 <p>More information on astral can be found at
 <a href="https://github.com/smirarab/ASTRAL" class="uri">https://github.com/smirarab/ASTRAL</a></p>
 </div>
-<div id="support-for-relationships" class="section level2 hasAnchor" number="9.6">
-<h2><span class="header-section-number">9.6</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="support-for-relationships" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Support for relationships<a href="results.html#support-for-relationships" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In our initial IQTree analysis we obtained bootstrap support for each node.
 An alternative approach are gene and site concordance factors.
 For more information see <a href="http://www.robertlanfear.com/blog/files/concordance_factors.html" class="uri">http://www.robertlanfear.com/blog/files/concordance_factors.html</a> .
@@ -466,30 +470,30 @@ You can compute gCF and sCF for the tree inferred under the partition model:</p>
 <li><p>View the tree (iqtree_tree.treefile.cf.tree) in R with these support values. The tree will show boostrap/gcf/scf on the nodes.</p></li>
 </ul>
 </div>
-<div id="mrbayes" class="section level2 hasAnchor" number="9.7">
-<h2><span class="header-section-number">9.7</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mrbayes" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> MrBayes<a href="results.html#mrbayes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The next approach we will use for tree building is implemented in MrBayes.
 We need to do some setup before we can run this software.
-<code>R</code> has some tools we can use to convert out data to the write format and add some instructions.
+MrBayes requires Nexus format, with an added block giving instructions to MrBayes.
+<code>R</code> has some tools we can use to convert out data to the right format and add some instructions.
 Note that some of the following was adapted from <a href="https://gtpb.github.io/MEVR16/bayes/mb_example.html" class="uri">https://gtpb.github.io/MEVR16/bayes/mb_example.html</a></p>
 <ul>
-<li>Load your data into R (use a new script for organizational purposes)</li>
+<li>Make a new script for organizational purposes</li>
+<li>Load the <code>ape</code> and <code>tidyverse</code> libraries</li>
+<li>Load your data into R</li>
 </ul>
-<pre><code>library(ape)
-library(tidyverse)
-
-myseqs &lt;- read.dna(&quot;results/concatenated.fasta&quot;,format=&quot;fasta&quot;,as.matrix=FALSE)</code></pre>
-<p>MrBayes requires Nexus format, with an added block giving instructions to MrBayes. We first save the data as Nexus format, and read back in to manipulate further.</p>
+<pre><code>myseqs &lt;- read.dna(&quot;results/concatenated.fasta&quot;,format=&quot;fasta&quot;,as.matrix=FALSE)</code></pre>
+<p>We first save the data as Nexus format, and read back in to manipulate further.</p>
 <pre><code>write.nexus.data(as.character(myseqs),&quot;results/concatenated.nex&quot;,interleaved=TRUE,gap=&quot;-&quot;,missing=&quot;N&quot;)
 myseqs_nex &lt;- readLines(&quot;results/concatenated.nex&quot;)</code></pre>
-<p>Fix missing because AMAS using ? for missing</p>
+<p>We need to fix the information about how missing is coded because AMAS uses ? for missing.</p>
 <pre><code>myseqs_nex &lt;- gsub(&#39;\\?&#39;,&#39;n&#39;,myseqs_nex)</code></pre>
-<p>First execution block</p>
+<p>We crease our first execution block as plain text stored in a variable.</p>
 <pre><code>mbblock1 &lt;- &quot;
 begin mrbayes;
   set autoclose=yes;
 &quot;</code></pre>
-<p>Second execution block has information about partitions.
+<p>We create a second execution block has information about partitions.
 We get this from the partitions file generated by AMAS but we have to do some reformatting.</p>
 <ul>
 <li>Read the file with <code>read.table</code></li>
@@ -509,7 +513,7 @@ end;
 <p>We then paste the blocks together and write to a file.</p>
 <pre><code>myseqs_nexus_withmb &lt;- paste(paste(myseqs_nex,collapse=&quot;\n&quot;),mbblock1,mbblock2,sep=&quot;&quot;)
 write(myseqs_nexus_withmb,file=&quot;concatenated.nex.mb&quot;)</code></pre>
-<p>Now run (on the command line) (probably in background as you did previously).</p>
+<p>Now run (on the command line) in background as you did previously. This analysis may take several hours.</p>
 <pre><code>../../shared/bin/mb &quot;results/concatenated.nex.mb&quot;</code></pre>
 <p>Before looking at your tree check the output. In some cases you may need to run your analysis for longer and a note to this effect will be toward the end of the output. Make sure to give the log file for this run a relevant name. You don’t want to overwrite the output from HybPiper and you might want to keep this output if you do a longer run. Additionally, if you rerun the analysis with additional time make sure you don’t overwrite the current tree output.</p>
 <p>You can find your tree in your results folder with the extension <code>.con.tre</code>.
@@ -524,8 +528,8 @@ mrbayes_phylo$node.label = probs[(length(mrbayes_phylo$tip.label)+1):length(prob
 <li>Plot your tree</li>
 </ul>
 </div>
-<div id="what-do-your-trees-tell-you" class="section level2 hasAnchor" number="9.8">
-<h2><span class="header-section-number">9.8</span> What do your trees tell you?<a href="results.html#what-do-your-trees-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="what-do-your-trees-tell-you" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> What do your trees tell you?<a href="results.html#what-do-your-trees-tell-you" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

@@ -30,7 +30,6 @@ visual-inspection-of-data
 results
 alignment
 view-in-r
-trimal
 concatenated-data-analysis
 building-trees-with-iqtree
 viewing-trees
