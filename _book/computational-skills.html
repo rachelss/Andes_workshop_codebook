@@ -306,20 +306,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Computational skills<a href="computational-skills.html#computational-skills" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="basic-navigation" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Basic navigation<a href="computational-skills.html#basic-navigation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Click on the <code>Terminal</code> tab to access the command line interface, which we’ll be using for our genomic analyses.</p>
+<ul>
+<li>We will begin our work using the command line or shell.</li>
+<li>Click on the <code>Terminal</code> tab in your RStudio to access the command line interface, which we’ll be using for our genomic analyses.</li>
+</ul>
+<p><strong>If you don’t have access to the server AND you are on a PC</strong> download <a href="https://gitforwindows.org/">git-bash</a> and open it.</p>
 <p>To see the list of files on this computer in your “home” directory do the following:</p>
 <pre><code>ls</code></pre>
-<p>This folder might be empty because you haven’t put anything here.</p>
-<p>We will begin our work using the command line or shell.
-Select the Terminal tab.
-First, make a directory to put your scripts in inside your workshop folder.
-We’ll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.</p>
-<p>Start by checking which folder you are in using the following command.</p>
+<p>If you are on the server you should see your project folder listed.
+Alternatively, you may be in your project folder and you will see the script you were working with previously.</p>
+<p>If you are on your personal computer you are likely in your home folder and you may see a number of files related to your personal computer.</p>
+<p>Check which folder you are in using the following command.</p>
 <pre><code>pwd</code></pre>
 <p>If you are already in your project folder you may skip the next step.
 Otherwise you must move into that directory.
 To change directories you need two things - the command to change directory and the argument that specifies which directory to move into.</p>
 <pre><code>cd evolution_workshop</code></pre>
+<p><strong>If you are working on your personal computer</strong> you may need to <code>cd</code> into your folder using a more complex path. For example my command (on a Mac) might look like <code>cd ~/Desktop/URI/teaching/Andes_workshop/Andes_workshop_codebook</code> - this tells the computer to go to my Andes_Workshop_codebook folder, which is in my Andes_workshop folder, which is in my teaching folder, which is in my URI folder, which is in my Desktop folder, which is in my home folder. Think of folders inside of drawers in a filing cabinet. You can have folders inside of folders to stay highly organized. If you are on a PC your file paths will look similar but often start with <code>C:/</code> and use <code>/</code> instead of <code>\</code>. Once you are in your project folder everything will be simpler so long as all your files are in there.</p>
+<p>Make a directory to put your scripts in inside your workshop folder.
+We’ll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.</p>
 <p>To make a directory you again need a command (make directory) and an argument (the name).</p>
 <pre><code>mkdir scripts </code></pre>
 <p>Now we can move into that folder.

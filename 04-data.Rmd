@@ -7,6 +7,8 @@ The sequence data is in a shared folder on this server.
 Relative to your workshop folder you can find the data at
 `../../shared/AndesWorkshop2023/`.
 
+**If you are not able to access the server click [here](https://raw.githubusercontent.com/rachelss/Andes_workshop_codebook/main/example.fq) to download the data.** If the text shows up in your web browser select File - Save Page As and rename the file to `example.fq` in the Save As bar before saving. **Save the file to your workshop folder**.
+
 If you cd to that directory and list the contents you can see folders containing files of data.
 
 Sequence files for samples can be found in different folders labeled by taxon set.

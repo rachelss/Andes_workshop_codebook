@@ -2,7 +2,10 @@
 
 ## Basic navigation
 
-Click on the `Terminal` tab to access the command line interface, which we'll be using for our genomic analyses.
+* We will begin our work using the command line or shell.
+* Click on the `Terminal` tab in your RStudio to access the command line interface, which we'll be using for our genomic analyses.
+
+**If you don't have access to the server AND you are on a PC** download [git-bash](https://gitforwindows.org/) and open it. 
 
 To see the list of files on this computer in your "home" directory do the following:
 
@@ -10,14 +13,12 @@ To see the list of files on this computer in your "home" directory do the follow
 ls
 ```
 
-This folder might be empty because you haven't put anything here.
+If you are on the server you should see your project folder listed.
+Alternatively, you may be in your project folder and you will see the script you were working with previously.
 
-We will begin our work using the command line or shell.
-Select the Terminal tab.
-First, make a directory to put your scripts in inside your workshop folder.
-We'll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.
+If you are on your personal computer you are likely in your home folder and you may see a number of files related to your personal computer.
 
-Start by checking which folder you are in using the following command.
+Check which folder you are in using the following command.
 
 ```
 pwd
@@ -30,6 +31,11 @@ To change directories you need two things - the command to change directory and 
 ```
 cd evolution_workshop
 ```
+
+**If you are working on your personal computer** you may need to `cd` into your folder using a more complex path. For example my command (on a Mac) might look like `cd ~/Desktop/URI/teaching/Andes_workshop/Andes_workshop_codebook` - this tells the computer to go to my Andes_Workshop_codebook folder, which is in my Andes_workshop folder, which is in my teaching folder, which is in my URI folder, which is in my Desktop folder, which is in my home folder. Think of folders inside of drawers in a filing cabinet. You can have folders inside of folders to stay highly organized. If you are on a PC your file paths will look similar but often start with `C:/` and use `/` instead of `\`. Once you are in your project folder everything will be simpler so long as all your files are in there.
+
+Make a directory to put your scripts in inside your workshop folder.
+We'll write these scripts in a little while, but basically a script is a list of commands that you will give the computer to do all the steps to analyze your data.
 
 To make a directory you again need a command (make directory) and an argument (the name). 
 
