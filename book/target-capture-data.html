@@ -335,7 +335,7 @@ HybPiper outputs a fasta file of the (in frame) CDS portion of each sample for e
 Move to the results directory in your workshop directory to run the following commands.
 You should run this command, with the following changes:</p>
 <ul>
-<li>The argument for t_dna is the fasta file in the shared workshop folder - you will need to indicate a full relative path not just the file name</li>
+<li>The argument for the t_dna flag is the relevant fasta target file in the shared workshop folder for your dataset - you will need to indicate a full relative path not just the file name (e.g. ../../shared/AndesWorkshop2023/Campanulaceae_353.fasta). If you are using SISRS data your target file is specific to your taxon set; if you are using 353 data use the Campanulaceae file. If you are working on your personal computer download <a href="https://raw.githubusercontent.com/rachelss/Andes_workshop_codebook/main/SISRS_targets_TaxonSet5.fa">this target file</a>.</li>
 <li>The argument for the the r flag is the filename(s) including paths for the fastq files of interest. Note the * indicates that we will use both pairs of the sequencing read files.</li>
 <li>The prefix should be indicative of the species name</li>
 <li>Note that we are sharing a server so we are specifying 3 cpu’s per group - if you are running on your own machine you can omit this flag and HybPiper will use all available resources. With limited shared resources this run may take a few minutes.</li>
@@ -370,6 +370,7 @@ done &lt; [path to]/namelist.txt</code></pre>
 <p>This <code>while</code> loop looks a lot like the <code>for</code> loop we saw previously,
 except that now we are reading in the file (it’s at the end for the command) and going through it line by line.
 <code>name</code> here is the variable you will use. In other cases I might start off with <code>while read line</code>. The <code>while</code> and <code>read</code> are commands but <code>name</code> or <code>line</code> is the information read in from the file that you use in the command (don’t forget to use <code>$name</code> or <code>$line</code> in your command).</p>
+<p>Make sure your command is reading the correct files each time through the loop. It is helpful to put <code>echo</code> in front of your command to print rather than run the command to check that it works.</p>
 <p>This analysis will take a couple of hours. Check with an instructor before running this command to ensure you have done everything correctly.
 Additionally, if you are on the server it’s advisable to run this command in the background.
 That means the command will run but you will continue to have access to your prompt so you can work.
