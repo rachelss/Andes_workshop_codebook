@@ -20,7 +20,7 @@ sudo conda create -p /mnt/homes4celsrs/shared/envs/hybpiper -c chrisjackson-pell
 We have pre-installed the program HybPiper on the server, which assembles target sequences from short high-throughput DNA sequencing reads. 
 By assembling each target sequence for each species we will be able to produce a dataset that allows us to understand the evolutionary history of the species.
 
-To access HybPiper run.
+To access HybPiper run
 
 ```
 conda activate /mnt/homes4celsrs/shared/envs/hybpiper
@@ -54,10 +54,10 @@ Notice the commands and flags.
 Move to the results directory in your workshop directory to run the following commands.
 You should run this command, with the following changes:
 
-* The argument for the t_dna flag is the relevant fasta target file in the shared workshop folder for your dataset - you will need to indicate a full relative path not just the file name (e.g. ../../shared/AndesWorkshop2023/Campanulaceae_353.fasta). If you are using SISRS data your target file is specific to your taxon set; if you are using 353 data use the Campanulaceae file. If you are working on your personal computer download [this target file](https://raw.githubusercontent.com/rachelss/Andes_workshop_codebook/main/SISRS_targets_TaxonSet5.fa).
-* The argument for the the r flag is the filename(s) including paths for the fastq files of interest. Note the * indicates that we will use both pairs of the sequencing read files. 
+* The argument for the t_dna flag is the relevant fasta target file in the shared workshop folder for your dataset - you will need to indicate a full relative path not just the file name (e.g. ../../shared/AndesWorkshop2023/Campanulaceae_353.fasta). If you are using SISRS data your target file is specific to your taxon set; if you are using 353 data use the Campanulaceae file. If you are working on your personal computer download [this target file](https://raw.githubusercontent.com/rachelss/Andes_workshop_codebook/main/SISRS_targets_TaxonSet5.fa) and use the correct path to the file.
+* The argument for the the r flag is the filename(s) including paths for the fastq files of interest. Note the * indicates that we will use both pairs of the sequencing read files. Because you do not have a file named species1 you will need to change this name.
 * The prefix should be indicative of the species name
-* Note that we are sharing a server so we are specifying 3 cpu's per group - if you are running on your own machine you can omit this flag and HybPiper will use all available resources. With limited shared resources this run may take a few minutes.
+* Note that we are sharing a server so we are specifying 3 cpu's per group. If you are running on your own machine you can omit this flag and HybPiper will use all available resources. With limited shared resources this run may take a few minutes.
 
 To view your results, list the contents of the folder and folders inside this.
 You should see a folder for each gene.
@@ -70,7 +70,7 @@ One approach is to make a list of all the names of the species in a file and the
 First we need to make the list. We want to automate this process because in some cases you could have a lot of samples. Additionally, copying and pasting names into a list is prone to error. 
 Additionally, once you automate this process you could repeat it easily and quickly for other datasets.
 For starters make a list of just the R1 files (you don't want R2 files because they have the same name so you would have duplicates). 
-First cd back to your data folder.
+First `cd` back to your data folder.
 Output your list to a file in your results folder named `namelist.txt` by "redirecting" the output using `>`.
 
 ```
