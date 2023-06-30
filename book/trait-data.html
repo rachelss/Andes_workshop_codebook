@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz and Rosana Zenil-Ferguson" />
 
 
-<meta name="date" content="2023-06-27" />
+<meta name="date" content="2023-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,7 +155,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="trait-data.html"><a href="trait-data.html"><i class="fa fa-check"></i><b>4</b> Trait Data</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
+<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#getting-started-with-r"><i class="fa fa-check"></i><b>4.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="trait-data.html"><a href="trait-data.html#option-1-log-in-to-the-server"><i class="fa fa-check"></i><b>4.1.1</b> Option 1: Log in to the server</a></li>
+<li class="chapter" data-level="4.1.2" data-path="trait-data.html"><a href="trait-data.html#option-2-work-on-your-personal-computer"><i class="fa fa-check"></i><b>4.1.2</b> Option 2: Work on your personal computer</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="trait-data.html"><a href="trait-data.html#load-and-set-up-data"><i class="fa fa-check"></i><b>4.2</b> Load and set up data</a></li>
 <li class="chapter" data-level="4.3" data-path="trait-data.html"><a href="trait-data.html#beginning-an-analysis"><i class="fa fa-check"></i><b>4.3</b> Beginning an analysis</a></li>
 <li class="chapter" data-level="4.4" data-path="trait-data.html"><a href="trait-data.html#data-visualization"><i class="fa fa-check"></i><b>4.4</b> Data Visualization</a></li>
@@ -305,24 +309,33 @@ you usually use (like a PC or Mac).
 That means you have to type in your commands - you can’t point and click.
 This actually has a hidden benefit because it’s easy to write down what you did in
 a line of text rather than having to try to explain where to click on each step.</p>
-<p>Let’s start by learning how to access our server and run commands without clicking.</p>
-<div id="log-in-to-the-server" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Log in to the server<a href="trait-data.html#log-in-to-the-server" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="getting-started-with-r" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Getting started with R<a href="trait-data.html#getting-started-with-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="option-1-log-in-to-the-server" class="section level3 hasAnchor" number="4.1.1">
+<h3><span class="header-section-number">4.1.1</span> Option 1: Log in to the server<a href="trait-data.html#option-1-log-in-to-the-server" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to <code>rstudio.uri.edu</code> and log in with the first part of your email address as both the username and password.</p>
+</div>
+<div id="option-2-work-on-your-personal-computer" class="section level3 hasAnchor" number="4.1.2">
+<h3><span class="header-section-number">4.1.2</span> Option 2: Work on your personal computer<a href="trait-data.html#option-2-work-on-your-personal-computer" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Follow the instructions to obtain R and RStudio</li>
+</ul>
+<p><a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a></p>
+</div>
 </div>
 <div id="load-and-set-up-data" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Load and set up data<a href="trait-data.html#load-and-set-up-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We will be using a dataset to practice that will look a lot like the data you plan to collect.
 By the end of this workshop you should be able to examine your own data in a similar way.
 Our practice dataset comes from Onstein et al. 2019, which you can find at <a href="https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552" class="uri">https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552</a>.
-We have uploaded this paper to the server you are working on and we will show you how to access it there shortly.</p>
+We have uploaded this paper to the server you are working on and we will show you how to access it there shortly. Or if you are unable to access the server, ask your instructor.</p>
 <p>Let’s start by getting organized.
 We will use both R code and bash/shell scripts in this workshop.
 Because RStudio provides a mechanism for setting up projects we will use this to stay organized.
 In the RStudio File menu select New Project - New Directory - New Project.</p>
 <ul>
 <li>Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.</li>
-<li>Select R 4.1.2</li>
+<li>Select R 4.1.2 if you are on the server, as the server has different versions</li>
 <li>Create Project</li>
 </ul>
 <p>By creating a new project you have created a folder for your work.
@@ -335,6 +348,10 @@ This allows you to switch projects with different folders and open files.</p>
 This is where you will keep track of all of your analytical commands.
 From the File menu select New File - R script.</p>
 <p>To analyze data in <code>R</code> we need to load some helper “libraries”. A common library for analysis is the <code>tidyverse</code>, which wraps multiple libraries made by RStudio. For details and cheatsheets see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a> . We will also use a library that allows us to read Excel files.</p>
+<p><strong>If you are using R on your personal computer you will need to install these libraries first.</strong>
+Put the following in your script then click the Run icon. <strong>Do not do this if you are using the server</strong></p>
+<pre><code>install.packages(readxl)
+install.packages(tidyverse)</code></pre>
 <p>Put the following in your script then click the Run icon.</p>
 <pre><code>library(readxl)
 library(tidyverse)</code></pre>
@@ -348,6 +365,9 @@ The second argument is the Excel sheet or tab we want to read.
 Additionally, when we read the file into memory we assign the information to a “variable”.
 You can think of the variable as a box to contain the information.</p>
 <pre><code>onstein &lt;- read_xlsx(&#39;../../shared/AndesWorkshop2023/Onstein_data.xlsx&#39;,
+                     sheet = &#39;Matrix for analysis&#39;)</code></pre>
+<p><strong>If you are not using the server, download the data <a href="https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fjbi.13552&amp;file=jbi13552-sup-0001-AppendixS1.xlsx">here</a>.</strong> Make sure to save it in your project folder. Your R command will look slightly different because the “address” of the data is different. Try the following or ask your instructor to help you find the path to your file if it is not in your project folder.</p>
+<pre><code>onstein &lt;- read_xlsx(&#39;Onstein_data.xlsx&#39;,
                      sheet = &#39;Matrix for analysis&#39;)</code></pre>
 <p>When you run this command you will see the data saved in the environment.
 When you click on the variable in the environment you will be able to view the data in tabular format.</p>

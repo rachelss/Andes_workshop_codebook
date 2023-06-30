@@ -6,18 +6,24 @@ That means you have to type in your commands - you can't point and click.
 This actually has a hidden benefit because it's easy to write down what you did in
 a line of text rather than having to try to explain where to click on each step.
 
-Let's start by learning how to access our server and run commands without clicking.
+## Getting started with R
 
-## Log in to the server
+### Option 1: Log in to the server
 
 For this duration of this workshop you will have access to a server at the University of Rhode Island. Go to `rstudio.uri.edu` and log in with the first part of your email address as both the username and password. 
+
+### Option 2: Work on your personal computer
+
+* Follow the instructions to obtain R and RStudio
+
+https://posit.co/download/rstudio-desktop/
 
 ## Load and set up data
 
 We will be using a dataset to practice that will look a lot like the data you plan to collect.
 By the end of this workshop you should be able to examine your own data in a similar way.
 Our practice dataset comes from Onstein et al. 2019, which you can find at https://onlinelibrary.wiley.com/doi/10.1111/jbi.13552.
-We have uploaded this paper to the server you are working on and we will show you how to access it there shortly.
+We have uploaded this paper to the server you are working on and we will show you how to access it there shortly. Or if you are unable to access the server, ask your instructor.
 
 Let's start by getting organized.
 We will use both R code and bash/shell scripts in this workshop.
@@ -25,7 +31,7 @@ Because RStudio provides a mechanism for setting up projects we will use this to
 In the RStudio File menu select New Project - New Directory - New Project.
 
 * Give the project a name (e.g. evolution_workshop). For this and all future work ensure that names never include spaces.
-* Select R 4.1.2
+* Select R 4.1.2 if you are on the server, as the server has different versions
 * Create Project
 
 By creating a new project you have created a folder for your work.
@@ -39,6 +45,14 @@ This is where you will keep track of all of your analytical commands.
 From the File menu select New File - R script.
 
 To analyze data in `R` we need to load some helper "libraries". A common library for analysis is the `tidyverse`, which wraps multiple libraries made by RStudio. For details and cheatsheets see https://www.tidyverse.org/ . We will also use a library that allows us to read Excel files.
+
+**If you are using R on your personal computer you will need to install these libraries first.**
+Put the following in your script then click the Run icon. **Do not do this if you are using the server**
+
+```
+install.packages(readxl)
+install.packages(tidyverse)
+```
 
 Put the following in your script then click the Run icon.
 
@@ -59,6 +73,13 @@ You can think of the variable as a box to contain the information.
 
 ```
 onstein <- read_xlsx('../../shared/AndesWorkshop2023/Onstein_data.xlsx',
+                     sheet = 'Matrix for analysis')
+```
+
+**If you are not using the server, download the data [here](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Fjbi.13552&file=jbi13552-sup-0001-AppendixS1.xlsx).** Make sure to save it in your project folder. Your R command will look slightly different because the "address" of the data is different. Try the following or ask your instructor to help you find the path to your file if it is not in your project folder.
+
+```
+onstein <- read_xlsx('Onstein_data.xlsx',
                      sheet = 'Matrix for analysis')
 ```
 

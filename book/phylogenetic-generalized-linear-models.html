@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz and Rosana Zenil-Ferguson" />
 
 
-<meta name="date" content="2023-06-27" />
+<meta name="date" content="2023-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,7 +155,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="trait-data.html"><a href="trait-data.html"><i class="fa fa-check"></i><b>4</b> Trait Data</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
+<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#getting-started-with-r"><i class="fa fa-check"></i><b>4.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="trait-data.html"><a href="trait-data.html#option-1-log-in-to-the-server"><i class="fa fa-check"></i><b>4.1.1</b> Option 1: Log in to the server</a></li>
+<li class="chapter" data-level="4.1.2" data-path="trait-data.html"><a href="trait-data.html#option-2-work-on-your-personal-computer"><i class="fa fa-check"></i><b>4.1.2</b> Option 2: Work on your personal computer</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="trait-data.html"><a href="trait-data.html#load-and-set-up-data"><i class="fa fa-check"></i><b>4.2</b> Load and set up data</a></li>
 <li class="chapter" data-level="4.3" data-path="trait-data.html"><a href="trait-data.html#beginning-an-analysis"><i class="fa fa-check"></i><b>4.3</b> Beginning an analysis</a></li>
 <li class="chapter" data-level="4.4" data-path="trait-data.html"><a href="trait-data.html#data-visualization"><i class="fa fa-check"></i><b>4.4</b> Data Visualization</a></li>
@@ -310,22 +314,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>How would you frame then a biological hypothesis from these observations?</p>
 <p>Before typing a model it would be great to think about what we are trying to achieve.</p>
 <p>Now use the following code and fill in the necessary arguments.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="phylogenetic-generalized-linear-models.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co">#not log.flowerlength?</span></span>
-<span id="cb91-2"><a href="phylogenetic-generalized-linear-models.html#cb91-2" aria-hidden="true" tabindex="-1"></a>plm.flowerlength <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="phylogenetic-generalized-linear-models.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co">#not log.flowerlength?</span></span>
+<span id="cb93-2"><a href="phylogenetic-generalized-linear-models.html#cb93-2" aria-hidden="true" tabindex="-1"></a>plm.flowerlength <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
 <p>Interpret this model, what is happening? what is significant and how</p>
 <pre><code>summary(plm.flowerlength)</code></pre>
 <p>What is happening with the residuals of this linear model</p>
 <pre><code>hist(plm.flowerlength$res)
 qqnorm(plm.flowerlength$res)</code></pre>
 <p>Now what happens if the predictor is log(Length)?</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="phylogenetic-generalized-linear-models.html#cb94-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength2 <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="phylogenetic-generalized-linear-models.html#cb96-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength2 <span class="ot">&lt;-</span> <span class="fu">phylolm</span>(formula, <span class="at">data=</span>, <span class="at">phy=</span>, <span class="at">model=</span><span class="st">&quot;BM&quot;</span>)</span></code></pre></div>
 <p>Using the same commands as above,
 interpret this model, what is happening? what is significant and how</p>
 </div>
 </div>
 <div id="what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else" class="section level2 hasAnchor" number="14.2">
 <h2><span class="header-section-number">14.2</span> What happens if the model of evolution is not Brownian motion but something else?<a href="phylogenetic-generalized-linear-models.html#what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="phylogenetic-generalized-linear-models.html#cb95-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength3<span class="ot">&lt;-</span><span class="fu">phylolm</span>(Length<span class="sc">~</span> P1<span class="sc">+</span>P2<span class="sc">+</span>P3<span class="sc">+</span> P4, <span class="at">data=</span>pole_dataset, <span class="at">phy=</span>pole_tree, <span class="at">model=</span><span class="st">&quot;OUrandomRoot&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="phylogenetic-generalized-linear-models.html#cb97-1" aria-hidden="true" tabindex="-1"></a>plm.flowerlength3<span class="ot">&lt;-</span><span class="fu">phylolm</span>(Length<span class="sc">~</span> P1<span class="sc">+</span>P2<span class="sc">+</span>P3<span class="sc">+</span> P4, <span class="at">data=</span>pole_dataset, <span class="at">phy=</span>pole_tree, <span class="at">model=</span><span class="st">&quot;OUrandomRoot&quot;</span>)</span></code></pre></div>
 <p>What is this model?</p>
 <pre><code>summary(plm.flowerlength3)</code></pre>
 <p>interpret this model, what is happening? what is significant and how</p>

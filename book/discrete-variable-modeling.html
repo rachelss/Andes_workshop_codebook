@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz and Rosana Zenil-Ferguson" />
 
 
-<meta name="date" content="2023-06-27" />
+<meta name="date" content="2023-06-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -155,7 +155,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="4" data-path="trait-data.html"><a href="trait-data.html"><i class="fa fa-check"></i><b>4</b> Trait Data</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#log-in-to-the-server"><i class="fa fa-check"></i><b>4.1</b> Log in to the server</a></li>
+<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#getting-started-with-r"><i class="fa fa-check"></i><b>4.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="trait-data.html"><a href="trait-data.html#option-1-log-in-to-the-server"><i class="fa fa-check"></i><b>4.1.1</b> Option 1: Log in to the server</a></li>
+<li class="chapter" data-level="4.1.2" data-path="trait-data.html"><a href="trait-data.html#option-2-work-on-your-personal-computer"><i class="fa fa-check"></i><b>4.1.2</b> Option 2: Work on your personal computer</a></li>
+</ul></li>
 <li class="chapter" data-level="4.2" data-path="trait-data.html"><a href="trait-data.html#load-and-set-up-data"><i class="fa fa-check"></i><b>4.2</b> Load and set up data</a></li>
 <li class="chapter" data-level="4.3" data-path="trait-data.html"><a href="trait-data.html#beginning-an-analysis"><i class="fa fa-check"></i><b>4.3</b> Beginning an analysis</a></li>
 <li class="chapter" data-level="4.4" data-path="trait-data.html"><a href="trait-data.html#data-visualization"><i class="fa fa-check"></i><b>4.4</b> Data Visualization</a></li>
@@ -310,7 +314,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>There are multiple ways to plot discrete data on a phylogeny.
 We will use <code>phytools</code>, but there are also tools in <code>ape</code> and <code>ggtree</code>.</p>
 <p>Using <code>phytools</code> we will plot a tree with tip data as colors based on hummingbird pollination.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="discrete-variable-modeling.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree</span>(pole_tree,<span class="at">ftype=</span><span class="st">&quot;i&quot;</span>,<span class="at">offset=</span><span class="fl">0.6</span>,<span class="at">fsize=</span><span class="fl">0.3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="discrete-variable-modeling.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plotTree</span>(pole_tree,<span class="at">ftype=</span><span class="st">&quot;i&quot;</span>,<span class="at">offset=</span><span class="fl">0.6</span>,<span class="at">fsize=</span><span class="fl">0.3</span>)</span></code></pre></div>
 <p>If you look at <code>pole_dataset</code> you see that <code>P1</code> (the category of whether butterflies visit or not)
 is either 1 or 0. To the researcher this is like true/false, but the computer considers this vector to be numeric. As we did in a prior chapter (where we converted character data to numeric), we want to let the computer know this is categorical (factor) data.</p>
 <pre><code>aux &lt;- as.factor(pole_dataset$P1)
@@ -354,19 +358,19 @@ You may need to zoom in to see the labels on the tips of the tree.</p>
 <div id="modeling-the-transition-rates-between-two-states" class="section level3 hasAnchor" number="15.3.1">
 <h3><span class="header-section-number">15.3.1</span> Modeling the transition rates between two states<a href="discrete-variable-modeling.html#modeling-the-transition-rates-between-two-states" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We are going to use a CTMC model called Mk2 (Markov model with two states). Let’s take a minute to draw define the model. We are interested in the rate of evolution of hummingbird pollination in Phlox species.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="discrete-variable-modeling.html#cb103-1" aria-hidden="true" tabindex="-1"></a>data.discrete <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pole_tree<span class="sc">$</span>tip.label, pole_dataset<span class="sc">$</span>P1)</span>
-<span id="cb103-2"><a href="discrete-variable-modeling.html#cb103-2" aria-hidden="true" tabindex="-1"></a>mk2 <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy=</span>pole_tree, <span class="at">data=</span>data.discrete, <span class="at">rate.cat=</span><span class="dv">1</span>)</span>
-<span id="cb103-3"><a href="discrete-variable-modeling.html#cb103-3" aria-hidden="true" tabindex="-1"></a>mk2 <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
-<span id="cb103-4"><a href="discrete-variable-modeling.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(mk2)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="discrete-variable-modeling.html#cb105-1" aria-hidden="true" tabindex="-1"></a>data.discrete <span class="ot">&lt;-</span> <span class="fu">cbind</span>(pole_tree<span class="sc">$</span>tip.label, pole_dataset<span class="sc">$</span>P1)</span>
+<span id="cb105-2"><a href="discrete-variable-modeling.html#cb105-2" aria-hidden="true" tabindex="-1"></a>mk2 <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy=</span>pole_tree, <span class="at">data=</span>data.discrete, <span class="at">rate.cat=</span><span class="dv">1</span>)</span>
+<span id="cb105-3"><a href="discrete-variable-modeling.html#cb105-3" aria-hidden="true" tabindex="-1"></a>mk2 <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
+<span id="cb105-4"><a href="discrete-variable-modeling.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(mk2)</span></code></pre></div>
 <p>Assumption: Equal rates</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="discrete-variable-modeling.html#cb104-1" aria-hidden="true" tabindex="-1"></a>LegendAndRateMat <span class="ot">&lt;-</span> <span class="fu">getStateMat4Dat</span>(data.discrete)</span>
-<span id="cb104-2"><a href="discrete-variable-modeling.html#cb104-2" aria-hidden="true" tabindex="-1"></a>RateMat <span class="ot">&lt;-</span> LegendAndRateMat<span class="sc">$</span>rate.mat</span>
-<span id="cb104-3"><a href="discrete-variable-modeling.html#cb104-3" aria-hidden="true" tabindex="-1"></a>pars2equal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb104-4"><a href="discrete-variable-modeling.html#cb104-4" aria-hidden="true" tabindex="-1"></a>constrained.mat<span class="ot">&lt;-</span><span class="fu">equateStateMatPars</span>(RateMat,pars2equal)</span>
-<span id="cb104-5"><a href="discrete-variable-modeling.html#cb104-5" aria-hidden="true" tabindex="-1"></a>constrained.mat</span>
-<span id="cb104-6"><a href="discrete-variable-modeling.html#cb104-6" aria-hidden="true" tabindex="-1"></a>mk2_equalrates <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy=</span>pole_tree, <span class="at">data=</span>data.discrete, <span class="at">rate.cat=</span><span class="dv">1</span>, <span class="at">rate.mat=</span>constrained.mat)</span>
-<span id="cb104-7"><a href="discrete-variable-modeling.html#cb104-7" aria-hidden="true" tabindex="-1"></a>mk2_equalrates</span>
-<span id="cb104-8"><a href="discrete-variable-modeling.html#cb104-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(mk2_equalrates)</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="discrete-variable-modeling.html#cb106-1" aria-hidden="true" tabindex="-1"></a>LegendAndRateMat <span class="ot">&lt;-</span> <span class="fu">getStateMat4Dat</span>(data.discrete)</span>
+<span id="cb106-2"><a href="discrete-variable-modeling.html#cb106-2" aria-hidden="true" tabindex="-1"></a>RateMat <span class="ot">&lt;-</span> LegendAndRateMat<span class="sc">$</span>rate.mat</span>
+<span id="cb106-3"><a href="discrete-variable-modeling.html#cb106-3" aria-hidden="true" tabindex="-1"></a>pars2equal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb106-4"><a href="discrete-variable-modeling.html#cb106-4" aria-hidden="true" tabindex="-1"></a>constrained.mat<span class="ot">&lt;-</span><span class="fu">equateStateMatPars</span>(RateMat,pars2equal)</span>
+<span id="cb106-5"><a href="discrete-variable-modeling.html#cb106-5" aria-hidden="true" tabindex="-1"></a>constrained.mat</span>
+<span id="cb106-6"><a href="discrete-variable-modeling.html#cb106-6" aria-hidden="true" tabindex="-1"></a>mk2_equalrates <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy=</span>pole_tree, <span class="at">data=</span>data.discrete, <span class="at">rate.cat=</span><span class="dv">1</span>, <span class="at">rate.mat=</span>constrained.mat)</span>
+<span id="cb106-7"><a href="discrete-variable-modeling.html#cb106-7" aria-hidden="true" tabindex="-1"></a>mk2_equalrates</span>
+<span id="cb106-8"><a href="discrete-variable-modeling.html#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(mk2_equalrates)</span></code></pre></div>
 </div>
 <div id="model-comparison" class="section level3 hasAnchor" number="15.3.2">
 <h3><span class="header-section-number">15.3.2</span> Model comparison<a href="discrete-variable-modeling.html#model-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -378,20 +382,20 @@ AIC allows us to compare between models with different number of parameters beca
 <div id="stochastic-mapping" class="section level3 hasAnchor" number="15.3.3">
 <h3><span class="header-section-number">15.3.3</span> Stochastic mapping<a href="discrete-variable-modeling.html#stochastic-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Visualizing the history of evolution of a trait using stochastic maps.</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="discrete-variable-modeling.html#cb105-1" aria-hidden="true" tabindex="-1"></a>phy <span class="ot">&lt;-</span> mk2_equalrates<span class="sc">$</span>phy</span>
-<span id="cb105-2"><a href="discrete-variable-modeling.html#cb105-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span>mk2_equalrates<span class="sc">$</span>data</span>
-<span id="cb105-3"><a href="discrete-variable-modeling.html#cb105-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> mk2_equalrates<span class="sc">$</span>solution</span>
-<span id="cb105-4"><a href="discrete-variable-modeling.html#cb105-4" aria-hidden="true" tabindex="-1"></a>model[<span class="fu">is.na</span>(model)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
-<span id="cb105-5"><a href="discrete-variable-modeling.html#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(model) <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">rowSums</span>(model)</span>
-<span id="cb105-6"><a href="discrete-variable-modeling.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run get simmap (can be plotted using phytools)</span></span>
-<span id="cb105-7"><a href="discrete-variable-modeling.html#cb105-7" aria-hidden="true" tabindex="-1"></a>simmap <span class="ot">&lt;-</span> <span class="fu">makeSimmap</span>(<span class="at">tree=</span>phy, <span class="at">data=</span>data, <span class="at">model=</span>model, <span class="at">rate.cat=</span><span class="dv">1</span>, <span class="at">nSim=</span><span class="dv">10</span>, <span class="at">nCores=</span><span class="dv">1</span>)</span>
-<span id="cb105-8"><a href="discrete-variable-modeling.html#cb105-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb105-9"><a href="discrete-variable-modeling.html#cb105-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we import phytools plotSimmap for plotting</span></span>
-<span id="cb105-10"><a href="discrete-variable-modeling.html#cb105-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
-<span id="cb105-11"><a href="discrete-variable-modeling.html#cb105-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plotSimmap</span>(simmap[[<span class="dv">1</span>]], <span class="at">fsize=</span>.<span class="dv">4</span>)</span>
-<span id="cb105-12"><a href="discrete-variable-modeling.html#cb105-12" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
-<span id="cb105-13"><a href="discrete-variable-modeling.html#cb105-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
-<span id="cb105-14"><a href="discrete-variable-modeling.html#cb105-14" aria-hidden="true" tabindex="-1"></a><span class="fu">densityTree</span>(simmap,<span class="at">method=</span><span class="st">&quot;plotSimmap&quot;</span>,<span class="at">lwd=</span><span class="dv">8</span>,<span class="at">nodes=</span><span class="st">&quot;intermediate&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">170</span>),<span class="at">colors=</span>colors, <span class="at">compute.consensus=</span><span class="cn">FALSE</span>, <span class="at">fsize=</span><span class="fl">0.2</span>, <span class="at">show.axis=</span><span class="cn">FALSE</span>, <span class="at">fix.depth=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="discrete-variable-modeling.html#cb107-1" aria-hidden="true" tabindex="-1"></a>phy <span class="ot">&lt;-</span> mk2_equalrates<span class="sc">$</span>phy</span>
+<span id="cb107-2"><a href="discrete-variable-modeling.html#cb107-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span>mk2_equalrates<span class="sc">$</span>data</span>
+<span id="cb107-3"><a href="discrete-variable-modeling.html#cb107-3" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> mk2_equalrates<span class="sc">$</span>solution</span>
+<span id="cb107-4"><a href="discrete-variable-modeling.html#cb107-4" aria-hidden="true" tabindex="-1"></a>model[<span class="fu">is.na</span>(model)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb107-5"><a href="discrete-variable-modeling.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(model) <span class="ot">&lt;-</span> <span class="sc">-</span><span class="fu">rowSums</span>(model)</span>
+<span id="cb107-6"><a href="discrete-variable-modeling.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># run get simmap (can be plotted using phytools)</span></span>
+<span id="cb107-7"><a href="discrete-variable-modeling.html#cb107-7" aria-hidden="true" tabindex="-1"></a>simmap <span class="ot">&lt;-</span> <span class="fu">makeSimmap</span>(<span class="at">tree=</span>phy, <span class="at">data=</span>data, <span class="at">model=</span>model, <span class="at">rate.cat=</span><span class="dv">1</span>, <span class="at">nSim=</span><span class="dv">10</span>, <span class="at">nCores=</span><span class="dv">1</span>)</span>
+<span id="cb107-8"><a href="discrete-variable-modeling.html#cb107-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-9"><a href="discrete-variable-modeling.html#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="co"># we import phytools plotSimmap for plotting</span></span>
+<span id="cb107-10"><a href="discrete-variable-modeling.html#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb107-11"><a href="discrete-variable-modeling.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plotSimmap</span>(simmap[[<span class="dv">1</span>]], <span class="at">fsize=</span>.<span class="dv">4</span>)</span>
+<span id="cb107-12"><a href="discrete-variable-modeling.html#cb107-12" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb107-13"><a href="discrete-variable-modeling.html#cb107-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
+<span id="cb107-14"><a href="discrete-variable-modeling.html#cb107-14" aria-hidden="true" tabindex="-1"></a><span class="fu">densityTree</span>(simmap,<span class="at">method=</span><span class="st">&quot;plotSimmap&quot;</span>,<span class="at">lwd=</span><span class="dv">8</span>,<span class="at">nodes=</span><span class="st">&quot;intermediate&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">170</span>),<span class="at">colors=</span>colors, <span class="at">compute.consensus=</span><span class="cn">FALSE</span>, <span class="at">fsize=</span><span class="fl">0.2</span>, <span class="at">show.axis=</span><span class="cn">FALSE</span>, <span class="at">fix.depth=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>,
 ### Modeling hidden states</p>
 <p>Often, the transitions between to states are associated with other changes in the history of the trait itself. Some of those changes we can measure i.e., polyploidy vs. breeding systems, but some others are hard to quantify or hard to measure. Because many things could have happen that are linked to transitions between states we need to model using what we call hidden states.</p>
@@ -399,13 +403,13 @@ AIC allows us to compare between models with different number of parameters beca
 <p>We will stop here and draw what these hidden states are!</p>
 <p>How do we implement them in R?
 Two different assumptions</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="discrete-variable-modeling.html#cb106-1" aria-hidden="true" tabindex="-1"></a>hmm2_2_equal <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy =</span> pole_tree, <span class="at">data =</span> data.discrete, <span class="at">rate.cat =</span> <span class="dv">2</span>, <span class="at">model =</span> <span class="st">&quot;SYM&quot;</span>, <span class="at">get.tip.states =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-2"><a href="discrete-variable-modeling.html#cb106-2" aria-hidden="true" tabindex="-1"></a>hmm2_2_equal <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
-<span id="cb106-3"><a href="discrete-variable-modeling.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(hmm2_2_equal)</span>
-<span id="cb106-4"><a href="discrete-variable-modeling.html#cb106-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-5"><a href="discrete-variable-modeling.html#cb106-5" aria-hidden="true" tabindex="-1"></a>hmm2_2_different<span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy =</span> pole_tree, <span class="at">data =</span> data.discrete, <span class="at">rate.cat =</span> <span class="dv">2</span>, <span class="at">model =</span> <span class="st">&quot;ARD&quot;</span>, <span class="at">get.tip.states =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-6"><a href="discrete-variable-modeling.html#cb106-6" aria-hidden="true" tabindex="-1"></a>hmm2_2_different <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
-<span id="cb106-7"><a href="discrete-variable-modeling.html#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(hmm2_2_different)</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="discrete-variable-modeling.html#cb108-1" aria-hidden="true" tabindex="-1"></a>hmm2_2_equal <span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy =</span> pole_tree, <span class="at">data =</span> data.discrete, <span class="at">rate.cat =</span> <span class="dv">2</span>, <span class="at">model =</span> <span class="st">&quot;SYM&quot;</span>, <span class="at">get.tip.states =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb108-2"><a href="discrete-variable-modeling.html#cb108-2" aria-hidden="true" tabindex="-1"></a>hmm2_2_equal <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
+<span id="cb108-3"><a href="discrete-variable-modeling.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(hmm2_2_equal)</span>
+<span id="cb108-4"><a href="discrete-variable-modeling.html#cb108-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-5"><a href="discrete-variable-modeling.html#cb108-5" aria-hidden="true" tabindex="-1"></a>hmm2_2_different<span class="ot">&lt;-</span> <span class="fu">corHMM</span>(<span class="at">phy =</span> pole_tree, <span class="at">data =</span> data.discrete, <span class="at">rate.cat =</span> <span class="dv">2</span>, <span class="at">model =</span> <span class="st">&quot;ARD&quot;</span>, <span class="at">get.tip.states =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb108-6"><a href="discrete-variable-modeling.html#cb108-6" aria-hidden="true" tabindex="-1"></a>hmm2_2_different <span class="co">#Let&#39;s read and interpret the results carefully</span></span>
+<span id="cb108-7"><a href="discrete-variable-modeling.html#cb108-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plotMKmodel</span>(hmm2_2_different)</span></code></pre></div>
 <p>What is a better? What is the overall best model??</p>
 
 </div>

@@ -8,7 +8,9 @@ genomic-data
 phylogenies
 comparative-analyses
 trait-data
-log-in-to-the-server
+getting-started-with-r
+option-1-log-in-to-the-server
+option-2-work-on-your-personal-computer
 load-and-set-up-data
 beginning-an-analysis
 data-visualization
