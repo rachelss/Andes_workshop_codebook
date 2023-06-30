@@ -310,9 +310,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>First make a folder in your home directory to hold your outputs for this component of the project.</p>
 <p>We have pre-installed the program HybPiper on the server, which assembles target sequences from short high-throughput DNA sequencing reads.
 By assembling each target sequence for each species we will be able to produce a dataset that allows us to understand the evolutionary history of the species.</p>
-<p>To access HybPiper run.
-This activates a conda environment (don’t worry about this!).</p>
+<p>To access HybPiper run.</p>
 <pre><code>conda activate /mnt/homes4celsrs/shared/envs/hybpiper</code></pre>
+<p>This activates a conda environment (don’t worry about this!).</p>
 <p>If you need to obtain Hybpiper on your personal computer:</p>
 <ul>
 <li>Download Miniconda for <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html">Windows</a> or <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html">Mac</a> and install following the instructions</li>
@@ -352,12 +352,13 @@ For starters make a list of just the R1 files (you don’t want R2 files because
 First cd back to your data folder.
 Output your list to a file in your results folder named <code>namelist.txt</code> by “redirecting” the output using <code>&gt;</code>.</p>
 <pre><code>ls *R1* &gt; ~/evolution_workshop/results/namelist.txt </code></pre>
-<p>Check that this worked using <code>cat</code> or by viewing the file and counting the number of lines..
-We will need to adjust this output do remove the R1 label so that we can use wildcards to list both files together.
+<p>Check that this worked using <code>cat</code> or by viewing the file and counting the number of lines.
+We will need to adjust this output to remove the R1 label so that we can use wildcards to list both files together.
 One approach is to notice a pattern in filenames: the files start with a sample identifier followed by an underscore followed by another identifier.
 Thus, we can “cut off” all of the name after the second underscore and still have a unique name for our sample.
 We use the “cut” command to make our data into columns using _ (specify a delimiter with -d), then we select the first two of these (use the field flag -f).</p>
 <pre><code>ls *R1* | cut -d &#39;_&#39; -f 1,2 &gt; ~/evolution_workshop/results/namelist.txt </code></pre>
+<p><strong>Note that if you are on your personal computer your output path will be different</strong></p>
 <p>Check this worked.
 Now we can run HybPiper on all of our data sequentially.
 In the following example, the species names are entered in the namelist.txt file.
@@ -366,13 +367,16 @@ The loop will iterate through them one at a time and run HybPiper.</p>
 do 
     [insert command here]
 done &lt; [path to]/namelist.txt</code></pre>
-<p>This analysis will take some time. Check with an instructor before running this command to ensure you have done everything correctly.
-Additionally, it’s advisable to run this command in the background.
+<p>This <code>while</code> loop looks a lot like the <code>for</code> loop we saw previously,
+except that now we are reading in the file (it’s at the end for the command) and going through it line by line.
+<code>name</code> here is the variable you will use. In other cases I might start off with <code>while read line</code>. The <code>while</code> and <code>read</code> are commands but <code>name</code> or <code>line</code> is the information read in from the file that you use in the command (don’t forget to use <code>$name</code> or <code>$line</code> in your command).</p>
+<p>This analysis will take a couple of hours. Check with an instructor before running this command to ensure you have done everything correctly.
+Additionally, if you are on the server it’s advisable to run this command in the background.
 That means the command will run but you will continue to have access to your prompt so you can work.
 Additionally you can log out of the server (eg for lunch) and the command will continue to run.
-To run the command in background enclose the entire command in <code>{ }</code>
+To run the command in background enclose the entire command (from before while to after txt) in <code>{ }</code>
 and then add <code>&amp;&gt; output.log &amp;</code> at the end to write the information that would normally print to the screen (as you saw when running a single command) to the file <code>output.log</code>.
-You can view this file to watch the progress of your command.</p>
+You can view this file (<code>less</code> or <code>tail</code>) to watch the progress of your command.</p>
 </div>
 <div id="process-outputs" class="section level2 hasAnchor" number="8.3">
 <h2><span class="header-section-number">8.3</span> Process outputs<a href="target-capture-data.html#process-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
