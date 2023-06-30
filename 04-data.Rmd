@@ -9,15 +9,20 @@ Relative to your workshop folder you can find the data at
 
 **If you are not able to access the server click [here](https://raw.githubusercontent.com/rachelss/Andes_workshop_codebook/main/example.fq) to download the data.** If the text shows up in your web browser select File - Save Page As and rename the file to `example.fq` in the Save As bar before saving. **Save the file to your workshop folder**.
 
-If you cd to that directory and list the contents you can see folders containing files of data.
+If you `cd` to the the workshop directory and list the contents you can see folders containing files of data. If you are getting errors when you `cd` you are probably not in your project folder. You may need to try `cd ../shared/AndesWorkshop2023/` or `cd ../../../shared/AndesWorkshop2023/` depending on where you are. Remember to check with `pwd`.
 
-Sequence files for samples can be found in different folders labeled by taxon set.
+If you are working on your personal computer you should be able to see the folder in your directory by listing files.
+
+If you are on the server, 
+sequence files for samples can be found in different folders labeled by taxon set.
 Start by going to the folder for your assigned taxon set and listing its contents.
 You should see two folders.
 Go into the one for your assigned dataset.
 
 You generally do not want to view sequence data files because they can be large and are rather hard to read.
 If you want to see how large use `ls -lh`.
+If you are on your personal computer you can still do this but you will see just the example file,
+which isn't too large.
 You are already familiar with the `ls` command for listing the contents of folders.
 The dash followed by additional letters are called flags.
 The `l` flag indicates that we are listing the contents in long form to provide additional information.
@@ -32,10 +37,16 @@ Take a look at a little bit of one file.
 The `less` command lets you scroll through the (very large) file. 
 `zless` is the `less` command that works on zipped files.
 
-Use the following command replacing [] with a specific filename.
+If you are on the server use the following command replacing [] with a specific filename.
 
 ```
 zless [].fastq.gz
+```
+
+If you are working with the downloaded example file use `less`.
+
+```
+less example.fq
 ```
 
 Fastq files contain sets of four lines. 
@@ -47,7 +58,7 @@ As you scroll through you should see many sets of four (one for each sequence).
 Once you are done scrolling use q (for quit) to get back to your prompt.
 
 Before we look at our large files we are going to practice on a small example file.
-Move back to the main `AndesWorkshop2023` folder.
+If you are on the server move back to the main `AndesWorkshop2023` folder.
 List the contents and notice the `example.fq` file.
 For this example I have unzipped it.
 You can view the entire contents of the file using the command `cat`.
@@ -91,10 +102,17 @@ Notice that the `head` command does not have arguments in this case because it a
 The `head` command accepts a flag with the number of lines you want to print.
 For example `head -4` will print the first four lines.
 
-Your first challenge in this course is to combine the information that you have learned to get the number of header lines in one of your zipped fastq files (using `zgrep`).
+Your first challenge in this course is to combine the information that you have learned to get the number of header lines in one of your zipped fastq files (using `zgrep`). If you are on your personal computer you can practice with the example file.
 
+```{bash, echo=FALSE, eval=FALSE}
+#I expect
+zgrep somefile.fastq.gz |  wc -l
+#note grep has a count flag -c but we haven't learned that yet
+```
 
 ## Repeating analyses
+
+If you are working on your personal computer download [these files](https://github.com/rachelss/Andes_workshop_codebook/tree/main/TaxonSet5_SISRSreads) into a folder labeled `TaxonSet5_SISRSreads` then `cd` into this folder.
 
 One approach to analyzing multiple files in the same way is to copy your code and edit each copy to include the name of a particular file. That might be feasible (if slow) for the 10 files you are working with here, but it is inconvenient for the many files you might work with on a larger genomics project. Instead, we can make a list of the files we want to work with and tell the computer to repeat the analysis on each file.
 
@@ -104,6 +122,14 @@ In the prior challenge you figured out what analysis you want to do (list the nu
 for thing in list_of_things
 do
     command $thing
+done
+```
+
+```{bash, echo=FALSE, eval=FALSE}
+#note they can make a list since we haven't learned wildcards yet (up next)
+for filename in file1.fastq.gz file2.fastq.gz file3.fastq.gz
+do
+zgrep $filename |  wc -l
 done
 ```
 
@@ -118,12 +144,28 @@ Inside the loop, we indicate the variable by putting `$` in front of it.
 The `$` tells the shell interpreter to treat the variable as a variable name and substitute its value in its place, rather than treat it as text or an external command.
 
 * Start by figuring out what goes on the third line of the loop
-* Now figure out what goes on the first line (i.e. your list)
+* Now figure out what goes on the first line (i.e. your list of files written out)
 * When you run your loop it should print the number of header lines for each file
 
 We might want to add one command to this loop to print out the name of the file prior to printing the number of header lines so we can more easily keep track of each file's information. The `echo` command will print whatever comes after it. Try inserting this command into your loop in order to print the name of the file following by the number of header lines.
+
+```{bash, echo=FALSE, eval=FALSE}
+for filename in file1.fastq.gz file2.fastq.gz file3.fastq.gz
+do
+echo $filename
+zgrep $filename |  wc -l
+done
+```
 
 Did you need to list all your files by hand? Copying and pasting a lot of names can be time consuming and error prone. Logically, you want to make your list following a particular rule, for example all of the files in this folder. We can use a wildcard (denoted `*`) to do this. So instead of writing out all the file names, replace all of that just with `*` as your list.
 In other situations keep in mind that we might want to be more precise.
 `*` really suggests any number of any character.
 To indicate all files that end in `fastq.gz` we could use `*fastq.gz` as our list.
+
+```{bash, echo=FALSE, eval=FALSE}
+for filename in *fastq.gz
+do
+echo $filename
+zgrep $filename |  wc -l
+done
+```
