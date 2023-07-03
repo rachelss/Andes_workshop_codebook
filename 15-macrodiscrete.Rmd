@@ -140,7 +140,7 @@ colors <- setNames(c("black","red"),0:1)
 dev.off()
 densityTree(simmap,method="plotSimmap",lwd=8,nodes="intermediate", ylim=c(1,170),colors=colors, compute.consensus=FALSE, fsize=0.2, show.axis=FALSE, fix.depth=TRUE)
 ```
-,
+
 ### Modeling hidden states
 
 Often, the transitions between to states are associated with other changes in the history of the trait itself. Some of those changes we can measure i.e., polyploidy vs. breeding systems, but some others are hard to quantify or hard to measure. Because many things could have happen that are linked to transitions between states we need to model using what we call hidden states. 

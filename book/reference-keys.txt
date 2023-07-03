@@ -91,3 +91,5 @@ modeling-using-ctmcs
 modeling-the-transition-rates-between-two-states
 model-comparison
 stochastic-mapping
+modeling-hidden-states
+continuing-on-your-own

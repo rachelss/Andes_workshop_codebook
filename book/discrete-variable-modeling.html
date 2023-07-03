@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="phylogenetic-generalized-linear-models.html"/>
-
+<link rel="next" href="continuing-on-your-own.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -279,8 +279,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="15.3.1" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#modeling-the-transition-rates-between-two-states"><i class="fa fa-check"></i><b>15.3.1</b> Modeling the transition rates between two states</a></li>
 <li class="chapter" data-level="15.3.2" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#model-comparison"><i class="fa fa-check"></i><b>15.3.2</b> Model comparison</a></li>
 <li class="chapter" data-level="15.3.3" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#stochastic-mapping"><i class="fa fa-check"></i><b>15.3.3</b> Stochastic mapping</a></li>
+<li class="chapter" data-level="15.3.4" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#modeling-hidden-states"><i class="fa fa-check"></i><b>15.3.4</b> Modeling hidden states</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="16" data-path="continuing-on-your-own.html"><a href="continuing-on-your-own.html"><i class="fa fa-check"></i><b>16</b> Continuing on your own</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -395,8 +397,9 @@ AIC allows us to compare between models with different number of parameters beca
 <span id="cb119-12"><a href="discrete-variable-modeling.html#cb119-12" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">setNames</span>(<span class="fu">c</span>(<span class="st">&quot;black&quot;</span>,<span class="st">&quot;red&quot;</span>),<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>)</span>
 <span id="cb119-13"><a href="discrete-variable-modeling.html#cb119-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span>
 <span id="cb119-14"><a href="discrete-variable-modeling.html#cb119-14" aria-hidden="true" tabindex="-1"></a><span class="fu">densityTree</span>(simmap,<span class="at">method=</span><span class="st">&quot;plotSimmap&quot;</span>,<span class="at">lwd=</span><span class="dv">8</span>,<span class="at">nodes=</span><span class="st">&quot;intermediate&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">170</span>),<span class="at">colors=</span>colors, <span class="at">compute.consensus=</span><span class="cn">FALSE</span>, <span class="at">fsize=</span><span class="fl">0.2</span>, <span class="at">show.axis=</span><span class="cn">FALSE</span>, <span class="at">fix.depth=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p>,
-### Modeling hidden states</p>
+</div>
+<div id="modeling-hidden-states" class="section level3 hasAnchor" number="15.3.4">
+<h3><span class="header-section-number">15.3.4</span> Modeling hidden states<a href="discrete-variable-modeling.html#modeling-hidden-states" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Often, the transitions between to states are associated with other changes in the history of the trait itself. Some of those changes we can measure i.e., polyploidy vs. breeding systems, but some others are hard to quantify or hard to measure. Because many things could have happen that are linked to transitions between states we need to model using what we call hidden states.</p>
 <p>The hidden states model is a mathematical tool that allow us to parse the main effect of the trait of interest, by removing other potential sources of evolution in the transitons.</p>
 <p>We will stop here and draw what these hidden states are!</p>
@@ -419,8 +422,8 @@ Two different assumptions</p>
           </div>
         </div>
       </div>
-<a href="phylogenetic-generalized-linear-models.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="phylogenetic-generalized-linear-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="continuing-on-your-own.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
