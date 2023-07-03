@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 16 Continuing on your own | Andes Phylogenomics Workshop</title>
+  <meta name="description" content="Step-by-step guide to a project in phylogenomics." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 16 Continuing on your own | Andes Phylogenomics Workshop" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Step-by-step guide to a project in phylogenomics." />
+  <meta name="github-repo" content="rachelss/Andes_workshop_codebook" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 16 Continuing on your own | Andes Phylogenomics Workshop" />
+  
+  <meta name="twitter:description" content="Step-by-step guide to a project in phylogenomics." />
+  
+
+<meta name="author" content="Rachel Schwartz and Rosana Zenil-Ferguson" />
+
+
+<meta name="date" content="2023-07-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="discrete-variable-modeling.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Andes Phylogenomics Workshop</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About this workshop</a></li>
+<li class="chapter" data-level="2" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>2</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="intro.html"><a href="intro.html#introduction"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="intro.html"><a href="intro.html#case-studies"><i class="fa fa-check"></i><b>2.2</b> Case Studies</a></li>
+<li class="chapter" data-level="2.3" data-path="intro.html"><a href="intro.html#course-objectives"><i class="fa fa-check"></i><b>2.3</b> Course Objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="data-and-analysis.html"><a href="data-and-analysis.html"><i class="fa fa-check"></i><b>3</b> Data and analysis</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="data-and-analysis.html"><a href="data-and-analysis.html#genomic-data"><i class="fa fa-check"></i><b>3.1</b> Genomic data</a></li>
+<li class="chapter" data-level="3.2" data-path="data-and-analysis.html"><a href="data-and-analysis.html#phylogenies"><i class="fa fa-check"></i><b>3.2</b> Phylogenies</a></li>
+<li class="chapter" data-level="3.3" data-path="data-and-analysis.html"><a href="data-and-analysis.html#comparative-analyses"><i class="fa fa-check"></i><b>3.3</b> Comparative analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="trait-data.html"><a href="trait-data.html"><i class="fa fa-check"></i><b>4</b> Trait Data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="trait-data.html"><a href="trait-data.html#getting-started-with-r"><i class="fa fa-check"></i><b>4.1</b> Getting started with R</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="trait-data.html"><a href="trait-data.html#option-1-log-in-to-the-server"><i class="fa fa-check"></i><b>4.1.1</b> Option 1: Log in to the server</a></li>
+<li class="chapter" data-level="4.1.2" data-path="trait-data.html"><a href="trait-data.html#option-2-work-on-your-personal-computer"><i class="fa fa-check"></i><b>4.1.2</b> Option 2: Work on your personal computer</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="trait-data.html"><a href="trait-data.html#load-and-set-up-data"><i class="fa fa-check"></i><b>4.2</b> Load and set up data</a></li>
+<li class="chapter" data-level="4.3" data-path="trait-data.html"><a href="trait-data.html#beginning-an-analysis"><i class="fa fa-check"></i><b>4.3</b> Beginning an analysis</a></li>
+<li class="chapter" data-level="4.4" data-path="trait-data.html"><a href="trait-data.html#data-visualization"><i class="fa fa-check"></i><b>4.4</b> Data Visualization</a></li>
+<li class="chapter" data-level="4.5" data-path="trait-data.html"><a href="trait-data.html#statistical-tests-of-relationships"><i class="fa fa-check"></i><b>4.5</b> Statistical tests of relationships</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="computational-skills.html"><a href="computational-skills.html"><i class="fa fa-check"></i><b>5</b> Computational skills</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="computational-skills.html"><a href="computational-skills.html#basic-navigation"><i class="fa fa-check"></i><b>5.1</b> Basic navigation</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="getting-your-data.html"><a href="getting-your-data.html"><i class="fa fa-check"></i><b>6</b> Getting your data</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="getting-your-data.html"><a href="getting-your-data.html#repeating-analyses"><i class="fa fa-check"></i><b>6.1</b> Repeating analyses</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="tree-thinking-quiz.html"><a href="tree-thinking-quiz.html"><i class="fa fa-check"></i><b>7</b> Tree thinking quiz</a></li>
+<li class="chapter" data-level="8" data-path="target-capture-data.html"><a href="target-capture-data.html"><i class="fa fa-check"></i><b>8</b> Target capture data</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="target-capture-data.html"><a href="target-capture-data.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
+<li class="chapter" data-level="8.2" data-path="target-capture-data.html"><a href="target-capture-data.html#running-hybpiper-to-assemble-genes"><i class="fa fa-check"></i><b>8.2</b> Running HybPiper to assemble genes</a></li>
+<li class="chapter" data-level="8.3" data-path="target-capture-data.html"><a href="target-capture-data.html#hybpiper-outputs"><i class="fa fa-check"></i><b>8.3</b> Hybpiper outputs</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="target-capture-data.html"><a href="target-capture-data.html#viewing-information"><i class="fa fa-check"></i><b>8.3.1</b> Viewing information</a></li>
+<li class="chapter" data-level="8.3.2" data-path="target-capture-data.html"><a href="target-capture-data.html#obtain-gene-data"><i class="fa fa-check"></i><b>8.3.2</b> Obtain gene data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="target-capture-data.html"><a href="target-capture-data.html#visual-inspection-of-data"><i class="fa fa-check"></i><b>8.4</b> Visual inspection of data</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>9</b> Results</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="results.html"><a href="results.html#alignment"><i class="fa fa-check"></i><b>9.1</b> Alignment</a></li>
+<li class="chapter" data-level="9.2" data-path="results.html"><a href="results.html#view-in-r"><i class="fa fa-check"></i><b>9.2</b> View in R</a></li>
+<li class="chapter" data-level="9.3" data-path="results.html"><a href="results.html#concatenated-data-analysis"><i class="fa fa-check"></i><b>9.3</b> Concatenated data analysis</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="results.html"><a href="results.html#building-trees-with-iqtree"><i class="fa fa-check"></i><b>9.3.1</b> Building trees with IQTree</a></li>
+<li class="chapter" data-level="9.3.2" data-path="results.html"><a href="results.html#viewing-trees"><i class="fa fa-check"></i><b>9.3.2</b> Viewing trees</a></li>
+<li class="chapter" data-level="9.3.3" data-path="results.html"><a href="results.html#tree-for-all-data-using-output-of-individual-hybpiper-runs"><i class="fa fa-check"></i><b>9.3.3</b> Tree for all data using output of individual hybpiper runs</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="results.html"><a href="results.html#species-tree-analyses"><i class="fa fa-check"></i><b>9.4</b> Species tree analyses</a></li>
+<li class="chapter" data-level="9.5" data-path="results.html"><a href="results.html#support-for-relationships"><i class="fa fa-check"></i><b>9.5</b> Support for relationships</a></li>
+<li class="chapter" data-level="9.6" data-path="results.html"><a href="results.html#mrbayes"><i class="fa fa-check"></i><b>9.6</b> MrBayes</a></li>
+<li class="chapter" data-level="9.7" data-path="results.html"><a href="results.html#what-do-your-trees-tell-you"><i class="fa fa-check"></i><b>9.7</b> What do your trees tell you?</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="dates-and-evolution.html"><a href="dates-and-evolution.html"><i class="fa fa-check"></i><b>10</b> Dates and Evolution</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="dates-and-evolution.html"><a href="dates-and-evolution.html#dates-times-on-trees"><i class="fa fa-check"></i><b>10.1</b> Dates / Times on Trees</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html"><i class="fa fa-check"></i><b>11</b> Understanding the likelihood function</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#background-1"><i class="fa fa-check"></i><b>11.1</b> Background</a></li>
+<li class="chapter" data-level="11.2" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-model"><i class="fa fa-check"></i><b>11.2</b> The model</a></li>
+<li class="chapter" data-level="11.3" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-likelihood-function"><i class="fa fa-check"></i><b>11.3</b> The likelihood function</a></li>
+<li class="chapter" data-level="11.4" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#a-mini-example-with-a-sample-size-of-two"><i class="fa fa-check"></i><b>11.4</b> A mini example with a sample size of two</a></li>
+<li class="chapter" data-level="11.5" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#the-bird-alarm-example"><i class="fa fa-check"></i><b>11.5</b> The bird alarm example</a>
+<ul>
+<li class="chapter" data-level="11.5.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#calculate-the-mle-for-dl-and-f-and-the-likelihood-value-evaluated-at-the-mle"><i class="fa fa-check"></i><b>11.5.1</b> Calculate the MLE for DL and F and the likelihood value evaluated at the MLE</a></li>
+</ul></li>
+<li class="chapter" data-level="11.6" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#where-is-the-evidence-for-different-behavior"><i class="fa fa-check"></i><b>11.6</b> Where is the evidence for different behavior?</a>
+<ul>
+<li class="chapter" data-level="11.6.1" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#plot-the-likelihood-for-dead-leaf-gleaners"><i class="fa fa-check"></i><b>11.6.1</b> Plot the likelihood for dead-leaf gleaners</a></li>
+</ul></li>
+<li class="chapter" data-level="11.7" data-path="understanding-the-likelihood-function.html"><a href="understanding-the-likelihood-function.html#are-the-freezing-times-different-for-the-two-groups"><i class="fa fa-check"></i><b>11.7</b> Are the freezing times different for the two groups?</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html"><i class="fa fa-check"></i><b>12</b> What is Bayesian statistics?</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#what-about-all-the-fighting-of-frequentists-vs.-bayesians"><i class="fa fa-check"></i><b>12.1</b> What about all the fighting of “frequentists” vs. “Bayesians”</a></li>
+<li class="chapter" data-level="12.2" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#when-do-we-choose-bayesian-statistics"><i class="fa fa-check"></i><b>12.2</b> When do we choose Bayesian statistics?</a></li>
+<li class="chapter" data-level="12.3" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#basic-concepts-of-bayesian-statistics"><i class="fa fa-check"></i><b>12.3</b> Basic concepts of Bayesian Statistics</a></li>
+<li class="chapter" data-level="12.4" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#example-online-dating"><i class="fa fa-check"></i><b>12.4</b> Example: Online dating</a>
+<ul>
+<li class="chapter" data-level="12.4.1" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#pab-is-difficult-to-estimate"><i class="fa fa-check"></i><b>12.4.1</b> <span class="math inline">\(P(A|B)\)</span> is difficult to estimate</a></li>
+<li class="chapter" data-level="12.4.2" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#coming-back-to-the-initial-idea-of-how-we-define-bayesian-statistics"><i class="fa fa-check"></i><b>12.4.2</b> Coming back to the initial idea of how we define Bayesian statistics</a></li>
+<li class="chapter" data-level="12.4.3" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-random-variable"><i class="fa fa-check"></i><b>12.4.3</b> The random variable</a></li>
+<li class="chapter" data-level="12.4.4" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-prior-distribution"><i class="fa fa-check"></i><b>12.4.4</b> The prior distribution</a></li>
+<li class="chapter" data-level="12.4.5" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-data-and-their-distribution"><i class="fa fa-check"></i><b>12.4.5</b> The Data and their distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-likelihood-function-1"><i class="fa fa-check"></i><b>12.5</b> The likelihood function</a></li>
+<li class="chapter" data-level="12.6" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-update-the-posterior-distribution"><i class="fa fa-check"></i><b>12.6</b> The update! The posterior distribution</a></li>
+<li class="chapter" data-level="12.7" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#optional-section-doing-your-first-mcmc"><i class="fa fa-check"></i><b>12.7</b> Optional section: Doing your first MCMC</a>
+<ul>
+<li class="chapter" data-level="12.7.1" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-proposal-function"><i class="fa fa-check"></i><b>12.7.1</b> The proposal function</a></li>
+<li class="chapter" data-level="12.7.2" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#the-metropolis-hastings"><i class="fa fa-check"></i><b>12.7.2</b> The Metropolis-Hastings</a></li>
+<li class="chapter" data-level="12.7.3" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#visualizing-the-mcmc-as-a-way-to-find-out-convergence"><i class="fa fa-check"></i><b>12.7.3</b> Visualizing the MCMC as a way to find out convergence</a></li>
+</ul></li>
+<li class="chapter" data-level="12.8" data-path="what-is-bayesian-statistics.html"><a href="what-is-bayesian-statistics.html#changing-the-proposal"><i class="fa fa-check"></i><b>12.8</b> Changing the proposal</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html"><i class="fa fa-check"></i><b>13</b> Introduction to macroevolution modeling</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#reading-dataset-and-phylogenetic-tree"><i class="fa fa-check"></i><b>13.1</b> Reading dataset and phylogenetic tree</a></li>
+<li class="chapter" data-level="13.2" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#plotting-a-phylogenetic-tree-with-data"><i class="fa fa-check"></i><b>13.2</b> Plotting a phylogenetic tree with data</a>
+<ul>
+<li class="chapter" data-level="13.2.1" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#plotting-continuous-data"><i class="fa fa-check"></i><b>13.2.1</b> Plotting continuous data</a></li>
+<li class="chapter" data-level="13.2.2" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#plotting-discrete-and-continuous-data"><i class="fa fa-check"></i><b>13.2.2</b> Plotting discrete and continuous data</a></li>
+</ul></li>
+<li class="chapter" data-level="13.3" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#introduction-to-brownian-motion"><i class="fa fa-check"></i><b>13.3</b> Introduction to Brownian Motion</a></li>
+<li class="chapter" data-level="13.4" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#brownian-motion-in-phylogenetic-comparative-methods"><i class="fa fa-check"></i><b>13.4</b> Brownian motion in phylogenetic comparative methods</a></li>
+<li class="chapter" data-level="13.5" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#shared-ancestry-and-continuous-character-evolution"><i class="fa fa-check"></i><b>13.5</b> Shared ancestry and continuous character evolution</a>
+<ul>
+<li class="chapter" data-level="13.5.1" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#always-visualize-your-data"><i class="fa fa-check"></i><b>13.5.1</b> Always visualize your data</a></li>
+<li class="chapter" data-level="13.5.2" data-path="introduction-to-macroevolution-modeling.html"><a href="introduction-to-macroevolution-modeling.html#fitting-bm-on-flower-length"><i class="fa fa-check"></i><b>13.5.2</b> Fitting BM on flower length</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="phylogenetic-generalized-linear-models.html"><a href="phylogenetic-generalized-linear-models.html"><i class="fa fa-check"></i><b>14</b> Phylogenetic Generalized Linear Models</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="phylogenetic-generalized-linear-models.html"><a href="phylogenetic-generalized-linear-models.html#phylogenetic-linear-models"><i class="fa fa-check"></i><b>14.1</b> Phylogenetic Linear Models</a>
+<ul>
+<li class="chapter" data-level="14.1.1" data-path="phylogenetic-generalized-linear-models.html"><a href="phylogenetic-generalized-linear-models.html#testing-the-hypothesis"><i class="fa fa-check"></i><b>14.1.1</b> Testing the hypothesis</a></li>
+</ul></li>
+<li class="chapter" data-level="14.2" data-path="phylogenetic-generalized-linear-models.html"><a href="phylogenetic-generalized-linear-models.html#what-happens-if-the-model-of-evolution-is-not-brownian-motion-but-something-else"><i class="fa fa-check"></i><b>14.2</b> What happens if the model of evolution is not Brownian motion but something else?</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html"><i class="fa fa-check"></i><b>15</b> Discrete variable modeling</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#plotting-discrete-data-on-a-phylogeny"><i class="fa fa-check"></i><b>15.1</b> Plotting discrete data on a phylogeny</a></li>
+<li class="chapter" data-level="15.2" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#discrete-character-evolution"><i class="fa fa-check"></i><b>15.2</b> Discrete character evolution</a>
+<ul>
+<li class="chapter" data-level="15.2.1" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#what-is-a-q-matrix"><i class="fa fa-check"></i><b>15.2.1</b> What is a Q-matrix?</a></li>
+</ul></li>
+<li class="chapter" data-level="15.3" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#modeling-using-ctmcs"><i class="fa fa-check"></i><b>15.3</b> Modeling using CTMCs</a>
+<ul>
+<li class="chapter" data-level="15.3.1" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#modeling-the-transition-rates-between-two-states"><i class="fa fa-check"></i><b>15.3.1</b> Modeling the transition rates between two states</a></li>
+<li class="chapter" data-level="15.3.2" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#model-comparison"><i class="fa fa-check"></i><b>15.3.2</b> Model comparison</a></li>
+<li class="chapter" data-level="15.3.3" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#stochastic-mapping"><i class="fa fa-check"></i><b>15.3.3</b> Stochastic mapping</a></li>
+<li class="chapter" data-level="15.3.4" data-path="discrete-variable-modeling.html"><a href="discrete-variable-modeling.html#modeling-hidden-states"><i class="fa fa-check"></i><b>15.3.4</b> Modeling hidden states</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="continuing-on-your-own.html"><a href="continuing-on-your-own.html"><i class="fa fa-check"></i><b>16</b> Continuing on your own</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Andes Phylogenomics Workshop</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="continuing-on-your-own" class="section level1 hasAnchor" number="16">
+<h1><span class="header-section-number">Chapter 16</span> Continuing on your own<a href="continuing-on-your-own.html#continuing-on-your-own" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>After this workshop you will not have access to the RStudio server.
+To continue working on your research you will need access to some of the software.
+Options for installation are provided within the chapters.</p>
+<p>If you continue to work with target-capture data such as we provided for this workshop,
+you may be sequencing much larger datasets than our examples (which included low-coverage subsets).
+There are several options for working with large datasets that are beyond the capacity of your personal computer.
+First, you can check whether you have access to a larger workstation computer through your university.
+This computer will likely function much like the server we have used here, but will
+have additional storage as well as computing power.
+You may have access to a high-performance computer cluster (HPC) through a university.
+This option will have storage as well as computing power, which may be shared across the university.</p>
+<p>A third option for researchers without the ability to purchase a large (possibly shared) computing resource is to use shared resources via the cloud.
+A great set of instructions for setting up a cloud server is
+<a href="https://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/" class="uri">https://deanattali.com/2015/05/09/setup-rstudio-shiny-server-digital-ocean/</a> .
+While on first glance this option may appear very expensive, if you plan to use a large server for a few days only, you can spend a relatively small amount of money and then reduce the computing power of the droplet to a minimal charge per day while allowing you to continue to work with your results. Alternatively, you may “snapshot” all of your information (i.e. keep it on a disk) and shut down the server to incur only storage costs. See <a href="https://docs.digitalocean.com/products/droplets/how-to/resize/" class="uri">https://docs.digitalocean.com/products/droplets/how-to/resize/</a>.
+While DigitalOcean is given as the example here, Google also has cloud services that operate similarly.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="discrete-variable-modeling.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/16-post.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
