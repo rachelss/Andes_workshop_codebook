@@ -23,15 +23,16 @@ You should notice that HybPiper has added some information to these lines so the
 Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first "word" in each line (think of a word as a set of characters not separated by spaces).
 We use the `cut` command to divide each line of our file into columns.
-We use the `-f` flag to indicate the field (column) we want to keep, and the `-d` flag to indicate how to separate columns (i.e. with a space: `' '`).
+We want to keep the first "field" and use a space (' ') as our delimiter.
+Try this with a single FNA file and output to that same file with .fa added to the end of the file name.
 
-An example cut command for one file could look like the following:
-
-```
+```{bash, echo=FALSE, eval=FALSE}
+# prior experience: ls *R1* | cut -d '_' -f 1,2
 cut -f 1 -d ' ' 7577.FNA > 7577.FNA.fa
 ```
 
-Now use a loop as before to repeat this command for all FNA files.
+Now use a loop to repeat this command for all FNA files.
+Remember the list of items you are iterating through is all of your FNA files, you then indicate that file in the command using the variable name (with a $) and output to that same variable followed by `.fa`.
 
 ```{bash, echo=FALSE, eval=FALSE}
 for f in *FNA; do
@@ -70,7 +71,7 @@ install.packages("BiocManager")
 BiocManager::install("ggmsa")
 ```
 
-* Read in your fasta file with ape's `read.FASTA`.
+* Read in a single fasta file with ape's `read.FASTA`.
 * Use the ggmsa command as follows, substituting the particular variable that contains your fasta file. Allow a little while for this to run. You may need to click the Zoom button above the plot to see it more clearly.
 
 ```
@@ -106,17 +107,21 @@ https://hackmd.io/@mossmatters/Sy6md0prY
 ## Concatenated data analysis
 
 There are multiple ways to analyze data.
-The first is to concatenate everything.
+The first is to concatenate everything - we will use the python tool AMAS.
 Make sure you are in your Terminal.
 
 ```
 conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/amas
+```
 
+Run AMAS using the following command. You should be able to decipher 
+the main AMAS python script, the concat command, the various file formats, and the input data.
+
+```
 python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -d dna --out-format fasta --part-format raxml -i *FNA.fa.fasta \
 -t concatenated.fasta -p partitions.txt
-
 ```
 Note that if some data was not found for some genes you may need to delete files (use the `rm` command) to get AMAS to concatenate your data.
 
@@ -126,6 +131,8 @@ Note that if some data was not found for some genes you may need to delete files
 We will build our first tree using our complete concatenated dataset.
 The program IQtree infers phylogenetic trees by maximum likelihood.
 This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
+Another tree is then selected to determine whether the data are more likely to have occurred on this tree.
+This process is repeated.
 
 If you are on the server switch environments: 
 
@@ -277,7 +284,7 @@ iqtree -t iqtree_tree.treefile --gcf iqtree.loci.treefile -s concatenated.fasta 
 The next approach we will use for tree building is implemented in MrBayes.
 We need to do some setup before we can run this software.
 MrBayes requires Nexus format, with an added block giving instructions to MrBayes. 
-`R` has some tools we can use to convert out data to the right format and add some instructions.
+`R` has some tools we can use to convert our data to the right format and add some instructions.
 Note that some of the following was adapted from https://gtpb.github.io/MEVR16/bayes/mb_example.html
 
 * Make a new script for organizational purposes
@@ -355,12 +362,62 @@ Before looking at your tree check the output. In some cases you may need to run 
 You can find your tree in your results folder with the extension `.con.tre`.
 Because Mr. Bayes generates output in a particular format you will need to read it in slightly differently and convert it to the standard `phylo` format.
 
+First read the tree using the `treeio` package. Note that rather than load the package using `library`, here the command is specified as being part of the package directly.
+
 ```
 mrbayes_tree <- treeio::read.mrbayes("results/concatenated.nex.mb.con.tre")
-mrbayes_phylo <- treeio::as.phylo(mrbayes_tree)
-probs = as_tibble(mrbayes_tree) %>% pull(prob_percent)
-mrbayes_phylo$node.label = probs[(length(mrbayes_phylo$tip.label)+1):length(probs)]
 ```
+
+Now we convert the tree to `phylo` format used by `ape` and other packages.
+Format conversion is a common problem in bioinformatics.
+
+```
+mrbayes_phylo <- treeio::as.phylo(mrbayes_tree)
+```
+
+If you click on your `mrbayes_phylo` variable in your environment you can see how the data are structured including the branch (edge) lengths and tip labels.
+However, when we do the tree conversion we lose the node support information.
+If you click on your `mrbayes_tree` variable you can see this information is stored
+in the `data` variable.
+We obtain this information by converting our tree to a "data frame" (i.e. the sort of rectangular data we often view in R). In this case we will use the tidyverse version of a dataframe called a tibble.
+
+```
+as_tibble(mrbayes_tree)
+```
+
+The information in the tree will print to the console and you can see it as a dataframe.
+To obtain the prob_percent column, we "pull" this out of the dataframe as follows.
+
+```
+probs <- as_tibble(mrbayes_tree) %>% pull(prob_percent)
+```
+
+We now assign this information to our `mrbayes_phylo$node.label`.
+However, before we do this, print the contents of the variable to the console.
+Note the number of items in this list.
+Some of these are due to support values assigned to the tips rather than the nodes. 
+Of course all tips are supported to 100%.
+We need to subset the list of supports to remove the first items related to tips (i.e. as many items as there are tips).
+
+First we figure out how many tips there are. You could count them but we would like to make this general to all datasets and so putting in a single number would require changes when the dataset is changed.
+
+```
+num_tips <- length(mrbayes_phylo$tip.label)
+```
+
+Now we can get the items in `probs` from the first node value to the end of the vector.
+
+```
+node_probs <- probs[(num_tips+1):length(probs)]
+```
+
+Finally we can assign these values to the node labels in our tree.
+
+```
+mrbayes_phylo$node.label <- node_probs
+```
+
+Now
 
 * Reroot your tree
 * Fix the names to be species

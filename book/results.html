@@ -320,10 +320,10 @@ You should notice that HybPiper has added some information to these lines so the
 <p>Before we do the alignment we need to remove this extra information.
 Again, we can think about the pattern we are looking for: we want to go through each FNA file (this should suggest using a loop) and keep the first “word” in each line (think of a word as a set of characters not separated by spaces).
 We use the <code>cut</code> command to divide each line of our file into columns.
-We use the <code>-f</code> flag to indicate the field (column) we want to keep, and the <code>-d</code> flag to indicate how to separate columns (i.e. with a space: <code>' '</code>).</p>
-<p>An example cut command for one file could look like the following:</p>
-<pre><code>cut -f 1 -d &#39; &#39; 7577.FNA &gt; 7577.FNA.fa</code></pre>
-<p>Now use a loop as before to repeat this command for all FNA files.</p>
+We want to keep the first “field” and use a space (’ ’) as our delimiter.
+Try this with a single FNA file and output to that same file with .fa added to the end of the file name.</p>
+<p>Now use a loop to repeat this command for all FNA files.
+Remember the list of items you are iterating through is all of your FNA files, you then indicate that file in the command using the variable name (with a $) and output to that same variable followed by <code>.fa</code>.</p>
 <p>Now we can loop through each of these files and output an alignment.
 The basic mafft command looks like the following.</p>
 <pre><code>mafft --auto --thread 1 7577.FNA.fa &gt; 7577.FNA.fa.fasta</code></pre>
@@ -340,7 +340,7 @@ You should first load the <code>ape</code> and <code>ggmsa</code> library. (This
 <pre><code>install.packages(&quot;BiocManager&quot;)
 BiocManager::install(&quot;ggmsa&quot;)</code></pre>
 <ul>
-<li>Read in your fasta file with ape’s <code>read.FASTA</code>.</li>
+<li>Read in a single fasta file with ape’s <code>read.FASTA</code>.</li>
 <li>Use the ggmsa command as follows, substituting the particular variable that contains your fasta file. Allow a little while for this to run. You may need to click the Zoom button above the plot to see it more clearly.</li>
 </ul>
 <pre><code>ggmsa(seqs_7577, start = 20, end = 120, char_width = 0.5, seq_name = T, color = &quot;Chemistry_NT&quot;) +
@@ -350,21 +350,23 @@ BiocManager::install(&quot;ggmsa&quot;)</code></pre>
 <div id="concatenated-data-analysis" class="section level2 hasAnchor" number="9.3">
 <h2><span class="header-section-number">9.3</span> Concatenated data analysis<a href="results.html#concatenated-data-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>There are multiple ways to analyze data.
-The first is to concatenate everything.
+The first is to concatenate everything - we will use the python tool AMAS.
 Make sure you are in your Terminal.</p>
 <pre><code>conda deactivate
-conda activate /mnt/homes4celsrs/shared/envs/amas
-
-python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
+conda activate /mnt/homes4celsrs/shared/envs/amas</code></pre>
+<p>Run AMAS using the following command. You should be able to decipher
+the main AMAS python script, the concat command, the various file formats, and the input data.</p>
+<pre><code>python3 /mnt/homes4celsrs/shared/envs/amas/bin/AMAS.py concat -f fasta \
 -d dna --out-format fasta --part-format raxml -i *FNA.fa.fasta \
--t concatenated.fasta -p partitions.txt
-</code></pre>
+-t concatenated.fasta -p partitions.txt</code></pre>
 <p>Note that if some data was not found for some genes you may need to delete files (use the <code>rm</code> command) to get AMAS to concatenate your data.</p>
 <div id="building-trees-with-iqtree" class="section level3 hasAnchor" number="9.3.1">
 <h3><span class="header-section-number">9.3.1</span> Building trees with IQTree<a href="results.html#building-trees-with-iqtree" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We will build our first tree using our complete concatenated dataset.
 The program IQtree infers phylogenetic trees by maximum likelihood.
-This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).</p>
+This approach starts with a tree and calculates the likelihood of the data on the tree (i.e. calculating the probability of each site fitting the tree given a model of substitution and multiplying them together).
+Another tree is then selected to determine whether the data are more likely to have occurred on this tree.
+This process is repeated.</p>
 <p>If you are on the server switch environments:</p>
 <pre><code>conda deactivate
 conda activate /mnt/homes4celsrs/shared/envs/iqtree</code></pre>
@@ -475,7 +477,7 @@ You can compute gCF and sCF for the tree inferred under the partition model:</p>
 <p>The next approach we will use for tree building is implemented in MrBayes.
 We need to do some setup before we can run this software.
 MrBayes requires Nexus format, with an added block giving instructions to MrBayes.
-<code>R</code> has some tools we can use to convert out data to the right format and add some instructions.
+<code>R</code> has some tools we can use to convert our data to the right format and add some instructions.
 Note that some of the following was adapted from <a href="https://gtpb.github.io/MEVR16/bayes/mb_example.html" class="uri">https://gtpb.github.io/MEVR16/bayes/mb_example.html</a></p>
 <ul>
 <li>Make a new script for organizational purposes</li>
@@ -518,10 +520,33 @@ write(myseqs_nexus_withmb,file=&quot;concatenated.nex.mb&quot;)</code></pre>
 <p>Before looking at your tree check the output. In some cases you may need to run your analysis for longer and a note to this effect will be toward the end of the output. Make sure to give the log file for this run a relevant name. You don’t want to overwrite the output from HybPiper and you might want to keep this output if you do a longer run. Additionally, if you rerun the analysis with additional time make sure you don’t overwrite the current tree output.</p>
 <p>You can find your tree in your results folder with the extension <code>.con.tre</code>.
 Because Mr. Bayes generates output in a particular format you will need to read it in slightly differently and convert it to the standard <code>phylo</code> format.</p>
-<pre><code>mrbayes_tree &lt;- treeio::read.mrbayes(&quot;results/concatenated.nex.mb.con.tre&quot;)
-mrbayes_phylo &lt;- treeio::as.phylo(mrbayes_tree)
-probs = as_tibble(mrbayes_tree) %&gt;% pull(prob_percent)
-mrbayes_phylo$node.label = probs[(length(mrbayes_phylo$tip.label)+1):length(probs)]</code></pre>
+<p>First read the tree using the <code>treeio</code> package. Note that rather than load the package using <code>library</code>, here the command is specified as being part of the package directly.</p>
+<pre><code>mrbayes_tree &lt;- treeio::read.mrbayes(&quot;results/concatenated.nex.mb.con.tre&quot;)</code></pre>
+<p>Now we convert the tree to <code>phylo</code> format used by <code>ape</code> and other packages.
+Format conversion is a common problem in bioinformatics.</p>
+<pre><code>mrbayes_phylo &lt;- treeio::as.phylo(mrbayes_tree)</code></pre>
+<p>If you click on your <code>mrbayes_phylo</code> variable in your environment you can see how the data are structured including the branch (edge) lengths and tip labels.
+However, when we do the tree conversion we lose the node support information.
+If you click on your <code>mrbayes_tree</code> variable you can see this information is stored
+in the <code>data</code> variable.
+We obtain this information by converting our tree to a “data frame” (i.e. the sort of rectangular data we often view in R). In this case we will use the tidyverse version of a dataframe called a tibble.</p>
+<pre><code>as_tibble(mrbayes_tree)</code></pre>
+<p>The information in the tree will print to the console and you can see it as a dataframe.
+To obtain the prob_percent column, we “pull” this out of the dataframe as follows.</p>
+<pre><code>probs &lt;- as_tibble(mrbayes_tree) %&gt;% pull(prob_percent)</code></pre>
+<p>We now assign this information to our <code>mrbayes_phylo$node.label</code>.
+However, before we do this, print the contents of the variable to the console.
+Note the number of items in this list.
+Some of these are due to support values assigned to the tips rather than the nodes.
+Of course all tips are supported to 100%.
+We need to subset the list of supports to remove the first items related to tips (i.e. as many items as there are tips).</p>
+<p>First we figure out how many tips there are. You could count them but we would like to make this general to all datasets and so putting in a single number would require changes when the dataset is changed.</p>
+<pre><code>num_tips &lt;- length(mrbayes_phylo$tip.label)</code></pre>
+<p>Now we can get the items in <code>probs</code> from the first node value to the end of the vector.</p>
+<pre><code>node_probs &lt;- probs[(num_tips+1):length(probs)]</code></pre>
+<p>Finally we can assign these values to the node labels in our tree.</p>
+<pre><code>mrbayes_phylo$node.label &lt;- node_probs</code></pre>
+<p>Now</p>
 <ul>
 <li>Reroot your tree</li>
 <li>Fix the names to be species</li>
