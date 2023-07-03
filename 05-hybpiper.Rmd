@@ -28,10 +28,11 @@ conda activate /mnt/homes4celsrs/shared/envs/hybpiper
 
 This activates a conda environment (don't worry about this!).
 
-If you need to obtain Hybpiper on your personal computer:
+**If you need to obtain Hybpiper on your personal computer:**
 
 * Download Miniconda for [Windows](https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html) or [Mac](https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html) and install following the instructions
 * Follow the instructions for bioconda and hybpiper installation: https://github.com/mossmatters/HybPiper/wiki/Installation
+* Use the data you downloaded previously
 
 In this case, our target sequences are either the Angiosperm 353 standard targets
 or a set of target data designed specifically for these taxa.
@@ -114,10 +115,32 @@ Additionally you can log out of the server (eg for lunch) and the command will c
 To run the command in background enclose the entire command (from before while to after txt) in `( )`
 and then add `&> output.log &` at the end to write the information that would normally print to the screen (as you saw when running a single command) to the file `output.log`.
 You can view this file (`less` or `tail`) to watch the progress of your command.
+The following is an example to see how running in background works.
+Assume you want to run the following example command (if you try this you need to create `examplefile.txt` first or use another short file).
 
-## Process outputs
+```
+while read line
+do
+  echo $line
+  sleep 5
+done < examplefile.txt 
+```
 
-To obtain some information about the results of this process use the `hybpiper stats` command as follows.
+You can run this command in background as
+
+```
+(while read line
+do
+  echo $line
+  sleep 5
+done < examplefile.txt ) &> output.log &
+```
+
+If you `cat output.log` you will see information being printed to this file (rather than to the screen as was done when not running in background). The `&` runs the command in background while the `&>` sends what would have been printed to the screen to the designated file.
+
+## Hybpiper outputs
+
+To obtain some information about the results of your HybPiper run use the `hybpiper stats` command as follows.
 
 ```
 hybpiper stats -t_dna [target file] gene [path to]/namelist.txt
@@ -127,7 +150,7 @@ hybpiper stats -t_dna [target file] gene [path to]/namelist.txt
 From https://hackmd.io/@mossmatters/HkPM7pwEK#Getting-HybPiper-Stats
 ```
 
-Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
+Hybpiper stats will generate two files: `seq_lengths.tsv` and `hybpiper_stats.tsv`.
 The first line of seq_lengths.tsv has the names of each gene. 
 The second line has the length of the target gene, averaged over each "source" for that gene. 
 The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.
@@ -137,13 +160,11 @@ The rest of the lines are the length of the sequence recovered by HybPiper for e
 While you can `cat` or `head` this file it is difficult to view this information on the command line.
 However, R is excellent for reading data in this format.
 
-* Click the Console tab
-* While you could run commands here as you have in the shell, instead we will create a script to keep track of all of your commands. Note that this is also possible in the shell.
 * Select File - New File - R script
 * Save this file in the scripts folder
 * Load the tidyverse library
 
-We will use the `read.table` command because our data are plain text separated by tabs.
+We will use the `read.table` command because our data are plain text separated by tabs (not commas as for csv files).
 We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.
 
 Note: R assumes you are in your project folder so all paths should be relative to this.
@@ -154,7 +175,7 @@ stats <- read.table("results/hybpiper_stats.tsv", sep = "\t", header = TRUE)
 
 View your stats data.
 
-Repeat this analysis for `seq_lengths.tsv`.
+Read and view `seq_lengths.tsv`.
 
 Given your observation of the output tables, you may be interested in some of the following questions:
 
@@ -174,37 +195,24 @@ information not sample information.
 Instead of working with these data frames directly we are going to take a look at an example
 that I have made for you that includes stats for just two samples in "long form."
 
-* Read the file in the shared workshop folder using the `read_csv` command.
+* Read the file `stats_example.csv` in the shared workshop folder using the `read_csv` command.
 * Take a look at how these data are organized. Can you see how the data are organized that each row contains one piece of information?
 * Plot `value` v. `stat` as a scatter plot.
 
+```{r, echo=FALSE, eval=FALSE}
+stats_example <- read_csv("../../shared/AndesWorkshop2023/stats_example.csv")
+ggplot(stats_example, aes(stat, value))+ geom_point()
+```
+
 We can add a couple of tweaks to make our view better. First we can specify that we want each sample to be a different color by including a `color = Name` argument in our `aes`. Second we can rotate the graph 90 degrees to better view the data and labels by adding a layer `coord_flip()`.
 
-We can also generate a summary table with one row per stat and information in that row including the mean, standard deviation, etc. across genes.
-
-The first component of this is to develop groups of rows by stat.
-I like to imagine this as drawing boxes around all rows that contain a particular stat.
-We use the `group_by` function to communicate to the computer these "boxes".
-
-```
-group_by(stats_example, stat)
+```{r, echo=FALSE, eval=FALSE}
+ggplot(stats_example, aes(stat, value,color = Name))+ geom_point() + coord_flip()
 ```
 
-If you run this command the data won't appear to be any different.
-Now we need to generate a summary table where each group is collapsed into a single row in our new table containing the stat, its average, and standard deviation.
+Now that you can see this example data better you can see it is trivial with only two samples with low information. However, you can imagine that we would like to have our real data in this format. 
 
-```
-mean_stats <- group_by(stats_example, stat) %>% summarize(mean_across_species = mean(value),
-                                                       sd = sd(value))
-```
-
-Note that here we use `%>%` as the pipe command to send the output of one command to the next.
-You have send the shell pipe `|` and this works the same way. In our summarize command we provide
-new column labels and what the contents of these columns will be.
-
-Click on your `mean_stats` variable to view your summary table.
-
-In order to work with your lengths table you need to know how to produce a long format table.
+In order to work with *your* stats table you need to know how to produce a long format table.
 This is tricky and will take some practice so don't worry if it seems complicated initially.
 We will use the `pivot_longer` function.
 If you haven't noticed already, when you type a function and hit the tab button on your keyboard you will see a list of arguments. 
@@ -220,11 +228,35 @@ This command, with these four arguments looks like the following:
 stats_long <- pivot_longer(stats, cols = NumReads:GenesWithChimeraWarning, names_to = 'stat', values_to = 'value')
 ```
 
+We can also generate a summary table with one row per stat and information in that row including the mean, standard deviation, etc. across genes.
+
+The first component of this is to develop groups of rows by stat.
+I like to imagine this as drawing boxes around all rows that contain a particular stat.
+We use the `group_by` function to communicate to the computer these "boxes".
+
+```
+group_by(stats_long, stat)
+```
+
+If you run this command the data won't appear to be any different.
+Now we need to generate a summary table where each group is collapsed into a single row in our new table containing the stat, its average, and standard deviation.
+
+```
+mean_stats <- group_by(stats_long, stat) %>% summarize(mean_across_species = mean(value),
+                                                       sd = sd(value))
+```
+
+Note that here we use `%>%` as the pipe command to send the output of one command to the next.
+You have send the shell pipe `|` and this works the same way. In our summarize command we provide
+new column labels and what the contents of these columns will be.
+
+Click on your `mean_stats` variable to view your summary table.
+
 Now try to work with the lengths table. First make a long format table. You want to output a table with the columns Species, gene, and length.
 
 Did you notice that the mean lengths are already included in this table? That's really useful but also these data are not information about each sample and if we want to make summary tables and graphs we don't want to include them. 
 
-We can use the `filter` command to only include data that doesn't specify MeanLength in the Species column.
+We can use the `filter` command to only include data that does not (`!=` is not equal to) specify MeanLength in the Species column.
 
 ```
 lengths_long_filtered <- filter(lengths_long, Species != "MeanLength")
@@ -236,7 +268,7 @@ Now can you filter this output to include only data where the value in the lengt
 lengths_long_filtered <- filter(lengths_long, Species != "MeanLength") %>% filter(length >0)
 ```
 
-* Now you should be able to make a summary table including the the mean length per gene, standard deviation of length per gene, and count of genes. Note that we did our second filtering step so these values would be accurate. Additionally, the counting function is `n()` (no arguments required).
+Now you should be able to make a summary table including the the mean length per gene, standard deviation of length per gene, and count of genes. Note that we did our second filtering step so these values would be accurate. Additionally, the counting function is `n()` (no arguments required).
 
 ```{bash, echo=FALSE, eval=FALSE}
 mean_lengths <- group_by(lengths_long_f, gene) %>% summarize(mean_length = mean(length),

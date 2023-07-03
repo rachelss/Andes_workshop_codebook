@@ -23,7 +23,7 @@ tree-thinking-quiz
 target-capture-data
 background
 running-hybpiper-to-assemble-genes
-process-outputs
+hybpiper-outputs
 viewing-information
 obtain-gene-data
 visual-inspection-of-data

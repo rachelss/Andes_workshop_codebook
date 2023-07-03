@@ -23,7 +23,7 @@
 <meta name="author" content="Rachel Schwartz and Rosana Zenil-Ferguson" />
 
 
-<meta name="date" content="2023-06-30" />
+<meta name="date" content="2023-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="target-capture-data.html"><a href="target-capture-data.html#background"><i class="fa fa-check"></i><b>8.1</b> Background</a></li>
 <li class="chapter" data-level="8.2" data-path="target-capture-data.html"><a href="target-capture-data.html#running-hybpiper-to-assemble-genes"><i class="fa fa-check"></i><b>8.2</b> Running HybPiper to assemble genes</a></li>
-<li class="chapter" data-level="8.3" data-path="target-capture-data.html"><a href="target-capture-data.html#process-outputs"><i class="fa fa-check"></i><b>8.3</b> Process outputs</a>
+<li class="chapter" data-level="8.3" data-path="target-capture-data.html"><a href="target-capture-data.html#hybpiper-outputs"><i class="fa fa-check"></i><b>8.3</b> Hybpiper outputs</a>
 <ul>
 <li class="chapter" data-level="8.3.1" data-path="target-capture-data.html"><a href="target-capture-data.html#viewing-information"><i class="fa fa-check"></i><b>8.3.1</b> Viewing information</a></li>
 <li class="chapter" data-level="8.3.2" data-path="target-capture-data.html"><a href="target-capture-data.html#obtain-gene-data"><i class="fa fa-check"></i><b>8.3.2</b> Obtain gene data</a></li>
@@ -312,10 +312,11 @@ By assembling each target sequence for each species we will be able to produce a
 <p>To access HybPiper run</p>
 <pre><code>conda activate /mnt/homes4celsrs/shared/envs/hybpiper</code></pre>
 <p>This activates a conda environment (don’t worry about this!).</p>
-<p>If you need to obtain Hybpiper on your personal computer:</p>
+<p><strong>If you need to obtain Hybpiper on your personal computer:</strong></p>
 <ul>
 <li>Download Miniconda for <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/windows.html">Windows</a> or <a href="https://docs.conda.io/projects/conda/en/latest/user-guide/install/macos.html">Mac</a> and install following the instructions</li>
 <li>Follow the instructions for bioconda and hybpiper installation: <a href="https://github.com/mossmatters/HybPiper/wiki/Installation" class="uri">https://github.com/mossmatters/HybPiper/wiki/Installation</a></li>
+<li>Use the data you downloaded previously</li>
 </ul>
 <p>In this case, our target sequences are either the Angiosperm 353 standard targets
 or a set of target data designed specifically for these taxa.
@@ -376,13 +377,27 @@ That means the command will run but you will continue to have access to your pro
 Additionally you can log out of the server (eg for lunch) and the command will continue to run.
 To run the command in background enclose the entire command (from before while to after txt) in <code>( )</code>
 and then add <code>&amp;&gt; output.log &amp;</code> at the end to write the information that would normally print to the screen (as you saw when running a single command) to the file <code>output.log</code>.
-You can view this file (<code>less</code> or <code>tail</code>) to watch the progress of your command.</p>
+You can view this file (<code>less</code> or <code>tail</code>) to watch the progress of your command.
+The following is an example to see how running in background works.
+Assume you want to run the following example command (if you try this you need to create <code>examplefile.txt</code> first or use another short file).</p>
+<pre><code>while read line
+do
+  echo $line
+  sleep 5
+done &lt; examplefile.txt </code></pre>
+<p>You can run this command in background as</p>
+<pre><code>(while read line
+do
+  echo $line
+  sleep 5
+done &lt; examplefile.txt ) &amp;&gt; output.log &amp;</code></pre>
+<p>If you <code>cat output.log</code> you will see information being printed to this file (rather than to the screen as was done when not running in background). The <code>&amp;</code> runs the command in background while the <code>&amp;&gt;</code> sends what would have been printed to the screen to the designated file.</p>
 </div>
-<div id="process-outputs" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> Process outputs<a href="target-capture-data.html#process-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>To obtain some information about the results of this process use the <code>hybpiper stats</code> command as follows.</p>
+<div id="hybpiper-outputs" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Hybpiper outputs<a href="target-capture-data.html#hybpiper-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To obtain some information about the results of your HybPiper run use the <code>hybpiper stats</code> command as follows.</p>
 <pre><code>hybpiper stats -t_dna [target file] gene [path to]/namelist.txt</code></pre>
-<p>Hybpiper stats will generate two files, seq_lengths.tsv and hybpiper_stats.tsv.
+<p>Hybpiper stats will generate two files: <code>seq_lengths.tsv</code> and <code>hybpiper_stats.tsv</code>.
 The first line of seq_lengths.tsv has the names of each gene.
 The second line has the length of the target gene, averaged over each “source” for that gene.
 The rest of the lines are the length of the sequence recovered by HybPiper for each gene. If there was no sequence for a gene, a 0 is entered.</p>
@@ -391,18 +406,16 @@ The rest of the lines are the length of the sequence recovered by HybPiper for e
 <p>While you can <code>cat</code> or <code>head</code> this file it is difficult to view this information on the command line.
 However, R is excellent for reading data in this format.</p>
 <ul>
-<li>Click the Console tab</li>
-<li>While you could run commands here as you have in the shell, instead we will create a script to keep track of all of your commands. Note that this is also possible in the shell.</li>
 <li>Select File - New File - R script</li>
 <li>Save this file in the scripts folder</li>
 <li>Load the tidyverse library</li>
 </ul>
-<p>We will use the <code>read.table</code> command because our data are plain text separated by tabs.
+<p>We will use the <code>read.table</code> command because our data are plain text separated by tabs (not commas as for csv files).
 We have three arguments: the filename (including path), how the columns are separated, and whether the file has a header line.</p>
 <p>Note: R assumes you are in your project folder so all paths should be relative to this.</p>
 <pre><code>stats &lt;- read.table(&quot;results/hybpiper_stats.tsv&quot;, sep = &quot;\t&quot;, header = TRUE)</code></pre>
 <p>View your stats data.</p>
-<p>Repeat this analysis for <code>seq_lengths.tsv</code>.</p>
+<p>Read and view <code>seq_lengths.tsv</code>.</p>
 <p>Given your observation of the output tables, you may be interested in some of the following questions:</p>
 <ul>
 <li>What are the min, max, and average number of genes retrieved across samples?</li>
@@ -420,25 +433,13 @@ information not sample information.</p>
 <p>Instead of working with these data frames directly we are going to take a look at an example
 that I have made for you that includes stats for just two samples in “long form.”</p>
 <ul>
-<li>Read the file in the shared workshop folder using the <code>read_csv</code> command.</li>
+<li>Read the file <code>stats_example.csv</code> in the shared workshop folder using the <code>read_csv</code> command.</li>
 <li>Take a look at how these data are organized. Can you see how the data are organized that each row contains one piece of information?</li>
 <li>Plot <code>value</code> v. <code>stat</code> as a scatter plot.</li>
 </ul>
 <p>We can add a couple of tweaks to make our view better. First we can specify that we want each sample to be a different color by including a <code>color = Name</code> argument in our <code>aes</code>. Second we can rotate the graph 90 degrees to better view the data and labels by adding a layer <code>coord_flip()</code>.</p>
-<p>We can also generate a summary table with one row per stat and information in that row including the mean, standard deviation, etc. across genes.</p>
-<p>The first component of this is to develop groups of rows by stat.
-I like to imagine this as drawing boxes around all rows that contain a particular stat.
-We use the <code>group_by</code> function to communicate to the computer these “boxes”.</p>
-<pre><code>group_by(stats_example, stat)</code></pre>
-<p>If you run this command the data won’t appear to be any different.
-Now we need to generate a summary table where each group is collapsed into a single row in our new table containing the stat, its average, and standard deviation.</p>
-<pre><code>mean_stats &lt;- group_by(stats_example, stat) %&gt;% summarize(mean_across_species = mean(value),
-                                                       sd = sd(value))</code></pre>
-<p>Note that here we use <code>%&gt;%</code> as the pipe command to send the output of one command to the next.
-You have send the shell pipe <code>|</code> and this works the same way. In our summarize command we provide
-new column labels and what the contents of these columns will be.</p>
-<p>Click on your <code>mean_stats</code> variable to view your summary table.</p>
-<p>In order to work with your lengths table you need to know how to produce a long format table.
+<p>Now that you can see this example data better you can see it is trivial with only two samples with low information. However, you can imagine that we would like to have our real data in this format.</p>
+<p>In order to work with <em>your</em> stats table you need to know how to produce a long format table.
 This is tricky and will take some practice so don’t worry if it seems complicated initially.
 We will use the <code>pivot_longer</code> function.
 If you haven’t noticed already, when you type a function and hit the tab button on your keyboard you will see a list of arguments.
@@ -450,14 +451,25 @@ I specified a table with a column to indicate the particular stat we are measuri
 a second column for the actual value observed.
 This command, with these four arguments looks like the following:</p>
 <pre><code>stats_long &lt;- pivot_longer(stats, cols = NumReads:GenesWithChimeraWarning, names_to = &#39;stat&#39;, values_to = &#39;value&#39;)</code></pre>
+<p>We can also generate a summary table with one row per stat and information in that row including the mean, standard deviation, etc. across genes.</p>
+<p>The first component of this is to develop groups of rows by stat.
+I like to imagine this as drawing boxes around all rows that contain a particular stat.
+We use the <code>group_by</code> function to communicate to the computer these “boxes”.</p>
+<pre><code>group_by(stats_long, stat)</code></pre>
+<p>If you run this command the data won’t appear to be any different.
+Now we need to generate a summary table where each group is collapsed into a single row in our new table containing the stat, its average, and standard deviation.</p>
+<pre><code>mean_stats &lt;- group_by(stats_long, stat) %&gt;% summarize(mean_across_species = mean(value),
+                                                       sd = sd(value))</code></pre>
+<p>Note that here we use <code>%&gt;%</code> as the pipe command to send the output of one command to the next.
+You have send the shell pipe <code>|</code> and this works the same way. In our summarize command we provide
+new column labels and what the contents of these columns will be.</p>
+<p>Click on your <code>mean_stats</code> variable to view your summary table.</p>
 <p>Now try to work with the lengths table. First make a long format table. You want to output a table with the columns Species, gene, and length.</p>
 <p>Did you notice that the mean lengths are already included in this table? That’s really useful but also these data are not information about each sample and if we want to make summary tables and graphs we don’t want to include them.</p>
-<p>We can use the <code>filter</code> command to only include data that doesn’t specify MeanLength in the Species column.</p>
+<p>We can use the <code>filter</code> command to only include data that does not (<code>!=</code> is not equal to) specify MeanLength in the Species column.</p>
 <pre><code>lengths_long_filtered &lt;- filter(lengths_long, Species != &quot;MeanLength&quot;)</code></pre>
 <p>Now can you filter this output to include only data where the value in the length column is greater than 0.</p>
-<ul>
-<li>Now you should be able to make a summary table including the the mean length per gene, standard deviation of length per gene, and count of genes. Note that we did our second filtering step so these values would be accurate. Additionally, the counting function is <code>n()</code> (no arguments required).</li>
-</ul>
+<p>Now you should be able to make a summary table including the the mean length per gene, standard deviation of length per gene, and count of genes. Note that we did our second filtering step so these values would be accurate. Additionally, the counting function is <code>n()</code> (no arguments required).</p>
 <p>Save your script!</p>
 </div>
 <div id="obtain-gene-data" class="section level3 hasAnchor" number="8.3.2">
